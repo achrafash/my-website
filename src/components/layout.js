@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import { Helmet } from 'react-helmet'
+
 import Img from 'gatsby-image'
 
 import "./layout.css"
@@ -50,6 +52,9 @@ const Layout = ({ children }) => {
   
   return (
     <>
+      <Helmet>
+      <meta name="google-site-verification" content="f7vZ7b-yhgOcB6H4OwtD1rrU7r46UE_6ith2cEKPtRI" />
+      </Helmet>
       <div className="container">
         <div className="profile">
           <div className="avatar">
