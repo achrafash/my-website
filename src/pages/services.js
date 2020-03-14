@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 export default () => {
     const [active, setActive] = useState(['active','','']);
