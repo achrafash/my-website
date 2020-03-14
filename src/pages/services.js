@@ -6,6 +6,7 @@ export default () => {
 
     return (
         <Layout>
+            <SEO title="Services"/>
             <div className="wrapper portfolio">
                 <div id={active[0]} className="card service">
                     <span>.001</span>

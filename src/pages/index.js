@@ -20,7 +20,7 @@ const IndexPage = () => {
 
   return(
     <Layout>
-      <SEO title="Home"/>
+      <SEO title="Achraf ASH"/>
       <div className="wrapper home">
         <h2>
           Développeur Web
