@@ -25,12 +25,12 @@ footer{
   bottom: 1vh;
   left: 1vw;
   color: var(--black);
+  z-index: -1;
 }
 footer a{
   color: var(--black);
   font-weight: bold;
 }
-
 .container {
   width: 90vw;
   height: 90vh;
@@ -58,7 +58,7 @@ footer a{
 .profile .avatar{
   height: 40px;
   width: 40px;
-  border-radius: 20px;
+  border-radius: 100%;
   background-color: var(--yellow);
   margin-right: 10px;
   overflow: hidden;
