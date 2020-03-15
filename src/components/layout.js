@@ -71,15 +71,14 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <nav className="navigation">
           <ul>
-            <li onClick={()=>setActive(['active','',''])} id='active'><Link to='/'>01</Link></li>
-            <li onClick={()=>setActive(['','active',''])}><Link to='/services'>02</Link></li>
-            <li onClick={()=>setActive(['','','active'])}><Link to='/portfolio'>03</Link></li>
+            <li onClick={() => setActive(['active','',''])} id='active'><Link to='/'>01</Link></li>
+            <li onClick={() => setActive(['','active',''])}><Link to='/services'>02</Link></li>
+            <li onClick={() => setActive(['','','active'])}><Link to='/portfolio'>03</Link></li>
           </ul>
         </nav>
       </div>
       <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
+        © {new Date().getFullYear()}, Built with{` `}
         <a target="_blank" href="https://www.gatsbyjs.org">Gatsby</a>
       </footer>
     </>
