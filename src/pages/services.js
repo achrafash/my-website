@@ -44,9 +44,9 @@ export default () => {
                     </p>
                 </div>
                 <nav>
-                    <span onClick={() => setActive(['active', '',''])}></span>
-                    <span onClick={() => setActive(['','active',''])}></span>
-                    <span onClick={() => setActive(['','','active'])}></span>
+                    <span id={active[0]} onClick={() => setActive(['active', '',''])}></span>
+                    <span id={active[1]} onClick={() => setActive(['','active',''])}></span>
+                    <span id={active[2]} onClick={() => setActive(['','','active'])}></span>
                 </nav>
             </div>
         </Layout>
