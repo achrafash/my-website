@@ -1,0 +1,145 @@
+$lightWhite: #f4f4f2;
+$grey: rgb(232, 232, 232);
+$darkGrey: rgb(127, 140, 141);
+$black: #000000;
+$white: #ffffff;
+$yellow: rgb(241, 196, 15);
+
+#hero {
+  padding: 150px 0 50px 0;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 1.5em;
+    width: 80%;
+    margin-bottom: 40px;
+  }
+  h1 {
+    font-size: 1.5em;
+    font-weight: normal;
+    line-height: 1.5;
+  }
+}
+
+#projects,
+#learn,
+#read {
+  width: 100%;
+  padding: 0 20px;
+  margin: 50px 0;
+  h2 {
+    width: 100%;
+    padding: 15px;
+    border-bottom: 2px solid $grey;
+  }
+}
+
+#projects {
+  .project-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    .project {
+      grid-column: span 3;
+      background: linear-gradient(
+        120deg,
+        rgba(241, 196, 15, 0.2) 30%,
+        rgba(232, 232, 232, 1)
+      );
+      padding: 40px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: box-shadow ease 2s;
+      .project-header {
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .description {
+        font-size: 1em;
+        ul {
+          margin: 10px 0 10px 10px;
+          list-style-type: "$ ";
+        }
+      }
+    }
+    .project:hover {
+      box-shadow: 0px 0px 20px rgba(127, 140, 141, 0.5);
+      background: linear-gradient(
+        120deg,
+        rgba(241, 196, 15, 0.6) 30%,
+        rgba(232, 232, 232, 1)
+      );
+      transition: ease 0.5s;
+    }
+  }
+}
+
+#learn {
+  .learn-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    span {
+      font-weight: bold;
+    }
+    .carousel {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+      padding: 20px;
+      .project {
+        padding: 20px;
+        grid-column: span 2;
+        background-color: $white;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(127, 140, 141, 0.2);
+        cursor: pointer;
+        transition: box-shadow ease 1s;
+      }
+      .project:hover {
+        box-shadow: 0px 0px 20px rgba(127, 140, 141, 0.5);
+        transition: ease 0.5s;
+      }
+    }
+  }
+}
+
+#read {
+  .library-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    span.header {
+      font-size: 1.3em;
+      font-weight: bold;
+      line-height: 2;
+    }
+    ul {
+      margin: 20px 40px;
+      li {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+      }
+    }
+    .reading-list {
+      list-style-type: "📖 ";
+    }
+    .read-list {
+      list-style-type: "📕 ";
+    }
+    a {
+      color: $darkGrey;
+    }
+    a:hover {
+      color: $black;
+      text-decoration: underline;
+    }
+  }
+}
