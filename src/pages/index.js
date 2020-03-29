@@ -7,6 +7,24 @@ import "../components/index.scss"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 
+function range(start, end) {
+  if (start === end) return [start]
+  return [start, ...range(start + 1, end)]
+}
+
+const BookRating = ({ rating }) => {
+  const ratingRange = range(1, rating)
+  return (
+    <>
+      {ratingRange.map(el => (
+        <span role="img" key={el}>
+          ⭐
+        </span>
+      ))}
+    </>
+  )
+}
+
 const IndexPage = () => {
   const readingList = [
     {
@@ -31,12 +49,12 @@ const IndexPage = () => {
     },
     {
       title: "Bad Blood",
-      author: "",
+      author: "John Carreyrou",
       rating: 4,
     },
     {
       title: "The Courage To Be Disliked",
-      author: "",
+      author: "Ichiro Kishimi & Fumitake Koga",
       rating: 4,
     },
   ]
@@ -176,7 +194,8 @@ const IndexPage = () => {
             {readList &&
               readList.map(book => (
                 <li key={book.title}>
-                  {book.title} - by {book.author} - <span>{book.rating}/5</span>
+                  {book.title} - by {book.author} -{" "}
+                  <BookRating rating={book.rating} />
                 </li>
               ))}
           </ul>

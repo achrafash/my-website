@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { Helmet } from "react-helmet"
+import styled from "styled-components"
 
 import Img from "gatsby-image"
 
@@ -25,7 +26,24 @@ const Layout = ({ children }) => {
       path: "/#read",
       name: "Read",
     },
+    {
+      path: "/blog",
+      name: "Blog",
+    },
   ]
+
+  const data = useStaticQuery(graphql`
+    query {
+      avatar: file(relativePath: { eq: "avatar.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 100, quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <>
       <Helmet>
@@ -35,7 +53,10 @@ const Layout = ({ children }) => {
         />
       </Helmet>
       <nav className="navbar">
-        <div className="thumbnail">avatar</div>
+        <div className="thumbnail">
+          <span className="tooltip">Nice to meet you!</span>
+          <Img fluid={data.avatar.childImageSharp.fluid} />
+        </div>
         <ul className="navlinks">
           {links &&
             links.map(link => (
@@ -62,23 +83,46 @@ const Layout = ({ children }) => {
           <span>Social</span>
           <ul>
             <li>
-              <Link to="">Follow me on Twitter</Link>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://twitter.com/achrafash3"
+              >
+                Follow me on Twitter
+              </a>
             </li>
             <li>
-              <Link to="">Connect me on Linkedin</Link>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://linkedin.com/in/achraf-aitsidihammou"
+              >
+                Connect me on Linkedin
+              </a>
             </li>
             <li>
-              <Link to="">Check me on Github</Link>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/achrafash"
+              >
+                Check me on Github
+              </a>
             </li>
             <li>
-              <Link to="mailto:aitsidihammou.achraf@gmail.com?subject=Hello">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
+              >
                 Say hello
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
         <small>
-          © {new Date().getFullYear()} - Built with 🔥 by Achraf ASH
+          © {new Date().getFullYear()} - Built with <span role="img">🔥</span>{" "}
+          by Achraf ASH
         </small>
       </footer>
     </>
