@@ -1,8 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { Helmet } from "react-helmet"
-import styled from "styled-components"
 
 import Img from "gatsby-image"
 
@@ -86,7 +85,7 @@ const Layout = ({ children }) => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://twitter.com/achrafash3"
+                href="https://twitter.com/achrafnotashraf"
               >
                 Follow me on Twitter
               </a>

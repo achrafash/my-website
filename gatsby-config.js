@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Développeur Web Freelance`,
-    description: `Boostez votre activité d'indépendant grâce à un site qui vous correspond.`,
+    title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
+    description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
   },
   plugins: [

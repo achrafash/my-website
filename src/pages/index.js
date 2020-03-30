@@ -1,6 +1,4 @@
-import React, { useState } from "react"
-import { useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
+import React from "react"
 import { Link } from "gatsby"
 
 import "../components/index.scss"
@@ -62,13 +60,17 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Achraf ASH" />
       <section id="hero" className="grid-col">
-        <span>- Bonjour 👋</span>
+        <span>
+          - Bonjour <span role="img">👋</span>
+        </span>
         <h1>
           I'm Achraf,
-          <br /> a React ⚛️ Developer 👨‍💻
-          <br /> a Junior Entrepreneur👨🏻‍💼
-          <br /> an Engineering Student in Paris 🗼 <br />
-          all at the same time ⌚.
+          <br /> a React <span role="img">⚛️</span> Developer{" "}
+          <span role="img">👨‍💻</span>
+          <br /> a Junior Entrepreneur <span role="img">👨🏻‍💼</span>
+          <br /> an Engineering Student in Paris <span role="img">🗼</span>
+          <br />
+          all at the same time <span role="img">⌚</span>.
         </h1>
       </section>
       <section id="projects">
@@ -122,7 +124,7 @@ const IndexPage = () => {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://twitter.com/achrafash3"
+                  href="https://twitter.com/achrafnotashraf"
                 >
                   Twitter
                 </a>
