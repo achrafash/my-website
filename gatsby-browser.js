@@ -1,10 +1,7 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/browser-apis/
- */
+import { wrapRootElement as wrap } from "./root-wrapper"
 
-// You can delete this file if you're not using it
+export const wrapRootElement = wrap
+
 export const onServiceWorkerUpdateReady = () => {
   const answer = window.confirm(
     `New update available ! Reload to get the new version 😉`
