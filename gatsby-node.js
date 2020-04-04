@@ -16,7 +16,7 @@ exports.createPages = ({ actions, graphql }) => {
           excerpt(pruneLength: 250)
           frontmatter {
             title
-            date
+            date(formatString: "DD MMM YYYY")
           }
           fields {
             slug
@@ -50,7 +50,7 @@ exports.createPages = ({ actions, graphql }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
   if (node.internal.type === `Mdx`) {
-    const value = createFilePath({ node, getNode, basePath: `blog` })
+    const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,
       node,
