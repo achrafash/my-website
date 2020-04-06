@@ -22,19 +22,30 @@ const BlogList = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 24px;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `
 const PostWrapper = styled.div`
   grid-column: span 3;
   max-width: 100%;
   a {
-    color: #000;
+    color: black;
   }
 `
 const Image = styled(Img)`
   border-radius: 3px;
   max-width: 500px;
   height: auto;
-  z-index: -1;
+`
+const Button = styled(Link)`
+  color: grey;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    color: black;
+    transition: color ease 0.5s;
+  }
 `
 
 export default ({ data }) => {
@@ -54,6 +65,7 @@ export default ({ data }) => {
                 <small>{frontmatter.date}</small>
                 <p>{excerpt}</p>
               </Link>
+              <Button to={fields.slug}>- Read more</Button>
             </PostWrapper>
           ))}
         </BlogList>

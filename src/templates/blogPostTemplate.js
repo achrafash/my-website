@@ -16,6 +16,9 @@ const PostTitle = styled.h1`
   font-size: 36px;
   text-transform: capitalize;
   border-bottom: 2px solid rgb(232, 232, 232);
+  @media screen and (max-width: 500px) {
+    padding: 16px;
+  }
 `
 const MetaPost = styled.small`
   text-transform: uppercase;
@@ -31,17 +34,20 @@ const PostContent = styled.div`
   width: 100%;
   height: 100%;
   padding: 48px;
+  @media screen and (max-width: 500px) {
+    padding: 48px 16px;
+  }
 `
 const PostSuggestion = styled.div`
   border-top: 2px solid rgb(232, 232, 232);
   padding: 48px 24px 0 24px;
   text-transform: capitalize;
-  h3:visited {
-    color: black;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
 `
 const PostLink = styled(Link)`
-  color: #000;
+  color: black;
 `
 
 export default ({ data, pageContext }) => {
