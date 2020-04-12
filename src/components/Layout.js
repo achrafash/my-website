@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { Helmet } from "react-helmet"
 import { IoIosMenu } from "react-icons/io"
 import Img from "gatsby-image"
@@ -115,11 +116,17 @@ const NavBar = ({ links, thumbnail }) => {
       </Thumbnail>
       <NavLinks toggle={toggle}>
         {links &&
-          links.map((link, index) => (
-            <Link to={link.path} key={index}>
-              {link.name}
-            </Link>
-          ))}
+          links.map((link, index) =>
+            link.name === "Blog" ? (
+              <AniLink cover direction="left" to={link.path} key={index}>
+                {link.name}
+              </AniLink>
+            ) : (
+              <Link to={link.path} key={index}>
+                {link.name}
+              </Link>
+            )
+          )}
       </NavLinks>
       <Hamburger onClick={() => setToggle(!toggle)}>
         <IoIosMenu />
