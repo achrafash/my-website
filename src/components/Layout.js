@@ -176,7 +176,7 @@ const Layout = ({ children }) => {
       <Helmet>
         <meta
           name="google-site-verification"
-          content="f7vZ7b-yhgOcB6H4OwtD1rrU7r46UE_6ith2cEKPtRI"
+          content="I0evl492iQy9Riwn26U7cL2B0LchCQC7N2niZRXr5HE"
         />
       </Helmet>
       {/* <nav className="navbar">
