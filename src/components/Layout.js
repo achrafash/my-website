@@ -3,45 +3,75 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { Helmet } from "react-helmet"
-import { IoIosMenu } from "react-icons/io"
+import {
+  IoIosMenu,
+  IoLogoTwitter,
+  IoLogoGithub,
+  IoLogoLinkedin,
+  IoMdMail,
+} from "react-icons/io"
 import Img from "gatsby-image"
 import styled from "styled-components"
 
-import "./layout.scss"
+import "../index.css"
+
+const MainContainer = styled.main`
+  margin: 0;
+  padding: 0;
+`
+
+const Footer = styled.footer`
+  background-color: var(--carbon);
+  color: white;
+  width: 100%;
+  padding: 24px 8px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  .navigation {
+    grid-column: 2/6;
+    text-align: right;
+    a {
+      color: grey;
+    }
+    a:hover {
+      color: white;
+    }
+  }
+  .social {
+    grid-column: 7/12;
+    text-align: left;
+    a {
+      color: white;
+      font-size: 1.8em;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  small {
+    padding: 24px 0 0 0;
+    grid-column: 2/12;
+    width: 100%;
+    text-align: center;
+  }
+`
 
 const NavContainer = styled.div`
-  background-color: ${props => (props.top && !props.toggle ? "none" : "white")};
+  background-color: var(--yellow);
   position: fixed;
+  top: 8px;
+  left: 8px;
+  min-width: 100px;
+  border: solid 1px black;
+  border-radius: 4px;
   z-index: 100;
-  width: 100%;
-  padding: 8px 24px;
+  padding: 2px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  box-shadow: ${props =>
-    props.top && !props.toggle ? "none" : "0px 0px 10px grey"};
-`
-const Thumbnail = styled.div`
-  grid-column: 1;
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
-  border-radius: 50%;
-  background-color: #f1c40f;
-  &:hover::after {
-    content: "Hi! Nice to meet you!";
-    display: block;
-    background-color: #f1c40f;
-    color: $black;
-    text-align: center;
-    border-radius: 0 5px 5px 5px;
-    box-shadow: 0px 5px 10px grey;
-    padding: 5px 10px;
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    z-index: 1;
-  }
+  box-shadow: 0px 1px 4px grey;
 `
 const NavLinks = styled.ul`
   grid-column: 2;
@@ -49,7 +79,6 @@ const NavLinks = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  @media screen and (max-width: 750px) {
     grid-row: 2;
     grid-column: 1/3;
     display: ${props => (props.toggle ? "flex" : "none")};
@@ -68,7 +97,7 @@ const NavLinks = styled.ul`
     display: block;
     height: 4px;
     width: 0;
-    background: #f1c40f;
+    background: var(--carbon);
     position: absolute;
     bottom: 0;
     z-index: -1;
@@ -83,37 +112,28 @@ const NavLinks = styled.ul`
   a:hover::after {
     width: 120%;
     transition: ease 0.5s;
-  }
 `
-const Hamburger = styled.button`
+const Hamburger = styled.div`
   grid-column: 2;
-  place-self: center end;
-  display: none;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 40px;
+  font-size: 1.5em;
   outline: none;
-  @media screen and (max-width: 750px) {
-    display: block;
-  }
 `
 
-const NavBar = ({ links, thumbnail }) => {
+const NavBar = ({ links }) => {
   const [toggle, setToggle] = useState(false)
-  const [isTop, setIsTop] = useState(true)
+  // const [isTop, setIsTop] = useState(true)
 
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setIsTop(window.scrollY < 100)
-    })
-  }, [isTop])
+  // useEffect(() => {
+  //   window.addEventListener("scroll", () => {
+  //     setIsTop(window.scrollY < 100)
+  //   })
+  // }, [isTop])
 
   return (
-    <NavContainer toggle={toggle} top={isTop}>
-      <Thumbnail>
-        <Img fluid={thumbnail} />
-      </Thumbnail>
+    <NavContainer toggle={toggle}>
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) =>
@@ -159,18 +179,6 @@ const Layout = ({ children }) => {
     },
   ]
 
-  const data = useStaticQuery(graphql`
-    query {
-      avatar: file(relativePath: { eq: "avatar.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 100, quality: 100) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
-
   return (
     <>
       <Helmet>
@@ -193,9 +201,9 @@ const Layout = ({ children }) => {
             ))}
         </ul>
       </nav> */}
-      <NavBar links={links} thumbnail={data.avatar.childImageSharp.fluid} />
-      <main>{children}</main>
-      <footer className="footer">
+      <NavBar links={links} />
+      <MainContainer>{children}</MainContainer>
+      <Footer>
         <div className="navigation">
           <span>Navigation</span>
           <ul>
@@ -216,7 +224,7 @@ const Layout = ({ children }) => {
                 rel="noopener noreferrer"
                 href="https://twitter.com/achrafnotashraf"
               >
-                Follow me on Twitter
+                <IoLogoTwitter />
               </a>
             </li>
             <li>
@@ -225,7 +233,7 @@ const Layout = ({ children }) => {
                 rel="noopener noreferrer"
                 href="https://linkedin.com/in/achraf-aitsidihammou"
               >
-                Connect me on Linkedin
+                <IoLogoLinkedin />
               </a>
             </li>
             <li>
@@ -234,7 +242,7 @@ const Layout = ({ children }) => {
                 rel="noopener noreferrer"
                 href="https://github.com/achrafash"
               >
-                Check me on Github
+                <IoLogoGithub />
               </a>
             </li>
             <li>
@@ -243,7 +251,7 @@ const Layout = ({ children }) => {
                 rel="noopener noreferrer"
                 href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
               >
-                Say hello
+                <IoMdMail />
               </a>
             </li>
           </ul>
@@ -252,7 +260,7 @@ const Layout = ({ children }) => {
           © {new Date().getFullYear()} - Built with <span role="img">🔥</span>{" "}
           by Achraf ASH
         </small>
-      </footer>
+      </Footer>
     </>
   )
 }

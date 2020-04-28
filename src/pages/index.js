@@ -1,9 +1,116 @@
 import React from "react"
-import { Link } from "gatsby"
-
-import "../components/index.scss"
+import { Link, useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
+import styled from "styled-components"
+
+const Hero = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  padding: 24px 0;
+  background-color: var(--yellow);
+  border-bottom: 1px solid black;
+`
+const Card = styled.div`
+  grid-column: 2/12;
+  width: 100%;
+  place-self: center center;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 32px;
+  padding: 24px;
+  border: solid 1px black;
+  border-radius: 4px;
+  h1 {
+    font-size: 1.2em;
+    font-weight: lighter;
+    letter-spacing: 1px;
+  }
+  span {
+    font-size: 1.5em;
+    letter-spacing: 2px;
+  }
+`
+
+const ContactButton = styled.a`
+  grid-column: 2/12;
+  background: none;
+  width: 100%;
+  background: none;
+  border: solid 1px black;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: black;
+  transition: background 0.5s, color 0.5s;
+  &:hover {
+    background: var(--carbon);
+    color: var(--yellow);
+    transition: 0.5s;
+  }
+`
+
+const SectionTitle = styled.span`
+  grid-column: 1/12;
+  font-size: 1.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 55%;
+    bottom: 50%;
+    width: 55%;
+    height: 2px;
+    background-color: black;
+  }
+`
+const ProjectSection = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 16px;
+`
+const LearningSection = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 16px;
+`
+const ReadingSection = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 16px;
+`
+const ProjectWrapper = styled.div`
+  grid-column: 1/13;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  padding: 24px 0;
+`
+const LearningWrapper = styled.div`
+  grid-column: 1/13;
+  padding: 24px 0;
+`
+const ReadingWrapper = styled.div`
+  grid-column: 1/13;
+  padding: 24px;
+`
+const ProjectCard = styled.div`
+  grid-column: 1/13;
+  padding: 16px;
+  border: solid 1px black;
+  border-radius: 4px;
+`
 
 function range(start, end) {
   if (start === end) return [start]
@@ -56,111 +163,146 @@ const IndexPage = () => {
       rating: 4,
     },
   ]
+
+  const data = useStaticQuery(graphql`
+    {
+      flipsThumbnail: file(relativePath: { eq: "flips_thumbnail.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      kindleshareThumbnail: file(
+        relativePath: { eq: "kindleshare_thumbnail.png" }
+      ) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+      covidThumbnail: file(relativePath: { eq: "covid_thumbnail.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+    }
+  `)
+
   return (
     <Layout>
       <SEO title="Achraf ASH" />
-      <section id="hero" className="grid-col">
-        <span>
-          - Bonjour <span role="img">👋</span>
-        </span>
-        <h1>
-          I'm Achraf,
-          <br /> a React <span role="img">⚛️</span> Developer{" "}
-          <span role="img">👨‍💻</span>
-          <br /> a Junior Entrepreneur <span role="img">👨🏻‍💼</span>
-          <br /> an Engineering Student in Paris <span role="img">🗼</span>
-          <br />
-          all at the same time <span role="img">⌚</span>.
-        </h1>
-      </section>
-      <section id="projects">
-        <h2>Projects</h2>
-        <div className="project-wrapper">
-          <div className="project" id="flips">
+      <Hero>
+        <Card>
+          <h1>
+            React <span role="img">⚛️</span> Frontend Developer
+            <br />
+            Engineering Student living in Paris <span role="img">🗼</span>
+          </h1>
+          <span>
+            Bonjour 👋
+            <br />
+            I'm Achraf Ait Sidi Hammou (ASH)
+          </span>
+        </Card>
+        <ContactButton
+          target="_blank"
+          href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
+        >
+          Say Hello
+        </ContactButton>
+      </Hero>
+      <ProjectSection id="projects">
+        <SectionTitle>Projects</SectionTitle>
+        <ProjectWrapper>
+          <ProjectCard>
+            <Img fluid={data.covidThumbnail.childImageSharp.fluid} />
+            <br />
+            <hr />
+            <br />
             <div className="project-header">
-              <h3>003. Flips Landing Page</h3>
+              <h3>003. COVID-19 API & Dashboard</h3>
+              <small>- April 2020</small>
+            </div>
+            <br />
+            <div className="description">
+              A GraphQL API for France COVID-19 data. I've added a React client
+              to showcase what is possible to make with that API. <br />I used
+              D3.js for Data Visualization
+              <br />
+              <br />
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="http://covidfranceapi.herokuapp.com"
+              >
+                - Check live
+              </a>
+            </div>
+          </ProjectCard>
+          <ProjectCard>
+            <Img fluid={data.flipsThumbnail.childImageSharp.fluid} />
+            <br />
+            <hr />
+            <br />
+            <div className="project-header">
+              <h3>002. Flips Landing Page</h3>
               <small>- March 2020</small>
             </div>
+            <br />
             <div className="description">
-              <p>
-                This my first real-life project. I've met two amazing students
-                at my school who are building this really cool app called Flips.
-                The point is to match like-minded students at an event of a
-                common interst.
-                <br />
-                I immediately wanted to give them a helping-hand and the timing
-                was perfect.
-                <br /> Here is a preview of the projects:
-              </p>
-              <p>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://flipsapp.fr"
-                >
-                  Flips page
-                </a>
-                .
-              </p>
+              This is my first real-case project. I've met these two amazing
+              students at my school who are building this really cool app called
+              Flips. The point is to match like-minded students at an event on a
+              common interest.
+              <br />
+              <br />
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://flipsapp.fr"
+              >
+                - Flips page
+              </a>
             </div>
-            <div className="preview flips">here will be a preview</div>
-          </div>
-          <div className="project" id="20daysofcode">
-            <div className="project-header">
-              <h3>002. #20DaysOfCodeChallenge</h3>
-              <small>- February 2020</small>
-            </div>
-            <div className="description">
-              <p>
-                The point of this challenge is to build something every single
-                day for 20 days.
-                <br />
-                My goal is to learn lots of CSS tricks in a very short period of
-                time.
-                <br /> Here is a preview of the projects:
-              </p>
-              <p>
-                I've shared them all on{" "}
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://twitter.com/achrafnotashraf"
-                >
-                  Twitter
-                </a>
-                .
-              </p>
-            </div>
-            <div className="preview 20daysofcode">here will be a preview</div>
-          </div>
-          <div className="project" id="kindleshare">
+          </ProjectCard>
+          <ProjectCard>
+            <Img fluid={data.kindleshareThumbnail.childImageSharp.fluid} />
+            <br />
+            <hr />
+            <br />
             <div className="project-header">
               <h3>001. KindleShare</h3>
               <small>- January 2020</small>
             </div>
+            <br />
             <div className="description">
-              <p>This is a web app to:</p>
+              My first project from scratch. This is a web app to:
               <ul>
-                <li>see your Kindle ebooks</li>
-                <li>browse through your Highlights</li>
-                <li>share your thoughts and highlights</li>
-                <li>explore your most inpiring people's libraries</li>
+                <li>- see your Kindle ebooks</li>
+                <li>- browse through your Highlights</li>
+                <li>- share your thoughts and highlights</li>
+                <li>- explore inpiring people's libraries</li>
               </ul>
+              <br />
               <a
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://stark-savannah-46050.herokuapp.com/"
               >
-                You can play with it now
+                Discover it now <br />
+                (id: test2@test.com | psw: test)
               </a>
             </div>
-            <div className="preview kindleshare">here will be a preview</div>
-          </div>
-        </div>
-      </section>
-      <section id="learn">
-        <h2>Currently Learning</h2>
-        <div className="learn-wrapper">
+          </ProjectCard>
+        </ProjectWrapper>
+      </ProjectSection>
+      <LearningSection id="learn">
+        <SectionTitle>Obsession</SectionTitle>
+        <LearningWrapper>
           <p>
             I'm currently hooked by Data Science. But that is what I want to
             study. What I'm currently learning (I mean on my own) is Data
@@ -177,11 +319,11 @@ const IndexPage = () => {
               Some world map kind of data visualization
             </div>
           </div>
-        </div>
-      </section>
-      <section id="read">
-        <h2>Library</h2>
-        <div className="library-wrapper">
+        </LearningWrapper>
+      </LearningSection>
+      <ReadingSection id="read">
+        <SectionTitle>Library</SectionTitle>
+        <ReadingWrapper>
           <span className="header">Currently Reading</span>
           <ul className="reading-list">
             {readingList &&
@@ -202,8 +344,8 @@ const IndexPage = () => {
               ))}
           </ul>
           <Link to="/blog">Read my stuff ></Link>
-        </div>
-      </section>
+        </ReadingWrapper>
+      </ReadingSection>
     </Layout>
   )
 }
