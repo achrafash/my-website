@@ -19,6 +19,11 @@ const BlogSection = styled.section`
 `
 const BlogHeader = styled.h2`
   width: 100%;
+  font-size: 2.5em;
+  font-family: var(--prata);
+  text-align: center;
+  font-weight: lighter;
+  letter-spacing: 2px;
   padding: 8px;
   border-bottom: 2px solid rgb(232, 232, 232);
 `
@@ -26,7 +31,6 @@ const BlogList = styled.div`
   width: 100%;
   height: 100%;
   padding: 32px 0;
-  text-align: justify;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;

@@ -15,6 +15,7 @@ const Hero = styled.section`
   padding: 24px 0;
   background-color: var(--yellow);
   border-bottom: 1px solid black;
+  box-shadow: 0px 1px 2px grey;
   @media only screen and (min-width: 990px) {
     padding: 40px 2vw;
   }
@@ -73,20 +74,26 @@ const ContactButton = styled.a`
   }
 `
 const SectionTitle = styled.span`
-  grid-column: 1/12;
+  grid-column: 1/13;
   font-size: 1.8em;
   font-weight: bold;
+  letter-spacing: 4px;
   text-transform: uppercase;
   position: relative;
   &::after {
     content: "";
     display: block;
     position: absolute;
-    left: 55%;
+    right: 0;
     bottom: 50%;
-    width: 55%;
-    height: 2px;
+    width: 40%;
+    height: 1px;
     background-color: black;
+  }
+  @media only screen and (min-width: 600px) {
+    &::after {
+      width: 70%;
+    }
   }
 `
 const ProjectSection = styled.section`
@@ -192,7 +199,7 @@ const Thumbnail = styled(Img)`
     content: "";
     display: block;
     position: absolute;
-    z-index: 1000;
+    z-index: 10;
     height: 100%;
     width: 100%;
     background: var(--carbon);
@@ -218,7 +225,7 @@ const HeroPic = styled(Img)`
       content: "";
       display: block;
       position: absolute;
-      z-index: 1000;
+      z-index: 10;
       height: 100%;
       width: 100%;
       background: var(--carbon);

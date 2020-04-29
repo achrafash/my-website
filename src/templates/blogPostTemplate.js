@@ -59,8 +59,8 @@ const Image = styled(Img)`
 
 const PostContent = styled.div`
   width: 100%;
-  line-height: 2;
-  font-size: 1.2em;
+  line-height: 1.7;
+  font-size: 1.3em;
   padding: 32px 16px;
   @media only screen and (min-width: 600px) {
     width: 80%;

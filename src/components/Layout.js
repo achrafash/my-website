@@ -35,8 +35,10 @@ const Footer = styled.footer`
     grid-column: 2/6;
     text-align: right;
     text-transform: uppercase;
+    letter-spacing: 2px;
     a {
       color: grey;
+      line-height: 1.5;
     }
     a:hover {
       color: white;
@@ -53,7 +55,7 @@ const Footer = styled.footer`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      max-width: 200px;
+      max-width: 150px;
     }
     svg:hover {
       color: var(--yellow);
@@ -75,8 +77,8 @@ const NavContainer = styled.div`
   min-width: 100px;
   border: solid 1px black;
   border-radius: 4px;
-  z-index: 100;
-  padding: 2px;
+  z-index: 1000;
+  padding: 2px 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,10 +106,11 @@ const NavLinks = styled.ul`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0 4px;
+  padding: 0;
   a {
     padding: 8px 0;
     text-transform: uppercase;
+    letter-spacing: 2px;
     font-weight: lighter;
     color: black;
     position: relative;
@@ -121,7 +124,7 @@ const NavLinks = styled.ul`
     content: "";
     display: block;
     position: absolute;
-    height: 80%;
+    height: 75%;
     width: 0;
     background: var(--carbon);
     /* opacity: 0.2; */

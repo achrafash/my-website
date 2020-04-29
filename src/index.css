@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Prata&display=swap");
 :root {
   --yellow: #fbd759;
   --carbon: #2f3640;
+  --prata: "Prata", serif;
 }
 
 * {
@@ -24,7 +26,7 @@ body {
 }
 @media only screen and (min-width: 990px) {
   body {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 @media only screen and (min-width: 1200px) {
