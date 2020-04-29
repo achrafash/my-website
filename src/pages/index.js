@@ -15,6 +15,12 @@ const Hero = styled.section`
   padding: 24px 0;
   background-color: var(--yellow);
   border-bottom: 1px solid black;
+  @media only screen and (min-width: 990px) {
+    padding: 40px 2vw;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding: 40px 5vw;
+  }
 `
 const HeroCard = styled.div`
   grid-column: 2/12;
@@ -36,6 +42,10 @@ const HeroCard = styled.div`
     font-size: 1.5em;
     letter-spacing: 2px;
   }
+  @media only screen and (min-width: 990px) {
+    grid-column: 2/6;
+    place-self: stretch end;
+  }
 `
 const ContactButton = styled.a`
   grid-column: 2/12;
@@ -55,6 +65,11 @@ const ContactButton = styled.a`
     background: var(--carbon);
     color: var(--yellow);
     transition: 0.5s;
+  }
+  @media only screen and (min-width: 990px) {
+    grid-column: 2/6;
+    place-self: start end;
+    padding: 16px;
   }
 `
 const SectionTitle = styled.span`
@@ -79,18 +94,24 @@ const ProjectSection = styled.section`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   padding: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
 `
 const LearningSection = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   padding: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
 `
 const ReadingSection = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   padding: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
 `
 const ProjectWrapper = styled.div`
   grid-column: 1/13;
@@ -127,7 +148,7 @@ const ProjectCard = styled.div`
   grid-column: 1/13;
   place-self: center center;
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   padding: 16px;
   border: solid 1px black;
   border-radius: 4px;
@@ -148,11 +169,52 @@ const ProjectCard = styled.div`
     padding-right: 4px;
     transition: 0.5s;
   }
+  small {
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: 0.7em;
+    color: grey;
+  }
+  @media only screen and (min-width: 990px) {
+    grid-column: span 6;
+    align-self: stretch;
+  }
+  @media only screen and (min-width: 990px) {
+    grid-column: span 4;
+    align-self: stretch;
+  }
 `
 
 const Thumbnail = styled(Img)`
   border-radius: 4px;
   border: 1px solid black;
+`
+const HeroPic = styled(Img)`
+  display: none;
+  @media only screen and (min-width: 990px) {
+    display: block;
+    grid-column: 7/12;
+    grid-row: 1/3;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px grey;
+    transform: translateY(56px);
+  }
+`
+const Angle = styled.div`
+  display: none;
+  @media only screen and (min-width: 990px) {
+    display: block;
+    grid-column: 12/13;
+    grid-row: 1;
+    place-self: start start;
+    width: 100%;
+    height: 8vw;
+    transform: translateX(-50%);
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 2px;
+  }
 `
 
 function range(start, end) {
@@ -239,6 +301,13 @@ const IndexPage = () => {
           }
         }
       }
+      heroPic: file(relativePath: { eq: "AGP.JPG" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
     }
   `)
 
@@ -262,8 +331,10 @@ const IndexPage = () => {
           target="_blank"
           href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
         >
-          Say Hello
+          Say Hello!
         </ContactButton>
+        <HeroPic fluid={data.heroPic.childImageSharp.fluid} />
+        <Angle />
       </Hero>
       <ProjectSection id="projects">
         <SectionTitle>Projects</SectionTitle>
@@ -345,8 +416,7 @@ const IndexPage = () => {
                 rel="noopener noreferrer"
                 href="https://stark-savannah-46050.herokuapp.com/"
               >
-                Discover it now <br />
-                (id: test2@test.com | psw: test)
+                Discover it now (id: test2@test.com | psw: test)
               </a>
             </div>
           </ProjectCard>

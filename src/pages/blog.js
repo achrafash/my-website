@@ -9,6 +9,13 @@ const BlogSection = styled.section`
   width: 100%;
   height: 100%;
   padding: 40px 16px;
+  @media only screen and (min-width: 600px) {
+    padding: 48px 32px;
+  }
+  @media only screen and (min-width: 1200px) {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
 `
 const BlogHeader = styled.h2`
   width: 100%;
@@ -18,11 +25,21 @@ const BlogHeader = styled.h2`
 const BlogList = styled.div`
   width: 100%;
   height: 100%;
-  padding: 40px 0;
+  padding: 32px 0;
   text-align: justify;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
+  @media only screen and (min-width: 760px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  @media only screen and (min-width: 990px) {
+    gap: 48px;
+  }
+  @media only screen and (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `
 const PostWrapper = styled.div`
   max-width: 100%;
@@ -44,10 +61,15 @@ const PostWrapper = styled.div`
     text-transform: uppercase;
     color: darkgrey;
   }
+  @media only screen and (min-width: 760px) {
+    place-self: end stretch;
+  }
 `
 const Image = styled(Img)`
+  margin: 0 auto;
   border-radius: 3px;
-  max-width: 500px;
+  max-width: 600px;
+  max-height: 250px;
   height: auto;
 `
 

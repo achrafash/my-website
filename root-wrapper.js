@@ -5,7 +5,7 @@ import Img from "gatsby-image"
 
 // This is where you styled Markdown for blog posts
 const components = {
-  h2: ({ children }) => <h2 style={{ margin: "24px 0" }}>{children}</h2>,
+  h2: ({ children }) => <h2 style={{ lineHeight: "3" }}>{children}</h2>,
   Link,
   Img,
 }

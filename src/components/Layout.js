@@ -108,8 +108,8 @@ const NavLinks = styled.ul`
   a {
     padding: 8px 0;
     text-transform: uppercase;
-    color: grey;
-    font-weight: 500;
+    font-weight: lighter;
+    color: black;
     position: relative;
     transition: color 0.5s;
     position: relative;
