@@ -84,15 +84,19 @@ export default ({ data }) => {
       <BlogSection>
         <BlogHeader>Achraf's Blog</BlogHeader>
         <BlogList>
-          {data.allMdx.nodes.map(({ id, fields, excerpt, frontmatter }) => (
+          {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
             <PostWrapper key={id}>
-              <Link to={fields.slug}>
-                {!!frontmatter.cover ? (
-                  <Image sizes={frontmatter.cover.childImageSharp.sizes} />
-                ) : null}
-                <h1>{frontmatter.title}</h1>
-                <small>{frontmatter.date}</small>
-                <p>{excerpt}</p>
+              <Link to={childMdx.frontmatter.slug}>
+                {/* {!!childMdx.frontmatter.cover ? (
+                  <Image
+                    fluid={childMdx.frontmatter.cover.childImageSharp.fluid}
+                  />
+                ) : null} */}
+                <h1>{childMdx.frontmatter.title}</h1>
+                <small>
+                  {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
+                </small>
+                <p>{childMdx.excerpt}</p>
               </Link>
             </PostWrapper>
           ))}
@@ -103,30 +107,59 @@ export default ({ data }) => {
 }
 
 export const query = graphql`
-  query SITE_INDEX_QUERY {
-    allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { published: { eq: true } } }
+  query {
+    allBloggerPost(
+      sort: { fields: childMdx___frontmatter___date, order: DESC }
     ) {
       nodes {
         id
-        excerpt(pruneLength: 250)
-        frontmatter {
-          title
-          date(formatString: "DD MMM YYYY")
-          cover {
-            publicURL
-            childImageSharp {
-              sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
-                ...GatsbyImageSharpSizes_tracedSVG
-              }
-            }
+        childMdx {
+          timeToRead
+          excerpt(pruneLength: 250)
+          frontmatter {
+            title
+            date(formatString: "DD MM YYYY")
+            slug
+            # cover {
+            #   publicURL
+            #   childImageSharp {
+            #     fluid(quality: 100) {
+            #       tracedSVG
+            #     }
+            #   }
+            # }
           }
-        }
-        fields {
-          slug
         }
       }
     }
   }
 `
+
+// export const query = graphql`
+//   query SITE_INDEX_QUERY {
+//     allMdx(
+//       sort: { fields: [frontmatter___date], order: DESC }
+//       filter: { frontmatter: { published: { eq: true } } }
+//     ) {
+//       nodes {
+//         id
+//         excerpt(pruneLength: 250)
+//         frontmatter {
+//           title
+//           date(formatString: "DD MMM YYYY")
+//           cover {
+//             publicURL
+//             childImageSharp {
+//               sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
+//                 ...GatsbyImageSharpSizes_tracedSVG
+//               }
+//             }
+//           }
+//         }
+//         fields {
+//           slug
+//         }
+//       }
+//     }
+//   }
+// `

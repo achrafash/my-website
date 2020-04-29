@@ -8,18 +8,12 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-transition-link`,
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `${__dirname}/posts`,
       },
     },
     {
@@ -42,7 +36,13 @@ module.exports = {
         icon: `src/images/favicon.png`,
       },
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-blogger`,
+      options: {
+        apiKey: `AIzaSyB1jl_xTgtSz5UxcpX1OG2xgk4he_bbB9o`,
+        blogId: `8928922912299386998`,
+      },
+    },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {

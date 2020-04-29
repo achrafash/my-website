@@ -59,9 +59,23 @@ const Image = styled(Img)`
 
 const PostContent = styled.div`
   width: 100%;
-  line-height: 1.7;
-  font-size: 1.3em;
+  line-height: 1.8;
+  font-size: 1em;
   padding: 32px 16px;
+  h3 {
+    font-size: 1.5em;
+    margin: 24px 0;
+    line-height: 1.2;
+  }
+  img {
+    max-width: 100%;
+    padding: 24px;
+    margin: 0 auto;
+  }
+  a {
+    text-decoration: underline;
+    color: var(--carbon);
+  }
   @media only screen and (min-width: 600px) {
     width: 80%;
     justify-self: center;
@@ -106,36 +120,45 @@ const PostLink = styled(Link)`
 `
 
 export default ({ data, pageContext }) => {
-  const { frontmatter, body } = data.mdx
+  const { timeToRead, body, frontmatter } = data.bloggerPost.childMdx
   const { previous, next } = pageContext
+  console.log(pageContext)
   return (
     <Layout>
       <PostWrapper>
         <PostTitle>{frontmatter.title}</PostTitle>
-        <MetaPost>{frontmatter.date} - 3 min read</MetaPost>
-        {!!frontmatter.cover ? (
-          <Image sizes={frontmatter.cover.childImageSharp.sizes} />
-        ) : null}
+        <MetaPost>
+          {frontmatter.date} - {timeToRead} min read
+        </MetaPost>
+        {/* {!!frontmatter.cover ? (
+          <Image fluid={frontmatter.cover.childImageSharp.fluid} />
+        ) : null} */}
         <PostContent>
           <MDXRenderer>{body}</MDXRenderer>
         </PostContent>
         <PostSuggestion>
-          {previous === false ? null : (
+          {next === false ? null : (
             <>
-              {previous && (
-                <PostLink to={previous.fields.slug}>
-                  <h3>{previous.frontmatter.title}</h3>
-                  <small>{previous.frontmatter.date}</small>
+              {next && (
+                <PostLink to={next.slug}>
+                  <h3>{next.childMdx.frontmatter.title}</h3>
+                  <small>
+                    {next.childMdx.frontmatter.date} •{" "}
+                    {next.childMdx.timeToRead} min read
+                  </small>
                 </PostLink>
               )}
             </>
           )}
-          {next === false ? null : (
+          {previous === false ? null : (
             <>
-              {next && (
-                <PostLink to={next.fields.slug}>
-                  <h3>{next.frontmatter.title}</h3>
-                  <small>{next.frontmatter.date}</small>
+              {previous && (
+                <PostLink to={previous.slug}>
+                  <h3>{previous.childMdx.frontmatter.title}</h3>
+                  <small>
+                    {previous.childMdx.frontmatter.date} •{" "}
+                    {previous.childMdx.timeToRead} min read
+                  </small>
                 </PostLink>
               )}
             </>
@@ -148,20 +171,42 @@ export default ({ data, pageContext }) => {
 
 export const query = graphql`
   query PostBySlug($slug: String!) {
-    mdx(fields: { slug: { eq: $slug } }) {
-      frontmatter {
-        title
-        date(formatString: "DD MMM YYYY")
-        cover {
-          publicURL
-          childImageSharp {
-            sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
-              ...GatsbyImageSharpSizes_tracedSVG
-            }
-          }
+    bloggerPost(childMdx: { frontmatter: { slug: { eq: $slug } } }) {
+      childMdx {
+        timeToRead
+        body
+        frontmatter {
+          title
+          date(formatString: "DD MMM YYYY")
+          # cover {
+          #   publicURL
+          #   childImageSharp {
+          #     fluid(quality: 100) {
+          #       tracedSVG
+          #     }
+          #   }
+          # }
         }
       }
-      body
     }
   }
 `
+// export const query = graphql`
+//   query PostBySlug($slug: String!) {
+//     mdx(fields: { slug: { eq: $slug } }) {
+//       frontmatter {
+//         title
+//         date(formatString: "DD MMM YYYY")
+//         cover {
+//           publicURL
+//           childImageSharp {
+//             sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
+//               ...GatsbyImageSharpSizes_tracedSVG
+//             }
+//           }
+//         }
+//       }
+//       body
+//     }
+//   }
+// `

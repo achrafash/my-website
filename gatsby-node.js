@@ -7,19 +7,16 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMdx(
-        sort: { fields: [frontmatter___date], order: DESC }
-        filter: { frontmatter: { published: { eq: true } } }
-      ) {
+      allBloggerPost {
         nodes {
+          slug
           id
-          excerpt(pruneLength: 250)
-          frontmatter {
-            title
-            date(formatString: "DD MMM YYYY")
-          }
-          fields {
-            slug
+          childMdx {
+            timeToRead
+            frontmatter {
+              title
+              date(formatString: "DD MMM YYYY")
+            }
           }
         }
       }
@@ -29,16 +26,16 @@ exports.createPages = ({ actions, graphql }) => {
       throw res.errors
     }
 
-    const posts = res.data.allMdx.nodes
+    const posts = res.data.allBloggerPost.nodes
 
     posts.forEach((post, index) => {
       const previous = index === post.length - 1 ? null : posts[index + 1]
       const next = index === 0 ? null : posts[index - 1]
       createPage({
-        path: post.fields.slug,
+        path: post.slug,
         component: blogPostTemplate,
         context: {
-          slug: post.fields.slug,
+          slug: post.slug,
           previous,
           next,
         },
@@ -47,14 +44,14 @@ exports.createPages = ({ actions, graphql }) => {
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-  if (node.internal.type === `Mdx`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
-}
+// exports.onCreateNode = ({ node, getNode, actions }) => {
+//   const { createNodeField } = actions
+//   if (node.internal.type === `MarkdownRemark`) {
+//     const value = createFilePath({ node, getNode, basePath: `blog` })
+//     createNodeField({
+//       name: `slug`,
+//       node,
+//       value: `blog/${value}`,
+//     })
+//   }
+// }
