@@ -90,39 +90,53 @@ const NavLinks = styled.ul`
   flex-direction: row;
   justify-content: space-evenly;
   grid-column: 1/3;
-  /* display: ${props => (props.toggle ? "flex" : "none")}; */
   visibility: ${props => (props.toggle ? "visible" : "hidden")};
-  height: ${props => (props.toggle ? "auto" : "0")};
+  max-height: 0;
+  ${props => {
+    if (props.toggle)
+      return `
+        max-height: 240px;
+      `
+  }};
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 0 4px;
   a {
-    padding: 8px;
+    padding: 8px 0;
     text-transform: uppercase;
     color: grey;
     font-weight: 500;
     position: relative;
     transition: color 0.5s;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transition: color 1s;
   }
   a::after {
     content: "";
     display: block;
-    height: 4px;
+    position: absolute;
+    height: 80%;
     width: 0;
     background: var(--carbon);
-    position: absolute;
-    bottom: 0;
+    /* opacity: 0.2; */
+    top: 50%;
     z-index: -1;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: width ease 1s;
+    transition: width linear 1s;
   }
   a:hover {
-    color: black;
+    color: white;
     transition: color 0.5s;
   }
   a:hover::after {
-    width: 80%;
+    width: 100%;
     transition: ease 0.5s;
   }
 `

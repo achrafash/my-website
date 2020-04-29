@@ -16,10 +16,11 @@ const Hero = styled.section`
   background-color: var(--yellow);
   border-bottom: 1px solid black;
 `
-const Card = styled.div`
+const HeroCard = styled.div`
   grid-column: 2/12;
+  place-self: center start;
   width: 100%;
-  place-self: center center;
+  max-width: 500px;
   display: grid;
   grid-template-rows: auto auto;
   gap: 32px;
@@ -38,8 +39,9 @@ const Card = styled.div`
 `
 const ContactButton = styled.a`
   grid-column: 2/12;
-  background: none;
+  place-self: center start;
   width: 100%;
+  max-width: 500px;
   background: none;
   border: solid 1px black;
   border-radius: 4px;
@@ -123,6 +125,9 @@ const ReadingWrapper = styled.div`
 `
 const ProjectCard = styled.div`
   grid-column: 1/13;
+  place-self: center center;
+  width: 100%;
+  max-width: 600px;
   padding: 16px;
   border: solid 1px black;
   border-radius: 4px;
@@ -241,7 +246,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Achraf ASH" />
       <Hero>
-        <Card>
+        <HeroCard>
           <h1>
             React <span role="img">⚛️</span> Frontend Developer
             <br />
@@ -252,7 +257,7 @@ const IndexPage = () => {
             <br />
             I'm Achraf Ait Sidi Hammou (ASH)
           </span>
-        </Card>
+        </HeroCard>
         <ContactButton
           target="_blank"
           href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
