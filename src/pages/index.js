@@ -188,6 +188,21 @@ const ProjectCard = styled.div`
 const Thumbnail = styled(Img)`
   border-radius: 4px;
   border: 1px solid black;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    background: var(--carbon);
+    opacity: 0.5;
+    transition: opacity 0.5s;
+  }
+  &:hover::before {
+    opacity: 0.1;
+    transition: opacity 0.5s;
+  }
 `
 const HeroPic = styled(Img)`
   display: none;
@@ -199,6 +214,21 @@ const HeroPic = styled(Img)`
     border-radius: 4px;
     box-shadow: 0px 4px 4px grey;
     transform: translateY(56px);
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 1000;
+      height: 100%;
+      width: 100%;
+      background: var(--carbon);
+      opacity: 0.5;
+      transition: opacity 0.5s;
+    }
+    &:hover::before {
+      opacity: 0.1;
+      transition: opacity 0.5s;
+    }
   }
 `
 const Angle = styled.div`
@@ -303,7 +333,7 @@ const IndexPage = () => {
       }
       heroPic: file(relativePath: { eq: "AGP.JPG" }) {
         childImageSharp {
-          fluid {
+          fluid(quality: 100) {
             ...GatsbyImageSharpFluid_tracedSVG
           }
         }
