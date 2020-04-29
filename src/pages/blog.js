@@ -8,44 +8,47 @@ import styled from "styled-components"
 const BlogSection = styled.section`
   width: 100%;
   height: 100%;
-  padding: 80px 20px;
+  padding: 40px 16px;
 `
 const BlogHeader = styled.h2`
   width: 100%;
-  padding: 15px;
+  padding: 8px;
   border-bottom: 2px solid rgb(232, 232, 232);
 `
 const BlogList = styled.div`
   width: 100%;
   height: 100%;
-  padding: 40px;
+  padding: 40px 0;
+  text-align: justify;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 24px;
-  @media screen and (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
 `
 const PostWrapper = styled.div`
-  grid-column: span 3;
   max-width: 100%;
+  padding-bottom: 24px;
+  border-bottom: solid 1px lightgrey;
+  h1 {
+    font-size: 1.2em;
+    padding: 16px 0;
+  }
   a {
     color: black;
+  }
+  p {
+    padding: 8px 0;
+    color: darkgrey;
+    line-height: 1.5;
+  }
+  small {
+    text-transform: uppercase;
+    color: darkgrey;
   }
 `
 const Image = styled(Img)`
   border-radius: 3px;
   max-width: 500px;
   height: auto;
-`
-const Button = styled(Link)`
-  color: grey;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-    color: black;
-    transition: color ease 0.5s;
-  }
 `
 
 export default ({ data }) => {
@@ -65,7 +68,6 @@ export default ({ data }) => {
                 <small>{frontmatter.date}</small>
                 <p>{excerpt}</p>
               </Link>
-              <Button to={fields.slug}>- Read more</Button>
             </PostWrapper>
           ))}
         </BlogList>

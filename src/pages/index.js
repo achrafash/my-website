@@ -5,6 +5,8 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
 
+import faceRecognitionDemo from "../images/face_to_emoji_demo.gif"
+
 const Hero = styled.section`
   width: 100%;
   display: grid;
@@ -34,7 +36,6 @@ const Card = styled.div`
     letter-spacing: 2px;
   }
 `
-
 const ContactButton = styled.a`
   grid-column: 2/12;
   background: none;
@@ -54,7 +55,6 @@ const ContactButton = styled.a`
     transition: 0.5s;
   }
 `
-
 const SectionTitle = styled.span`
   grid-column: 1/12;
   font-size: 1.8em;
@@ -104,12 +104,50 @@ const LearningWrapper = styled.div`
 const ReadingWrapper = styled.div`
   grid-column: 1/13;
   padding: 24px;
+  a {
+    color: purple;
+  }
+  a::before {
+    content: "";
+    font-size: 1.2em;
+    opacity: 0;
+    padding-right: 0;
+    transition: 0.5s;
+  }
+  a:hover::before {
+    content: ">";
+    opacity: 1;
+    padding-right: 4px;
+    transition: 0.5s;
+  }
 `
 const ProjectCard = styled.div`
   grid-column: 1/13;
   padding: 16px;
   border: solid 1px black;
   border-radius: 4px;
+  box-shadow: 0px 4px 4px grey;
+  a {
+    color: purple;
+  }
+  a::before {
+    content: "";
+    font-size: 1.2em;
+    opacity: 0;
+    padding-right: 0;
+    transition: 0.5s;
+  }
+  a:hover::before {
+    content: ">";
+    opacity: 1;
+    padding-right: 4px;
+    transition: 0.5s;
+  }
+`
+
+const Thumbnail = styled(Img)`
+  border-radius: 4px;
+  border: 1px solid black;
 `
 
 function range(start, end) {
@@ -189,6 +227,13 @@ const IndexPage = () => {
           }
         }
       }
+      geoThumbnail: file(relativePath: { eq: "geo_d3.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
     }
   `)
 
@@ -219,7 +264,7 @@ const IndexPage = () => {
         <SectionTitle>Projects</SectionTitle>
         <ProjectWrapper>
           <ProjectCard>
-            <Img fluid={data.covidThumbnail.childImageSharp.fluid} />
+            <Thumbnail fluid={data.covidThumbnail.childImageSharp.fluid} />
             <br />
             <hr />
             <br />
@@ -239,12 +284,12 @@ const IndexPage = () => {
                 rel="noopener noreferrer"
                 href="http://covidfranceapi.herokuapp.com"
               >
-                - Check live
+                Check live
               </a>
             </div>
           </ProjectCard>
           <ProjectCard>
-            <Img fluid={data.flipsThumbnail.childImageSharp.fluid} />
+            <Thumbnail fluid={data.flipsThumbnail.childImageSharp.fluid} />
             <br />
             <hr />
             <br />
@@ -265,12 +310,14 @@ const IndexPage = () => {
                 rel="noopener noreferrer"
                 href="https://flipsapp.fr"
               >
-                - Flips page
+                Flips page
               </a>
             </div>
           </ProjectCard>
           <ProjectCard>
-            <Img fluid={data.kindleshareThumbnail.childImageSharp.fluid} />
+            <Thumbnail
+              fluid={data.kindleshareThumbnail.childImageSharp.fluid}
+            />
             <br />
             <hr />
             <br />
@@ -282,10 +329,10 @@ const IndexPage = () => {
             <div className="description">
               My first project from scratch. This is a web app to:
               <ul>
-                <li>- see your Kindle ebooks</li>
-                <li>- browse through your Highlights</li>
-                <li>- share your thoughts and highlights</li>
-                <li>- explore inpiring people's libraries</li>
+                <li>see your Kindle ebooks</li>
+                <li>browse through your Highlights</li>
+                <li>share your thoughts and highlights</li>
+                <li>explore inpiring people's libraries</li>
               </ul>
               <br />
               <a
@@ -303,29 +350,35 @@ const IndexPage = () => {
       <LearningSection id="learn">
         <SectionTitle>Obsession</SectionTitle>
         <LearningWrapper>
-          <p>
-            I'm currently hooked by Data Science. But that is what I want to
-            study. What I'm currently learning (I mean on my own) is Data
-            Visualization and Machine Learning in the browser (ie with
-            Javascript)
-          </p>
-          <span>Here are a few recent projects I went through</span>
-          <div className="carousel" id="learn-projects">
-            <div className="project">bar chart racing</div>
-            <div className="project">
-              machine learning and data visualization (Are you here ?)
-            </div>
-            <div className="project">
-              Some world map kind of data visualization
-            </div>
-          </div>
+          I'm currently hooked by Data Science. But that is what I want to
+          study. What I'm currently learning (I mean on my own) is Data
+          Visualization (D3.js) and Machine Learning in the browser
+          (Tensorflow.js).
+          <ProjectWrapper>
+            <p style={{ gridColumn: "1/13" }}>
+              Here are just a few recent projects:
+            </p>
+            <ProjectCard>
+              <img src={faceRecognitionDemo} width="100%" />
+              <h3 style={{ textAlign: "center" }}>
+                Face recognition in the browser
+              </h3>
+            </ProjectCard>
+            <ProjectCard>
+              <Img fluid={data.geoThumbnail.childImageSharp.fluid} />
+            </ProjectCard>
+          </ProjectWrapper>
         </LearningWrapper>
       </LearningSection>
       <ReadingSection id="read">
         <SectionTitle>Library</SectionTitle>
         <ReadingWrapper>
-          <span className="header">Currently Reading</span>
-          <ul className="reading-list">
+          <span
+            style={{ fontSize: "1.2em", lineHeight: "2", fontWeight: "bold" }}
+          >
+            Currently Reading
+          </span>
+          <ul className="reading-list" style={{ listStyleType: "📖" }}>
             {readingList &&
               readingList.map(book => (
                 <li key={book.title}>
@@ -333,7 +386,11 @@ const IndexPage = () => {
                 </li>
               ))}
           </ul>
-          <span className="header">Latest Readings</span>
+          <span
+            style={{ fontSize: "1.2em", lineHeight: "2", fontWeight: "bold" }}
+          >
+            Last Readings
+          </span>
           <ul className="read-list">
             {readList &&
               readList.map(book => (
@@ -343,7 +400,8 @@ const IndexPage = () => {
                 </li>
               ))}
           </ul>
-          <Link to="/blog">Read my stuff ></Link>
+          <br />
+          <Link to="/blog">Read my stuff</Link>
         </ReadingWrapper>
       </ReadingSection>
     </Layout>

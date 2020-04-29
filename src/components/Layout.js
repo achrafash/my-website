@@ -5,6 +5,7 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { Helmet } from "react-helmet"
 import {
   IoIosMenu,
+  IoMdClose,
   IoLogoTwitter,
   IoLogoGithub,
   IoLogoLinkedin,
@@ -22,6 +23,10 @@ const MainContainer = styled.main`
 
 const Footer = styled.footer`
   background-color: var(--carbon);
+  ul {
+    padding: 8px 0 0 0;
+    list-style-type: none;
+  }
   color: white;
   width: 100%;
   padding: 24px 8px;
@@ -30,6 +35,7 @@ const Footer = styled.footer`
   .navigation {
     grid-column: 2/6;
     text-align: right;
+    text-transform: uppercase;
     a {
       color: grey;
     }
@@ -48,6 +54,7 @@ const Footer = styled.footer`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      max-width: 200px;
     }
   }
   small {
@@ -68,24 +75,25 @@ const NavContainer = styled.div`
   border-radius: 4px;
   z-index: 100;
   padding: 2px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-shadow: 0px 1px 4px grey;
 `
 const NavLinks = styled.ul`
   grid-column: 2;
+  grid-row: 2;
   max-width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-    grid-row: 2;
-    grid-column: 1/3;
-    display: ${props => (props.toggle ? "flex" : "none")};
-    flex-direction: column;
-    align-items: center;
-  }
+  grid-column: 1/3;
+  display: ${props => (props.toggle ? "flex" : "none")};
+  flex-direction: column;
+  align-items: center;
   a {
+    padding: 8px;
     text-transform: uppercase;
     color: grey;
     font-weight: 500;
@@ -102,7 +110,7 @@ const NavLinks = styled.ul`
     bottom: 0;
     z-index: -1;
     left: 50%;
-    transform: translate(-50%, 25%);
+    transform: translate(-50%, -50%);
     transition: width ease 1s;
   }
   a:hover {
@@ -110,8 +118,9 @@ const NavLinks = styled.ul`
     transition: color 0.5s;
   }
   a:hover::after {
-    width: 120%;
+    width: 80%;
     transition: ease 0.5s;
+  }
 `
 const Hamburger = styled.div`
   grid-column: 2;
@@ -134,6 +143,9 @@ const NavBar = ({ links }) => {
 
   return (
     <NavContainer toggle={toggle}>
+      <Hamburger onClick={() => setToggle(!toggle)}>
+        {toggle ? <IoMdClose /> : <IoIosMenu />}
+      </Hamburger>
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) =>
@@ -148,9 +160,6 @@ const NavBar = ({ links }) => {
             )
           )}
       </NavLinks>
-      <Hamburger onClick={() => setToggle(!toggle)}>
-        <IoIosMenu />
-      </Hamburger>
     </NavContainer>
   )
 }
@@ -205,7 +214,6 @@ const Layout = ({ children }) => {
       <MainContainer>{children}</MainContainer>
       <Footer>
         <div className="navigation">
-          <span>Navigation</span>
           <ul>
             {links &&
               links.map(link => (
@@ -216,7 +224,6 @@ const Layout = ({ children }) => {
           </ul>
         </div>
         <div className="social">
-          <span>Social</span>
           <ul>
             <li>
               <a

@@ -6,24 +6,22 @@ import styled from "styled-components"
 import Img from "gatsby-image"
 
 const PostWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr;
   width: 100%;
-  height: 100%;
-  padding: 100px 10px;
+  padding: 40px 16px;
 `
 const PostTitle = styled.h1`
   width: 100%;
-  padding: 16px 48px;
-  font-size: 36px;
+  padding: 16px 0px;
+  font-size: 1.5em;
   text-transform: capitalize;
-  border-bottom: 2px solid rgb(232, 232, 232);
-  @media screen and (max-width: 500px) {
-    padding: 16px;
-  }
+  border-bottom: 1px solid lightgrey;
 `
 const MetaPost = styled.small`
+  padding-top: 16px;
   text-transform: uppercase;
-  font-size: 14px;
-  font-weight: 600;
+  color: darkgrey;
 `
 const Image = styled(Img)`
   padding: 48px;
@@ -32,22 +30,29 @@ const Image = styled(Img)`
 `
 const PostContent = styled.div`
   width: 100%;
-  height: 100%;
-  padding: 48px;
-  @media screen and (max-width: 500px) {
-    padding: 48px 16px;
-  }
+  line-height: 1.5;
+  padding: 32px 0;
 `
 const PostSuggestion = styled.div`
-  border-top: 2px solid rgb(232, 232, 232);
-  padding: 48px 24px 0 24px;
+  border-top: 1px solid lightgrey;
+  padding: 40px 0;
   text-transform: capitalize;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
 `
 const PostLink = styled(Link)`
-  color: black;
+  display: grid;
+  grid-template-columns: 1fr;
+  h3 {
+    color: black;
+    font-size: 1.5em;
+  }
+  small {
+    padding-top: 8px;
+    text-transform: uppercase;
+    color: darkgrey;
+  }
 `
 
 export default ({ data, pageContext }) => {
