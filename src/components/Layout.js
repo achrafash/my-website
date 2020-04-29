@@ -11,7 +11,6 @@ import {
   IoLogoLinkedin,
   IoMdMail,
 } from "react-icons/io"
-import Img from "gatsby-image"
 import styled from "styled-components"
 
 import "../index.css"
@@ -56,6 +55,9 @@ const Footer = styled.footer`
       justify-content: space-between;
       max-width: 200px;
     }
+    svg:hover {
+      color: var(--yellow);
+    }
   }
   small {
     padding: 24px 0 0 0;
@@ -85,11 +87,13 @@ const NavLinks = styled.ul`
   grid-column: 2;
   grid-row: 2;
   max-width: 100%;
-  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   grid-column: 1/3;
-  display: ${props => (props.toggle ? "flex" : "none")};
+  /* display: ${props => (props.toggle ? "flex" : "none")}; */
+  visibility: ${props => (props.toggle ? "visible" : "hidden")};
+  height: ${props => (props.toggle ? "auto" : "0")};
+  display: flex;
   flex-direction: column;
   align-items: center;
   a {
@@ -129,6 +133,20 @@ const Hamburger = styled.div`
   cursor: pointer;
   font-size: 1.5em;
   outline: none;
+  display: grid;
+  align-items: center;
+  svg {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 1;
+    transition: opacity ease-in-out 0.3s;
+  }
+  svg:nth-child(1) {
+    opacity: ${props => (props.toggle ? 1 : 0)};
+  }
+  svg:nth-child(2) {
+    opacity: ${props => (props.toggle ? 0 : 1)};
+  }
 `
 
 const NavBar = ({ links }) => {
@@ -143,14 +161,31 @@ const NavBar = ({ links }) => {
 
   return (
     <NavContainer toggle={toggle}>
-      <Hamburger onClick={() => setToggle(!toggle)}>
-        {toggle ? <IoMdClose /> : <IoIosMenu />}
+      <Hamburger toggle={toggle} onClick={() => setToggle(!toggle)}>
+        <IoMdClose />
+        <IoIosMenu />
       </Hamburger>
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) =>
             link.name === "Blog" ? (
-              <AniLink cover direction="left" to={link.path} key={index}>
+              <AniLink
+                cover
+                bg="#2f3640"
+                direction="left"
+                to={link.path}
+                key={index}
+              >
+                {link.name}
+              </AniLink>
+            ) : link.name === "Home" ? (
+              <AniLink
+                cover
+                bg="#2f3640"
+                direction="right"
+                to={link.path}
+                key={index}
+              >
                 {link.name}
               </AniLink>
             ) : (
