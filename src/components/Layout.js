@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { useSwipeable, Swipeable } from "react-swipeable"
+import React, { useState, createContext, useContext } from "react"
+import { Swipeable } from "react-swipeable"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
@@ -11,18 +11,24 @@ import {
   IoLogoGithub,
   IoLogoLinkedin,
   IoMdMail,
+  IoMdMoon,
+  IoMdSunny,
 } from "react-icons/io"
-import styled from "styled-components"
-
-import "../index.css"
+import styled, { withTheme } from "styled-components"
+import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
+import { GlobalStyle } from "./GlobalStyle"
 
 const MainContainer = styled.main`
   margin: 0;
   padding: 0;
+  background-color: ${props => props.theme.bg};
+  color: var(--fontColor);
+  transition: color 0.5s, background-color 0.5s;
 `
 
 const Footer = styled.footer`
   background-color: var(--carbon);
+  border-top: solid 1px grey;
   ul {
     padding: 8px 0 0 0;
     list-style-type: none;
@@ -71,30 +77,26 @@ const Footer = styled.footer`
 `
 
 const NavContainer = styled(Swipeable)`
-  background-color: var(--yellow);
+  background-color: var(--mainColor);
   position: fixed;
   top: 8px;
-  left: ${props => (props.isRight ? `none` : `8px`)};
-  right: ${props => (props.isRight ? `8px` : `none`)};
+  left: ${props => (props.navbarPosition === "left" ? `8px` : `none`)};
+  right: ${props => (props.navbarPosition === "right" ? `8px` : `none`)};
   min-width: 100px;
   border: solid 1px black;
   border-radius: 4px;
   z-index: 1000;
   padding: 2px 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 1px 4px grey;
+  display: grid;
+  grid-template-columns: auto auto;
+  box-shadow: 0px 1px 4px var(--carbon);
 `
 const NavLinks = styled.ul`
-  grid-column: 2;
-  grid-row: 2;
-  max-width: 100%;
-  flex-direction: row;
-  justify-content: space-evenly;
   grid-column: 1/3;
-  visibility: ${props => (props.toggle ? "visible" : "hidden")};
+  justify-content: space-evenly;
+  padding: 0;
+  max-width: 100%;
+  width: 100%;
   max-height: 0;
   ${props => {
     if (props.toggle)
@@ -102,19 +104,18 @@ const NavLinks = styled.ul`
         max-height: 240px;
       `
   }};
-  overflow: hidden;
   transition: max-height 0.2s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  padding: 0;
+  visibility: ${props => (props.toggle ? "visible" : "hidden")};
+  overflow: hidden;
   a {
     padding: 8px 0;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: lighter;
-    color: black;
+    color: var(--fontColor);
     position: relative;
     transition: color 0.5s;
     position: relative;
@@ -128,16 +129,15 @@ const NavLinks = styled.ul`
     position: absolute;
     height: 75%;
     width: 0;
-    background: var(--carbon);
-    /* opacity: 0.2; */
+    background-color: var(--secondaryColor);
     top: 50%;
     z-index: -1;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: width linear 1s;
+    transition: width linear 1s, background-color 0.5s;
   }
   a:hover {
-    color: white;
+    color: ${props => props.theme.fontNegativeColor};
     transition: color 0.5s;
   }
   a:hover::after {
@@ -146,11 +146,13 @@ const NavLinks = styled.ul`
   }
 `
 const Hamburger = styled.div`
-  grid-column: 2;
+  grid-column: 1;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 1.5em;
+  color: var(--fontColor);
+  transition: color 0.5s;
   outline: none;
   display: grid;
   align-items: center;
@@ -167,33 +169,54 @@ const Hamburger = styled.div`
     opacity: ${props => (props.toggle ? 0 : 1)};
   }
 `
+const DarkMode = styled.div`
+  grid-column: 2;
+  justify-self: end;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: var(--fontColor);
+  transition: color 0.5s;
+  outline: none;
+  display: grid;
+  align-items: center;
+  svg {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 1;
+    transition: opacity ease-in-out 0.3s;
+  }
+  svg:nth-child(1) {
+    opacity: ${props => (props.theme.isDark ? 1 : 0)};
+  }
+  svg:nth-child(2) {
+    opacity: ${props => (props.theme.isDark ? 0 : 1)};
+  }
+`
 
-const NavBar = ({ links }) => {
+const NavBar = ({ links, themeContext }) => {
   const [toggle, setToggle] = useState(false)
-  const [isRight, setIsRight] = useState(false)
-  // const [isTop, setIsTop] = useState(true)
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     setIsTop(window.scrollY < 100)
-  //   })
-  // }, [isTop])
-
+  const [navbarPosition, setNavbarPosition] = useState("left")
   return (
     <NavContainer
-      isRight={isRight}
+      navbarPosition={navbarPosition}
       toggle={toggle}
-      onSwipedRight={eventData => {
-        setIsRight(true)
+      onSwipedRight={() => {
+        setNavbarPosition("right")
       }}
-      onSwipedLeft={eventData => {
-        setIsRight(false)
+      onSwipedLeft={() => {
+        setNavbarPosition("left")
       }}
     >
       <Hamburger toggle={toggle} onClick={() => setToggle(!toggle)}>
         <IoMdClose />
         <IoIosMenu />
       </Hamburger>
+      <DarkMode onClick={() => themeContext.toggleDark()}>
+        <IoMdSunny />
+        <IoMdMoon />
+      </DarkMode>
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) =>
@@ -228,7 +251,8 @@ const NavBar = ({ links }) => {
   )
 }
 
-const Layout = ({ children }) => {
+const Layout = withTheme(({ children, theme }) => {
+  const themeContext = useContext(ThemeManagerContext)
   const links = [
     {
       path: "/",
@@ -251,17 +275,16 @@ const Layout = ({ children }) => {
       name: "Blog",
     },
   ]
-
-  const [isRight, setIsRight] = useState(true)
   return (
     <>
+      <GlobalStyle theme={theme} />
       <Helmet>
         <meta
           name="google-site-verification"
           content="I0evl492iQy9Riwn26U7cL2B0LchCQC7N2niZRXr5HE"
         />
       </Helmet>
-      <NavBar links={links} />
+      <NavBar links={links} themeContext={themeContext} />
       <MainContainer>{children}</MainContainer>
       <Footer>
         <div className="navigation">
@@ -321,7 +344,7 @@ const Layout = ({ children }) => {
       </Footer>
     </>
   )
-}
+})
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

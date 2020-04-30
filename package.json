@@ -25,6 +25,7 @@
     "gatsby-remark-images": "^3.2.1",
     "gatsby-source-blogger": "^1.1.2",
     "gatsby-source-filesystem": "^2.1.46",
+    "gatsby-styled-components-dark-mode": "^1.1.1",
     "gatsby-transformer-sharp": "^2.3.13",
     "gsap": "^3.2.6",
     "node-sass": "^4.13.1",

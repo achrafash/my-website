@@ -13,9 +13,10 @@ const Hero = styled.section`
   grid-template-columns: repeat(12, 1fr);
   gap: 8px;
   padding: 24px 0;
-  background-color: var(--yellow);
   border-bottom: 1px solid black;
-  box-shadow: 0px 1px 2px grey;
+  background-color: var(--mainColor);
+  box-shadow: 0px 1px 2px var(--shadow);
+  transition: background-color 0.5s, box-shadow 0.5s;
   @media only screen and (min-width: 990px) {
     padding: 40px 2vw;
   }
@@ -60,11 +61,11 @@ const ContactButton = styled.a`
   text-align: center;
   font-weight: bold;
   font-size: 1.5em;
-  color: black;
+  color: var(--fontColor);
   transition: background 0.5s, color 0.5s;
   &:hover {
-    background: var(--carbon);
-    color: var(--yellow);
+    background: var(--secondaryColor);
+    color: var(--fontNegativeColor);
     transition: 0.5s;
   }
   @media only screen and (min-width: 990px) {
@@ -135,7 +136,8 @@ const ReadingWrapper = styled.div`
   grid-column: 1/13;
   padding: 24px;
   a {
-    color: purple;
+    color: var(--link);
+    transition: color 0.5s;
   }
   a::before {
     content: "";
@@ -159,9 +161,11 @@ const ProjectCard = styled.div`
   padding: 16px;
   border: solid 1px black;
   border-radius: 4px;
-  box-shadow: 0px 4px 4px grey;
+  box-shadow: 0px 4px 4px var(--shadow);
+  transition: box-shadow 0.5s;
   a {
-    color: purple;
+    color: var(--link);
+    transition: color 0.5s;
   }
   a::before {
     content: "";
@@ -219,8 +223,9 @@ const HeroPic = styled(Img)`
     grid-row: 1/3;
     border: 2px solid black;
     border-radius: 4px;
-    box-shadow: 0px 4px 4px grey;
     transform: translateY(56px);
+    box-shadow: 0px 4px 4px var(--shadow);
+    transition: box-shadow 0.5s;
     &::before {
       content: "";
       display: block;

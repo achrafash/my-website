@@ -54,7 +54,8 @@ const PostWrapper = styled.div`
     padding: 16px 0;
   }
   a {
-    color: black;
+    color: var(--fontColor);
+    transition: color 0.5s;
   }
   p {
     padding: 8px 0;
@@ -69,13 +70,6 @@ const PostWrapper = styled.div`
     place-self: end stretch;
   }
 `
-// const Image = styled(Img)`
-//   margin: 0 auto;
-//   border-radius: 3px;
-//   max-width: 600px;
-//   max-height: 250px;
-//   height: auto;
-// `
 
 export default ({ data }) => {
   return (

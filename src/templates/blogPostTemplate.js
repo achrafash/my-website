@@ -76,9 +76,11 @@ const PostContent = styled.div`
   }
   a {
     text-decoration: underline;
-    color: var(--carbon);
+    color: var(--fontColor);
+    transition: color 0.5s;
   }
-  p {
+  p,
+  ul {
     padding-bottom: 1em;
   }
   @media only screen and (min-width: 600px) {
@@ -114,7 +116,8 @@ const PostLink = styled(Link)`
   display: grid;
   grid-template-columns: 1fr;
   h3 {
-    color: black;
+    color: var(--fontColor);
+    transition: color 0.5s;
     font-size: 1.5em;
   }
   small {
