@@ -15,7 +15,7 @@ exports.createPages = ({ actions, graphql }) => {
             timeToRead
             frontmatter {
               title
-              date(formatString: "DD MMM YYYY")
+              date(formatString: "MMMM DD, YYYY")
             }
           }
         }
@@ -43,15 +43,3 @@ exports.createPages = ({ actions, graphql }) => {
     })
   })
 }
-
-// exports.onCreateNode = ({ node, getNode, actions }) => {
-//   const { createNodeField } = actions
-//   if (node.internal.type === `MarkdownRemark`) {
-//     const value = createFilePath({ node, getNode, basePath: `blog` })
-//     createNodeField({
-//       name: `slug`,
-//       node,
-//       value: `blog/${value}`,
-//     })
-//   }
-// }

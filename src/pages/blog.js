@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
-import Img from "gatsby-image"
+// import Img from "gatsby-image"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
@@ -69,13 +69,13 @@ const PostWrapper = styled.div`
     place-self: end stretch;
   }
 `
-const Image = styled(Img)`
-  margin: 0 auto;
-  border-radius: 3px;
-  max-width: 600px;
-  max-height: 250px;
-  height: auto;
-`
+// const Image = styled(Img)`
+//   margin: 0 auto;
+//   border-radius: 3px;
+//   max-width: 600px;
+//   max-height: 250px;
+//   height: auto;
+// `
 
 export default ({ data }) => {
   return (
@@ -87,11 +87,6 @@ export default ({ data }) => {
           {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
             <PostWrapper key={id}>
               <Link to={childMdx.frontmatter.slug}>
-                {/* {!!childMdx.frontmatter.cover ? (
-                  <Image
-                    fluid={childMdx.frontmatter.cover.childImageSharp.fluid}
-                  />
-                ) : null} */}
                 <h1>{childMdx.frontmatter.title}</h1>
                 <small>
                   {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
@@ -118,48 +113,11 @@ export const query = graphql`
           excerpt(pruneLength: 250)
           frontmatter {
             title
-            date(formatString: "DD MM YYYY")
+            date(formatString: "MMMM DD, YYYY")
             slug
-            # cover {
-            #   publicURL
-            #   childImageSharp {
-            #     fluid(quality: 100) {
-            #       tracedSVG
-            #     }
-            #   }
-            # }
           }
         }
       }
     }
   }
 `
-
-// export const query = graphql`
-//   query SITE_INDEX_QUERY {
-//     allMdx(
-//       sort: { fields: [frontmatter___date], order: DESC }
-//       filter: { frontmatter: { published: { eq: true } } }
-//     ) {
-//       nodes {
-//         id
-//         excerpt(pruneLength: 250)
-//         frontmatter {
-//           title
-//           date(formatString: "DD MMM YYYY")
-//           cover {
-//             publicURL
-//             childImageSharp {
-//               sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
-//                 ...GatsbyImageSharpSizes_tracedSVG
-//               }
-//             }
-//           }
-//         }
-//         fields {
-//           slug
-//         }
-//       }
-//     }
-//   }
-// `

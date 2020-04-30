@@ -130,9 +130,6 @@ export default ({ data, pageContext }) => {
         <MetaPost>
           {frontmatter.date} - {timeToRead} min read
         </MetaPost>
-        {/* {!!frontmatter.cover ? (
-          <Image fluid={frontmatter.cover.childImageSharp.fluid} />
-        ) : null} */}
         <PostContent>
           <MDXRenderer>{body}</MDXRenderer>
         </PostContent>
@@ -177,36 +174,9 @@ export const query = graphql`
         body
         frontmatter {
           title
-          date(formatString: "DD MMM YYYY")
-          # cover {
-          #   publicURL
-          #   childImageSharp {
-          #     fluid(quality: 100) {
-          #       tracedSVG
-          #     }
-          #   }
-          # }
+          date(formatString: "MMMM DD, YYYY")
         }
       }
     }
   }
 `
-// export const query = graphql`
-//   query PostBySlug($slug: String!) {
-//     mdx(fields: { slug: { eq: $slug } }) {
-//       frontmatter {
-//         title
-//         date(formatString: "DD MMM YYYY")
-//         cover {
-//           publicURL
-//           childImageSharp {
-//             sizes(maxWidth: 2000, traceSVG: { color: "#000" }) {
-//               ...GatsbyImageSharpSizes_tracedSVG
-//             }
-//           }
-//         }
-//       }
-//       body
-//     }
-//   }
-// `

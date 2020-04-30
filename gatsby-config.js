@@ -6,7 +6,8 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sass`,
+    `gatsby-plugin-styled-components`,
+    `babel-plugin-styled-components`,
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-offline`,
     {
@@ -43,27 +44,6 @@ module.exports = {
         blogId: `8928922912299386998`,
       },
     },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [`.mdx`, `.md`],
-      },
-      gatsbyRemarkPlugins: [
-        {
-          resolve: `gatsby-remark-images`,
-          options: {
-            maxWidth: 540,
-          },
-        },
-      ],
-      plugin: [
-        {
-          resolve: `gatsby-remark-images`,
-          options: {
-            maxWidth: 540,
-          },
-        },
-      ],
-    },
+    `gatsby-plugin-mdx`,
   ],
 }
