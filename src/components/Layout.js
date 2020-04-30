@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
+import { useSwipeable, Swipeable } from "react-swipeable"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql, Link } from "gatsby"
+import { Link } from "gatsby"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { Helmet } from "react-helmet"
 import {
@@ -69,11 +70,12 @@ const Footer = styled.footer`
   }
 `
 
-const NavContainer = styled.div`
+const NavContainer = styled(Swipeable)`
   background-color: var(--yellow);
   position: fixed;
   top: 8px;
-  left: 8px;
+  left: ${props => (props.isRight ? `none` : `8px`)};
+  right: ${props => (props.isRight ? `8px` : `none`)};
   min-width: 100px;
   border: solid 1px black;
   border-radius: 4px;
@@ -168,6 +170,7 @@ const Hamburger = styled.div`
 
 const NavBar = ({ links }) => {
   const [toggle, setToggle] = useState(false)
+  const [isRight, setIsRight] = useState(false)
   // const [isTop, setIsTop] = useState(true)
 
   // useEffect(() => {
@@ -177,7 +180,16 @@ const NavBar = ({ links }) => {
   // }, [isTop])
 
   return (
-    <NavContainer toggle={toggle}>
+    <NavContainer
+      isRight={isRight}
+      toggle={toggle}
+      onSwipedRight={eventData => {
+        setIsRight(true)
+      }}
+      onSwipedLeft={eventData => {
+        setIsRight(false)
+      }}
+    >
       <Hamburger toggle={toggle} onClick={() => setToggle(!toggle)}>
         <IoMdClose />
         <IoIosMenu />
@@ -240,6 +252,7 @@ const Layout = ({ children }) => {
     },
   ]
 
+  const [isRight, setIsRight] = useState(true)
   return (
     <>
       <Helmet>
@@ -248,20 +261,6 @@ const Layout = ({ children }) => {
           content="I0evl492iQy9Riwn26U7cL2B0LchCQC7N2niZRXr5HE"
         />
       </Helmet>
-      {/* <nav className="navbar">
-        <div className="thumbnail">
-          <span className="tooltip">Nice to meet you!</span>
-          <Img fluid={data.avatar.childImageSharp.fluid} />
-        </div>
-        <ul className="navlinks">
-          {links &&
-            links.map(link => (
-              <li key={link.name}>
-                <Link to={link.path}>{link.name}</Link>
-              </li>
-            ))}
-        </ul>
-      </nav> */}
       <NavBar links={links} />
       <MainContainer>{children}</MainContainer>
       <Footer>
