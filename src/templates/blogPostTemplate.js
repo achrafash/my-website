@@ -62,9 +62,11 @@ const PostContent = styled.div`
   line-height: 1.8;
   font-size: 1em;
   padding: 32px 16px;
-  h3 {
+  h3,
+  h2,
+  h1 {
     font-size: 1.5em;
-    margin: 24px 0;
+    margin: 0.5em 0;
     line-height: 1.2;
   }
   img {
@@ -75,6 +77,9 @@ const PostContent = styled.div`
   a {
     text-decoration: underline;
     color: var(--carbon);
+  }
+  p {
+    padding-bottom: 1em;
   }
   @media only screen and (min-width: 600px) {
     width: 80%;
