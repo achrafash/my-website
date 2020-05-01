@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react"
+import React, { useState, useContext } from "react"
 import { Swipeable } from "react-swipeable"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
@@ -17,6 +17,7 @@ import {
 import styled, { withTheme } from "styled-components"
 import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
 import { GlobalStyle } from "./GlobalStyle"
+import "../index.css"
 
 const MainContainer = styled.main`
   margin: 0;
