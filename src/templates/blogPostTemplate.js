@@ -42,23 +42,23 @@ const MetaPost = styled.small`
     justify-self: center;
   }
 `
-const Image = styled(Img)`
-  max-height: 300px;
-  width: 100%;
-  place-self: center center;
-  @media only screen and (min-width: 990px) {
-    width: 80%;
-    max-height: 400px;
-    justify-self: center;
-  }
-  @media only screen and (min-width: 1200px) {
-    max-height: 500px;
-    max-width: 1100px;
-  }
-`
+// const Image = styled(Img)`
+//   max-height: 300px;
+//   width: 100%;
+//   place-self: center center;
+//   @media only screen and (min-width: 990px) {
+//     width: 80%;
+//     max-height: 400px;
+//     justify-self: center;
+//   }
+//   @media only screen and (min-width: 1200px) {
+//     max-height: 500px;
+//     max-width: 1100px;
+//   }
+// `
 
 const PostContent = styled.div`
-  width: 100%;
+  max-width: 100vw;
   line-height: 1.5;
   font-size: 1em;
   padding: 32px 16px;
@@ -68,6 +68,7 @@ const PostContent = styled.div`
     font-size: 1.5em;
     margin: 0.5em 0;
     line-height: 1.2;
+    max-width: 100%;
   }
   p img {
     max-width: 100%;
@@ -78,17 +79,16 @@ const PostContent = styled.div`
     text-decoration: underline;
     color: var(--fontColor);
     transition: color 0.5s;
+    max-width: 100%;
   }
   p,
   ul {
     padding-bottom: 1em;
-  }
-  h2 {
+    max-width: 100%;
   }
   h2 img {
     width: 100vw;
     transform: translateX(-16px);
-    padding: 0;
   }
   @media only screen and (min-width: 600px) {
     padding: 32px 10%;
