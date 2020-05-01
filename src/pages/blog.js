@@ -67,7 +67,8 @@ const PostWrapper = styled.div`
     color: darkgrey;
   }
   @media only screen and (min-width: 760px) {
-    place-self: end stretch;
+    place-self: start stretch;
+    height: 100%;
   }
 `
 

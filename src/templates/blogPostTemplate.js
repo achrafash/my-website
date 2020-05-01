@@ -59,7 +59,7 @@ const Image = styled(Img)`
 
 const PostContent = styled.div`
   width: 100%;
-  line-height: 1.8;
+  line-height: 1.5;
   font-size: 1em;
   padding: 32px 16px;
   h3,
@@ -69,7 +69,7 @@ const PostContent = styled.div`
     margin: 0.5em 0;
     line-height: 1.2;
   }
-  img {
+  p img {
     max-width: 100%;
     padding: 24px;
     margin: 0 auto;
@@ -83,14 +83,28 @@ const PostContent = styled.div`
   ul {
     padding-bottom: 1em;
   }
+  h2 {
+  }
+  h2 img {
+    width: 100vw;
+    transform: translateX(-16px);
+    padding: 0;
+  }
   @media only screen and (min-width: 600px) {
-    width: 80%;
-    justify-self: center;
-    padding: 32px 0;
+    padding: 32px 10%;
+    h2 img {
+      transform: translateX(-10%);
+    }
   }
   @media only screen and (min-width: 990px) {
     max-width: 700px;
     justify-self: center;
+    padding: 32px 0;
+    h2 img {
+      width: 100%;
+      transform: translateX(0);
+      transition: width 0.5s;
+    }
   }
 `
 const PostSuggestion = styled.div`
