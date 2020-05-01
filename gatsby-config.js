@@ -40,8 +40,8 @@ module.exports = {
     {
       resolve: `gatsby-source-blogger`,
       options: {
-        apiKey: `AIzaSyB1jl_xTgtSz5UxcpX1OG2xgk4he_bbB9o`,
-        blogId: `8928922912299386998`,
+        apiKey: process.env.BLOGGER_API_KEY || `none`,
+        blogId: process.env.BLOGGER_BLOG_ID || `none`,
       },
     },
     `gatsby-plugin-mdx`,
