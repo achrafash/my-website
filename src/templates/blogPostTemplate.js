@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/Layout"
 import styled from "styled-components"
-import Img from "gatsby-image"
+// import Img from "gatsby-image"
 
 const PostWrapper = styled.section`
   display: grid;
@@ -150,7 +150,7 @@ export default ({ data, pageContext }) => {
       <PostWrapper>
         <PostTitle>{frontmatter.title}</PostTitle>
         <MetaPost>
-          {frontmatter.date} - {timeToRead} min read
+          {frontmatter.date} • {timeToRead} min read
         </MetaPost>
         <PostContent>
           <MDXRenderer>{body}</MDXRenderer>

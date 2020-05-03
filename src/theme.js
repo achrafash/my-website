@@ -1,8 +1,8 @@
 const darkTheme = {
   mainColor: "#2f3640",
-  secondaryColor: "#fbd759",
+  secondaryColor: "fbd759",
   bg: "#2f3640",
-  fontColor: "white",
+  fontColor: "#dfe4ea",
   fontNegativeColor: "black",
 }
 
