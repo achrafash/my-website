@@ -359,7 +359,7 @@ const IndexPage = () => {
       <Hero>
         <HeroCard>
           <h1>
-            React <span role="img">⚛️</span> Frontend Developer
+            React <span role="img">⚛️</span> Developer
             <br />
             Engineering Student living in Paris <span role="img">🗼</span>
           </h1>
