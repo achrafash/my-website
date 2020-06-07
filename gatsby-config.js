@@ -4,6 +4,7 @@ module.exports = {
     title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
     description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
+    siteURL: `http://www.achrafash.me`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
