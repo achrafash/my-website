@@ -456,7 +456,7 @@ const IndexPage = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://stark-savannah-46050.herokuapp.com/"
+                href="https://kindleshare.herokuapp.com/"
               >
                 Discover it now (id: test2@test.com | psw: test)
               </a>
