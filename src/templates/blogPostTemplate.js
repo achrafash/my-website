@@ -159,7 +159,7 @@ export default ({ data, pageContext }) => {
           {next === false ? null : (
             <>
               {next && (
-                <PostLink to={`{next.slug}`}>
+                <PostLink to={`blog/${next.slug}`}>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
                     {next.childMdx.frontmatter.date} •{" "}
