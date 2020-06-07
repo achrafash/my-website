@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 
 const NotFoundPage = () => {
-  // const [timer, setTimer] = useState(2000)
   useEffect(() => {
     const timer = setTimeout(() => {
       if (typeof window !== "undefined") {

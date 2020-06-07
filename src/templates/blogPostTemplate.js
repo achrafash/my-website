@@ -159,7 +159,7 @@ export default ({ data, pageContext }) => {
           {next === false ? null : (
             <>
               {next && (
-                <PostLink to={next.slug}>
+                <PostLink to={`{next.slug}`}>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
                     {next.childMdx.frontmatter.date} •{" "}
@@ -172,7 +172,7 @@ export default ({ data, pageContext }) => {
           {previous === false ? null : (
             <>
               {previous && (
-                <PostLink to={previous.slug}>
+                <PostLink to={`blog/${previous.slug}`}>
                   <h3>{previous.childMdx.frontmatter.title}</h3>
                   <small>
                     {previous.childMdx.frontmatter.date} •{" "}

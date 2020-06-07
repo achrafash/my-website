@@ -81,7 +81,7 @@ export default ({ data }) => {
         <BlogList>
           {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
             <PostWrapper key={id}>
-              <Link to={childMdx.frontmatter.slug}>
+              <Link to={`blog/${childMdx.frontmatter.slug}`}>
                 <h1>{childMdx.frontmatter.title}</h1>
                 <small>
                   {childMdx.frontmatter.date} • {childMdx.timeToRead} min read

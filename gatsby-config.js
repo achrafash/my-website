@@ -53,5 +53,6 @@ module.exports = {
         dark: require(`${__dirname}/src/theme.js`).darkTheme,
       },
     },
+    `gatsby-plugin-sitemap`,
   ],
 }

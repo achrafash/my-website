@@ -272,7 +272,7 @@ const Layout = withTheme(({ children, theme }) => {
       name: "Read",
     },
     {
-      path: "/blog",
+      path: "/blog/",
       name: "Blog",
     },
   ]
