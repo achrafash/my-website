@@ -75,12 +75,18 @@ module.exports = {
           {
             serialize: ({ query: { site, allBloggerPost } }) => {
               return allBloggerPost.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
+                return Object.assign({}, edge.node.childMdx.frontmatter, {
+                  description: edge.node.childMdx.excerpt,
+                  date: edge.node.childMdx.frontmatter.date,
+                  url:
+                    site.siteMetadata.siteUrl +
+                    edge.node.childMdx.frontmatter.slug,
+                  guid:
+                    site.siteMetadata.siteUrl +
+                    edge.node.childMdx.frontmatter.slug,
+                  custom_elements: [
+                    { "content:encoded": edge.node.childMdx.html },
+                  ],
                 })
               })
             },
