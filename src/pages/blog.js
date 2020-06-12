@@ -75,7 +75,10 @@ const PostWrapper = styled.div`
 export default ({ data }) => {
   return (
     <Layout>
-      <SEO title={"Achraf's Blog"} />
+      <SEO
+        title="Achraf's Blog"
+        description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
+      />
       <BlogSection>
         <BlogHeader>Achraf's Blog</BlogHeader>
         <BlogList>

@@ -144,7 +144,6 @@ const PostLink = styled(Link)`
 export default ({ data, pageContext }) => {
   const { timeToRead, body, frontmatter } = data.bloggerPost.childMdx
   const { previous, next } = pageContext
-  console.log(pageContext)
   return (
     <Layout>
       <PostWrapper>

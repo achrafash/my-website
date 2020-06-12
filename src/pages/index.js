@@ -355,7 +355,10 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Achraf ASH" />
+      <SEO
+        title="Achraf ASH"
+        description="French engineering student, maker, freelancer, looking to help you kickstart your activity with awesome websites, web apps and mobile apps."
+      />
       <Hero>
         <HeroCard>
           <h1>
