@@ -4,7 +4,7 @@ module.exports = {
     title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
     description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
-    siteUrl: `http://www.achrafash.me`,
+    siteUrl: `https://www.achrafash.me`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -114,6 +114,13 @@ module.exports = {
             title: "RSS Feed of Achraf's blog",
           },
         ],
+      },
+    },
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-react-helmet-canonical-urls`,
+      options: {
+        siteUrl: `https://www.achrafash.me`,
       },
     },
   ],

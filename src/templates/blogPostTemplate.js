@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/Layout"
 import styled from "styled-components"
+import SEO from "../components/seo"
 // import Img from "gatsby-image"
 
 const PostWrapper = styled.section`
@@ -142,10 +143,17 @@ const PostLink = styled(Link)`
 `
 
 export default ({ data, pageContext }) => {
-  const { timeToRead, body, frontmatter } = data.bloggerPost.childMdx
+  const post = data.bloggerPost.childMdx
+  const { timeToRead, body, frontmatter } = post
   const { previous, next } = pageContext
   return (
     <Layout>
+      <SEO
+        title={frontmatter.title}
+        description={post.excerpt}
+        keywords={data.bloggerPost.labels}
+        canonical={`https://achrafash.me/blog/${frontmatter.slug}`}
+      />
       <PostWrapper>
         <PostTitle>{frontmatter.title}</PostTitle>
         <MetaPost>
