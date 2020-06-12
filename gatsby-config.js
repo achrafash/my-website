@@ -85,23 +85,24 @@ module.exports = {
               })
             },
             query: `
-              {
-                allBloggerPost(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  edges {
-                    node {
+            {
+              allBloggerPost(sort: {order: DESC, fields: [childMdx___frontmatter___date]}) {
+                edges {
+                  node {
+                    childMdx {
                       excerpt
                       html
-                      fields { slug }
                       frontmatter {
                         title
+                        slug
                         date
                       }
                     }
                   }
                 }
               }
+            }
+            
             `,
             output: "/rss.xml",
             title: "RSS Feed of Achraf's blog",
