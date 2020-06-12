@@ -198,12 +198,15 @@ export default ({ data, pageContext }) => {
 export const query = graphql`
   query PostBySlug($slug: String!) {
     bloggerPost(childMdx: { frontmatter: { slug: { eq: $slug } } }) {
+      labels
       childMdx {
         timeToRead
         body
+        excerpt
         frontmatter {
           title
           date(formatString: "MMMM DD, YYYY")
+          slug
         }
       }
     }
