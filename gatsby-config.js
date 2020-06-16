@@ -1,4 +1,4 @@
-require("dotenv").config()
+require('dotenv').config()
 module.exports = {
   siteMetadata: {
     title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
@@ -22,7 +22,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'none',
       },
     },
     `gatsby-transformer-sharp`,
@@ -85,7 +85,7 @@ module.exports = {
                     site.siteMetadata.siteUrl +
                     edge.node.childMdx.frontmatter.slug,
                   custom_elements: [
-                    { "content:encoded": edge.node.childMdx.html },
+                    { 'content:encoded': edge.node.childMdx.html },
                   ],
                 })
               })
@@ -110,7 +110,7 @@ module.exports = {
             }
             
             `,
-            output: "/rss.xml",
+            output: '/rss.xml',
             title: "RSS Feed of Achraf's blog",
           },
         ],

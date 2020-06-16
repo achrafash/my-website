@@ -1,31 +1,51 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
-// import Img from "gatsby-image"
+import Header from "../components/Header"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
 
+export default ({ data }) => {
+  return (
+    <Layout>
+      <SEO
+        title="Achraf's Blog"
+        description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
+      />
+      <BlogSection>
+        <Header
+          title="A place for student makers, freelancers and entrepreneurs"
+          description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
+        />
+        <BlogList>
+          {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
+            <PostWrapper key={id}>
+              <Link to={`blog/${childMdx.frontmatter.slug}`}>
+                <h1>{childMdx.frontmatter.title}</h1>
+                <small>
+                  {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
+                </small>
+                <p>{childMdx.excerpt}</p>
+              </Link>
+            </PostWrapper>
+          ))}
+        </BlogList>
+      </BlogSection>
+    </Layout>
+  )
+}
+
 const BlogSection = styled.section`
   width: 100%;
   height: 100%;
-  padding: 40px 16px;
+  padding: 0 16px;
   @media only screen and (min-width: 600px) {
-    padding: 48px 32px;
+    padding: 0px 32px;
   }
   @media only screen and (min-width: 1200px) {
     max-width: 1600px;
     margin: 0 auto;
   }
-`
-const BlogHeader = styled.h2`
-  width: 100%;
-  font-size: 2.5em;
-  font-family: var(--prata);
-  text-align: center;
-  font-weight: lighter;
-  letter-spacing: 2px;
-  padding: 8px;
-  border-bottom: 2px solid rgb(232, 232, 232);
 `
 const BlogList = styled.div`
   width: 100%;
@@ -48,21 +68,20 @@ const BlogList = styled.div`
 const PostWrapper = styled.div`
   max-width: 100%;
   padding-bottom: 24px;
-  border-bottom: solid 1px lightgrey;
+  border-bottom: solid 1px white;
   h1 {
-    font-size: 1.2em;
+    font-family: var(--serif);
+    font-size: 1.5em;
     padding: 16px 0;
   }
-  a {
-    color: var(--fontColor);
-    transition: color 0.5s;
-  }
   p {
+    font-family: var(--sans-serif);
     padding: 8px 0;
     color: darkgrey;
     line-height: 1.5;
   }
   small {
+    font-family: var(--serif);
     text-transform: uppercase;
     color: darkgrey;
   }
@@ -71,33 +90,6 @@ const PostWrapper = styled.div`
     height: 100%;
   }
 `
-
-export default ({ data }) => {
-  return (
-    <Layout>
-      <SEO
-        title="Achraf's Blog"
-        description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
-      />
-      <BlogSection>
-        <BlogHeader>Achraf's Blog</BlogHeader>
-        <BlogList>
-          {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
-            <PostWrapper key={id}>
-              <Link to={`blog/${childMdx.frontmatter.slug}`}>
-                <h1>{childMdx.frontmatter.title}</h1>
-                <small>
-                  {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
-                </small>
-                <p>{childMdx.excerpt}</p>
-              </Link>
-            </PostWrapper>
-          ))}
-        </BlogList>
-      </BlogSection>
-    </Layout>
-  )
-}
 
 export const query = graphql`
   query {

@@ -1,10 +1,80 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import Layout from "../components/Layout"
-import styled from "styled-components"
-import SEO from "../components/seo"
-// import Img from "gatsby-image"
+import React from 'react'
+import { Link, graphql } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import Layout from '../components/Layout'
+import styled from 'styled-components'
+import SEO from '../components/seo'
+
+export default ({ data, pageContext }) => {
+  const post = data.bloggerPost.childMdx
+  const { timeToRead, body, frontmatter } = post
+  const { previous, next } = pageContext
+  return (
+    <Layout>
+      <SEO
+        title={frontmatter.title}
+        description={post.excerpt}
+        keywords={data.bloggerPost.labels}
+        canonical={`https://achrafash.me/blog/${frontmatter.slug}`}
+      />
+      <PostWrapper>
+        <PostTitle>{frontmatter.title}</PostTitle>
+        <MetaPost>
+          {frontmatter.date} • {timeToRead} min read
+        </MetaPost>
+        <PostContent>
+          <MDXRenderer>{body}</MDXRenderer>
+        </PostContent>
+        <PostSuggestion>
+          {next === false ? null : (
+            <>
+              {next && (
+                <PostLink to={`blog/${next.slug}`}>
+                  <h3>{next.childMdx.frontmatter.title}</h3>
+                  <small>
+                    {next.childMdx.frontmatter.date} •{' '}
+                    {next.childMdx.timeToRead} min read
+                  </small>
+                </PostLink>
+              )}
+            </>
+          )}
+          {previous === false ? null : (
+            <>
+              {previous && (
+                <PostLink to={`blog/${previous.slug}`}>
+                  <h3>{previous.childMdx.frontmatter.title}</h3>
+                  <small>
+                    {previous.childMdx.frontmatter.date} •{' '}
+                    {previous.childMdx.timeToRead} min read
+                  </small>
+                </PostLink>
+              )}
+            </>
+          )}
+        </PostSuggestion>
+      </PostWrapper>
+    </Layout>
+  )
+}
+
+export const query = graphql`
+  query PostBySlug($slug: String!) {
+    bloggerPost(childMdx: { frontmatter: { slug: { eq: $slug } } }) {
+      labels
+      childMdx {
+        timeToRead
+        body
+        excerpt
+        frontmatter {
+          title
+          date(formatString: "MMMM DD, YYYY")
+          slug
+        }
+      }
+    }
+  }
+`
 
 const PostWrapper = styled.section`
   display: grid;
@@ -15,6 +85,7 @@ const PostWrapper = styled.section`
 const PostTitle = styled.h1`
   width: 100%;
   padding: 16px;
+  font-family: var(--serif);
   font-size: 2.5em;
   text-transform: capitalize;
   border-bottom: 1px solid lightgrey;
@@ -43,26 +114,13 @@ const MetaPost = styled.small`
     justify-self: center;
   }
 `
-// const Image = styled(Img)`
-//   max-height: 300px;
-//   width: 100%;
-//   place-self: center center;
-//   @media only screen and (min-width: 990px) {
-//     width: 80%;
-//     max-height: 400px;
-//     justify-self: center;
-//   }
-//   @media only screen and (min-width: 1200px) {
-//     max-height: 500px;
-//     max-width: 1100px;
-//   }
-// `
 
 const PostContent = styled.div`
   max-width: 100vw;
   line-height: 1.5;
   font-size: 1em;
   padding: 32px 16px;
+  font-family: var(--sans-serif);
   h3,
   h2,
   h1 {
@@ -131,7 +189,7 @@ const PostLink = styled(Link)`
   display: grid;
   grid-template-columns: 1fr;
   h3 {
-    color: var(--fontColor);
+    font-family: var(--serif);
     transition: color 0.5s;
     font-size: 1.5em;
   }
@@ -139,76 +197,5 @@ const PostLink = styled(Link)`
     padding-top: 8px;
     text-transform: uppercase;
     color: darkgrey;
-  }
-`
-
-export default ({ data, pageContext }) => {
-  const post = data.bloggerPost.childMdx
-  const { timeToRead, body, frontmatter } = post
-  const { previous, next } = pageContext
-  return (
-    <Layout>
-      <SEO
-        title={frontmatter.title}
-        description={post.excerpt}
-        keywords={data.bloggerPost.labels}
-        canonical={`https://achrafash.me/blog/${frontmatter.slug}`}
-      />
-      <PostWrapper>
-        <PostTitle>{frontmatter.title}</PostTitle>
-        <MetaPost>
-          {frontmatter.date} • {timeToRead} min read
-        </MetaPost>
-        <PostContent>
-          <MDXRenderer>{body}</MDXRenderer>
-        </PostContent>
-        <PostSuggestion>
-          {next === false ? null : (
-            <>
-              {next && (
-                <PostLink to={`blog/${next.slug}`}>
-                  <h3>{next.childMdx.frontmatter.title}</h3>
-                  <small>
-                    {next.childMdx.frontmatter.date} •{" "}
-                    {next.childMdx.timeToRead} min read
-                  </small>
-                </PostLink>
-              )}
-            </>
-          )}
-          {previous === false ? null : (
-            <>
-              {previous && (
-                <PostLink to={`blog/${previous.slug}`}>
-                  <h3>{previous.childMdx.frontmatter.title}</h3>
-                  <small>
-                    {previous.childMdx.frontmatter.date} •{" "}
-                    {previous.childMdx.timeToRead} min read
-                  </small>
-                </PostLink>
-              )}
-            </>
-          )}
-        </PostSuggestion>
-      </PostWrapper>
-    </Layout>
-  )
-}
-
-export const query = graphql`
-  query PostBySlug($slug: String!) {
-    bloggerPost(childMdx: { frontmatter: { slug: { eq: $slug } } }) {
-      labels
-      childMdx {
-        timeToRead
-        body
-        excerpt
-        frontmatter {
-          title
-          date(formatString: "MMMM DD, YYYY")
-          slug
-        }
-      }
-    }
   }
 `
