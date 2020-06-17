@@ -6,6 +6,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
 import ProjectModal from "../components/ProjectModal"
+import EmailForm from "../components/EmailForm"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -116,17 +117,20 @@ const IndexPage = () => {
               <br />
               Maker.
             </h1>
+            <ContactButton
+              target="_blank"
+              href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
+            >
+              Say Hello
+            </ContactButton>
           </Fade>
         </HeroText>
-        <ContactButton
-          target="_blank"
-          href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
-        >
-          Say Hello
-        </ContactButton>
         <BackShape />
-
-        <HeroPic fluid={data.heroPic.childImageSharp.fluid} />
+        <HeroImage>
+          <Fade right>
+            <HeroPic fluid={data.heroPic.childImageSharp.fluid} />
+          </Fade>
+        </HeroImage>
       </Hero>
       <ProjectSection id="projects">
         {projects &&
@@ -142,6 +146,11 @@ const IndexPage = () => {
             />
           ))}
       </ProjectSection>
+      <EmailSection>
+        <Fade right>
+          <EmailForm />
+        </Fade>
+      </EmailSection>
     </Layout>
   )
 }
@@ -150,26 +159,23 @@ export default IndexPage
 const Hero = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 8px;
+  grid-template-columns: 1fr 3fr 1fr;
   padding: 24px 0;
   background-color: var(--mainColor);
   box-shadow: 0px 1px 2px var(--shadow);
   transition: background-color 0.5s, box-shadow 0.5s;
   @media only screen and (min-width: 990px) {
-    padding: 40px 2vw;
-  }
-  @media only screen and (min-width: 1200px) {
-    padding: 40px 5vw;
+    padding: 40px;
+    grid-template-columns: 1fr 1fr;
   }
 `
 const HeroText = styled.div`
-  grid-column: 3/12;
-  place-self: center start;
+  grid-column: 2;
   width: 100%;
   max-width: 500px;
+  max-height: 300px;
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 32px;
   padding: 24px 0;
   border-radius: 4px;
@@ -184,18 +190,19 @@ const HeroText = styled.div`
     font-size: 1.5em;
     font-style: italic;
   }
+  .react-reveal:last-child {
+    place-self: center start;
+  }
   @media only screen and (min-width: 990px) {
-    grid-column: 2/6;
-    place-self: stretch end;
+    grid-column: 1;
+    place-self: center end;
   }
 `
 const ContactButton = styled.a`
-  grid-column: 3/8;
-  place-self: center start;
-  width: 160px;
-  background: var(--black);
+  grid-row: 3;
+  background-color: var(--black);
   color: var(--fontNegativeColor);
-  padding: 8px 0;
+  padding: 8px;
   text-align: center;
   font-family: var(--sans-serif);
   font-size: 1.2em;
@@ -206,18 +213,21 @@ const ContactButton = styled.a`
     transition: 0.3s;
   }
   @media only screen and (min-width: 990px) {
-    grid-column: 2/6;
-    place-self: start start;
     padding: 16px;
   }
 `
 const ProjectSection = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  padding: 80px 16px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   max-width: 1600px;
   margin: 0 auto;
+  padding: 48px 16px;
+  @media only screen and (min-width: 990px) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 160px 16px 80px 16px;
+  }
 `
 
 const ProjectCard = ({
@@ -232,9 +242,11 @@ const ProjectCard = ({
 
   return (
     <ProjectThumbnail>
-      <Fade bottom onClick={() => setToggle(!toggle)}>
-        <Thumbnail fluid={thumbnail} />
-      </Fade>
+      <div onClick={() => setToggle(!toggle)}>
+        <Fade bottom>
+          <Thumbnail fluid={thumbnail} />
+        </Fade>
+      </div>
       <ProjectModal
         thumbnail={thumbnail}
         title={title}
@@ -250,21 +262,11 @@ const ProjectCard = ({
 }
 
 const ProjectThumbnail = styled.div`
-  grid-column: 1/13;
-  place-self: center center;
+  place-self: start center;
   width: 100%;
   max-width: 500px;
-  padding: 8px;
   a {
     transition: color 0.5s;
-  }
-  @media only screen and (min-width: 990px) {
-    grid-column: span 6;
-    align-self: stretch;
-  }
-  @media only screen and (min-width: 990px) {
-    grid-column: span 4;
-    align-self: stretch;
   }
 `
 
@@ -286,39 +288,55 @@ const Thumbnail = styled(Img)`
     transition: opacity 0.5s;
   }
 `
-const HeroPic = styled(Img)`
+const HeroImage = styled.div`
   display: none;
   @media only screen and (min-width: 990px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 1;
+  }
+`
+const HeroPic = styled(Img)`
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+  max-height: 400px;
+  max-width: 600px;
+  &::before {
+    content: "";
     display: block;
-    grid-column: 7/12;
-    grid-row: 1/3;
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      z-index: 10;
-      height: 100%;
-      width: 100%;
-      background: var(--carbon);
-      opacity: 0.5;
-      transition: opacity 0.5s;
-    }
-    &:hover::before {
-      opacity: 0.1;
-      transition: opacity 0.5s;
-    }
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    background: var(--carbon);
+    opacity: 0.5;
+    transition: opacity 0.5s;
+  }
+  &:hover::before {
+    opacity: 0.1;
+    transition: opacity 0.5s;
   }
 `
 const BackShape = styled.div`
   display: none;
   @media only screen and (min-width: 990px) {
-    grid-column: 7/12;
-    grid-row: 1/3;
     display: block;
+    grid-column: 2;
+    grid-row: 1;
     background: var(--coral);
     width: 100%;
-    height: 120%;
+    height: calc(100% + 2 * 80px);
     place-self: start start;
-    transform: translate(10%, -10%);
+    transform: translate(40px, -80px);
+  }
+`
+const EmailSection = styled.div`
+  @media only screen and (min-width: 990px) {
+    display: flex;
+    flex-driection: row;
+    justify-content: center;
+    padding: 16px;
   }
 `

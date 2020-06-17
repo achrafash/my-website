@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
+import EmailForm from "../components/EmailForm"
 
 export default ({ data }) => {
   return (
@@ -17,7 +18,11 @@ export default ({ data }) => {
           title="A place for student makers, freelancers and entrepreneurs"
           description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
         />
+
         <BlogList>
+          <EmailSection>
+            <EmailForm />
+          </EmailSection>
           {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
             <PostWrapper key={id}>
               <Link to={`blog/${childMdx.frontmatter.slug}`}>
@@ -45,6 +50,13 @@ const BlogSection = styled.section`
   @media only screen and (min-width: 1200px) {
     max-width: 1600px;
     margin: 0 auto;
+  }
+`
+const EmailSection = styled.div`
+  @media only screen and (min-width: 990px) {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
   }
 `
 const BlogList = styled.div`

@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Img from "gatsby-image"
 import { MdClose } from "react-icons/md"
+import Fade from "react-reveal/Fade"
 
 export default ({
   toggle,
@@ -13,23 +14,33 @@ export default ({
   description,
   link,
 }) => (
-  <Background toggle={toggle} setToggle={setToggle}>
+  <Background toggle={toggle}>
     <Close onClick={() => setToggle(!toggle)} />
-    <Container>
-      <Thumbnail fluid={thumbnail} />
-      <Images>
-        {images &&
-          images.map((image, index) => <Img key={index} fluid={image} />)}
-      </Images>
-      <Text>
-        <h3>{title}</h3>
-        <span>{subtitle}</span>
-        <p>{description}</p>
-        <a target="_blank" rel="noopener noreferrer" href={link}>
-          Check it live
-        </a>
-      </Text>
-    </Container>
+    <Modal>
+      <Fade top>
+        <Container>
+          <div style={{}}>
+            <Thumbnail fluid={thumbnail} />
+          </div>
+          <Text>
+            <h3>{title}</h3>
+            <span>{subtitle}</span>
+            <p>{description}</p>
+            <a target="_blank" rel="noopener noreferrer" href={link}>
+              Check it live
+            </a>
+          </Text>
+          <Images>
+            {images &&
+              images.map((image, index) => (
+                <div>
+                  <Img key={index} fluid={image} />
+                </div>
+              ))}
+          </Images>
+        </Container>
+      </Fade>
+    </Modal>
   </Background>
 )
 
@@ -46,10 +57,15 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
 `
+const Modal = styled.div`
+  width: 90%;
+  height: 90%;
+  position: relative;
+`
 const Container = styled.div`
   background-color: white;
-  width: 90%;
-  max-height: 90%;
+  width: 100%;
+  height: 90vh;
   padding: 24px;
   display: grid;
   grid-template-columns: 1fr;
@@ -63,7 +79,6 @@ const Close = styled(MdClose)`
   cursor: pointer;
   align-self: flex-end;
   font-size: 2em;
-  position: relative;
   transform: translateX(-100%);
   fill: var(--black);
   transition: fill 0.3s;
@@ -75,10 +90,6 @@ const Close = styled(MdClose)`
 const Thumbnail = styled(Img)`
   grid-column: 1;
   grid-row: 1;
-  @media only screen and (min-width: 990px) {
-    grid-column: 1;
-    grid-row: 1;
-  }
 `
 const Images = styled.div`
   grid-row: 3;
