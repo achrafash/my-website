@@ -11,7 +11,6 @@ import {
 } from "react-icons/io"
 import styled, { withTheme } from "styled-components"
 import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
-import { GlobalStyle } from "./GlobalStyle"
 import "../index.css"
 
 const Layout = withTheme(({ children, theme }) => {
@@ -36,7 +35,6 @@ const Layout = withTheme(({ children, theme }) => {
   ]
   return (
     <>
-      <GlobalStyle theme={theme} />
       <Helmet>
         <meta
           name="google-site-verification"

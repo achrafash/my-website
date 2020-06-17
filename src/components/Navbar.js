@@ -82,7 +82,7 @@ const NavLinks = styled.ul`
     transition: width linear 0.5s;
   }
   a:hover {
-    color: ${props => props.theme.fontNegativeColor};
+    color: var(--fontNegativeColor);
     transition: color 0.5s;
   }
   a:hover::after {

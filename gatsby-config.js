@@ -1,10 +1,10 @@
-require('dotenv').config()
+require("dotenv").config()
 module.exports = {
   siteMetadata: {
     title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
     description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
-    siteUrl: `https://www.achrafash.me`,
+    siteUrl: `https://achrafash.me`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -22,7 +22,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'none',
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
       },
     },
     `gatsby-transformer-sharp`,
@@ -47,13 +47,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-mdx`,
-    {
-      resolve: `gatsby-styled-components-dark-mode`,
-      options: {
-        light: require(`${__dirname}/src/theme.js`).lightTheme,
-        dark: require(`${__dirname}/src/theme.js`).darkTheme,
-      },
-    },
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-netlify`,
     {
@@ -85,7 +78,7 @@ module.exports = {
                     site.siteMetadata.siteUrl +
                     edge.node.childMdx.frontmatter.slug,
                   custom_elements: [
-                    { 'content:encoded': edge.node.childMdx.html },
+                    { "content:encoded": edge.node.childMdx.html },
                   ],
                 })
               })
@@ -110,7 +103,7 @@ module.exports = {
             }
             
             `,
-            output: '/rss.xml',
+            output: "/rss.xml",
             title: "RSS Feed of Achraf's blog",
           },
         ],
@@ -120,7 +113,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-react-helmet-canonical-urls`,
       options: {
-        siteUrl: `https://www.achrafash.me`,
+        siteUrl: `https://achrafash.me`,
       },
     },
   ],

@@ -1,9 +1,9 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import Layout from '../components/Layout'
-import styled from 'styled-components'
-import SEO from '../components/seo'
+import React from "react"
+import { Link, graphql } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import Layout from "../components/Layout"
+import styled from "styled-components"
+import SEO from "../components/seo"
 
 export default ({ data, pageContext }) => {
   const post = data.bloggerPost.childMdx
@@ -32,7 +32,7 @@ export default ({ data, pageContext }) => {
                 <PostLink to={`blog/${next.slug}`}>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
-                    {next.childMdx.frontmatter.date} •{' '}
+                    {next.childMdx.frontmatter.date} •{" "}
                     {next.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
@@ -45,7 +45,7 @@ export default ({ data, pageContext }) => {
                 <PostLink to={`blog/${previous.slug}`}>
                   <h3>{previous.childMdx.frontmatter.title}</h3>
                   <small>
-                    {previous.childMdx.frontmatter.date} •{' '}
+                    {previous.childMdx.frontmatter.date} •{" "}
                     {previous.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
@@ -135,10 +135,12 @@ const PostContent = styled.div`
     margin: 0 auto;
   }
   a {
-    text-decoration: underline;
-    color: var(--fontColor);
+    color: grey;
     transition: color 0.5s;
     max-width: 100%;
+  }
+  a:hover {
+    color: var(--link);
   }
   p,
   ul {

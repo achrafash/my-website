@@ -53,10 +53,17 @@ const BlogSection = styled.section`
   }
 `
 const EmailSection = styled.div`
-  @media only screen and (min-width: 990px) {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  @media only screen and (min-width: 820px) {
+    grid-column: span 1;
+  }
+  @media only screen and (min-width: 1200px) {
     grid-column: span 2;
-    display: flex;
-    justify-content: center;
+  }
+  @media only screen and (min-width: 1420px) {
+    grid-column: span 1;
   }
 `
 const BlogList = styled.div`

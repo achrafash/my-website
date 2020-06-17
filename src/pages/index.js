@@ -202,7 +202,7 @@ const ContactButton = styled.a`
   grid-row: 3;
   background-color: var(--black);
   color: var(--fontNegativeColor);
-  padding: 8px;
+  padding: 8px 16px;
   text-align: center;
   font-family: var(--sans-serif);
   font-size: 1.2em;
