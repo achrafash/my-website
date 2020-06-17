@@ -53,9 +53,12 @@ const BlogSection = styled.section`
   }
 `
 const EmailSection = styled.div`
-  grid-column: span 2;
+  grid-column: span 1;
   display: flex;
   justify-content: center;
+  @media only screen and (min-width: 760px) {
+    grid-column: span 2;
+  }
   @media only screen and (min-width: 820px) {
     grid-column: span 1;
   }

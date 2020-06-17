@@ -333,10 +333,10 @@ const BackShape = styled.div`
   }
 `
 const EmailSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   @media only screen and (min-width: 990px) {
-    display: flex;
-    flex-driection: row;
-    justify-content: center;
     padding: 16px;
   }
 `
