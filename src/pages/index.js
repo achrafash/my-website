@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import Fade from "react-reveal/Fade"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
@@ -102,18 +103,20 @@ const IndexPage = () => {
       />
       <Hero>
         <HeroText>
-          <h1>
-            Bonjour 👋
-            <br />
-            I'm Achraf Ait Sidi Hammou (ASH)
-          </h1>
-          <h1>
-            Student.
-            <br />
-            Freelance.
-            <br />
-            Maker.
-          </h1>
+          <Fade top>
+            <h1>
+              Bonjour 👋
+              <br />
+              I'm Achraf Ait Sidi Hammou (ASH)
+            </h1>
+            <h1>
+              Student.
+              <br />
+              Freelance.
+              <br />
+              Maker.
+            </h1>
+          </Fade>
         </HeroText>
         <ContactButton
           target="_blank"
@@ -122,6 +125,7 @@ const IndexPage = () => {
           Say Hello
         </ContactButton>
         <BackShape />
+
         <HeroPic fluid={data.heroPic.childImageSharp.fluid} />
       </Hero>
       <ProjectSection id="projects">
@@ -228,9 +232,9 @@ const ProjectCard = ({
 
   return (
     <ProjectThumbnail>
-      <div onClick={() => setToggle(!toggle)}>
+      <Fade bottom onClick={() => setToggle(!toggle)}>
         <Thumbnail fluid={thumbnail} />
-      </div>
+      </Fade>
       <ProjectModal
         thumbnail={thumbnail}
         title={title}
