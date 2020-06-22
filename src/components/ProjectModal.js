@@ -70,7 +70,12 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scroll-padding: 0;
   @media only screen and (min-width: 990px) {
     grid-template-columns: 1fr 1fr;
   }

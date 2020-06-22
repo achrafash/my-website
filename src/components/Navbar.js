@@ -1,16 +1,17 @@
-import React, { useState } from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
-import { IoIosMenu, IoMdClose } from "react-icons/io"
+import React, { useState } from "react";
+import { Link } from "gatsby";
+import styled from "styled-components";
+import { IoIosMenu, IoMdClose } from "react-icons/io";
+import NavIcon from "./Hamburger";
 
 export default ({ links, themeContext }) => {
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
   return (
     <NavContainer toggle={toggle}>
-      <Hamburger toggle={toggle} onClick={() => setToggle(!toggle)}>
-        <IoMdClose />
+      <NavIcon toggle={toggle} setToggle={setToggle} />
+      {/* <IoMdClose />
         <IoIosMenu />
-      </Hamburger>
+      </Hamburger> */}
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) => (
@@ -20,8 +21,8 @@ export default ({ links, themeContext }) => {
           ))}
       </NavLinks>
     </NavContainer>
-  )
-}
+  );
+};
 
 const NavContainer = styled.div`
   background-color: var(--background);
@@ -35,7 +36,7 @@ const NavContainer = styled.div`
   @media only screen and (min-width: 990px) {
     width: 200px;
   }
-`
+`;
 const NavLinks = styled.ul`
   grid-column: 1;
   justify-content: space-evenly;
@@ -46,7 +47,7 @@ const NavLinks = styled.ul`
     if (props.toggle)
       return `
         max-height: 240px;
-      `
+      `;
   }};
   transition: max-height 0.2s ease-out;
   display: flex;
@@ -99,7 +100,7 @@ const NavLinks = styled.ul`
       width: 100%;
     }
   }
-`
+`;
 const Hamburger = styled.div`
   grid-column: 1;
   justify-self: end;
@@ -127,4 +128,4 @@ const Hamburger = styled.div`
   @media only screen and (min-width: 990px) {
     display: none;
   }
-`
+`;
