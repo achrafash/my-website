@@ -12,7 +12,6 @@ const NavIcon = styled.div`
   justify-self: end;
   cursor: pointer;
   width: 30px;
-  /* overflow: hidden; */
   &:after,
   &:before,
   div {
@@ -27,17 +26,17 @@ const NavIcon = styled.div`
 
   &::before {
     transform: ${props =>
-      props.toggle ? `translateY(6px) rotate(-45deg)` : `none`};
+      props.toggle ? `translateY(6px) rotate(45deg)` : `none`};
   }
 
   &::after {
     transform: ${props =>
-      props.toggle ? `translateY(-6px) rotate(45deg)` : `none`};
+      props.toggle ? `translateY(-6px) rotate(-45deg)` : `none`};
   }
 
   div {
     transform: ${props =>
-      props.toggle ? `translateX(60px)` : `translateX(0)`};
+      props.toggle ? `translateX(-50px) scaleX(0)` : `none`};
   }
 
   @media only screen and (min-width: 990px) {
