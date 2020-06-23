@@ -1,12 +1,13 @@
-import React, { useState } from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-import Fade from "react-reveal/Fade"
-import Layout from "../components/Layout"
-import SEO from "../components/seo"
-import styled from "styled-components"
-import ProjectModal from "../components/ProjectModal"
-import EmailForm from "../components/EmailForm"
+import React, { useState } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import Img from 'gatsby-image'
+import { Link } from 'gatsby'
+import Fade from 'react-reveal/Fade'
+import Layout from '../components/Layout'
+import SEO from '../components/seo'
+import styled from 'styled-components'
+import ProjectModal from '../components/ProjectModal'
+import EmailForm from '../components/EmailForm'
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -62,37 +63,54 @@ const IndexPage = () => {
           }
         }
       }
+      allBloggerPost(
+        limit: 3
+        sort: { fields: childMdx___frontmatter___date, order: DESC }
+      ) {
+        nodes {
+          id
+          childMdx {
+            timeToRead
+            excerpt(pruneLength: 150)
+            frontmatter {
+              title
+              date(formatString: "MMMM DD, YYYY")
+              slug
+            }
+          }
+        }
+      }
     }
   `)
 
   const projects = [
     {
-      title: "France COVID API & Dashboard - April 2020",
-      subtitle: "GraphQL API & D3 Visualization",
+      title: 'France COVID API & Dashboard - April 2020',
+      subtitle: 'GraphQL API & D3 Visualization',
       thumbnail: data.covidThumbnail.childImageSharp.fluid,
       description:
-        "A GraphQL API for France COVID-19 data. I've added a React client to showcase what is possible to make with that API. I used D3.js for Data Visualization.",
-      link: "http://covidfranceapi.herokuapp.com",
+        "A GraphQL API for France COVID-19 images. I've added a React client to showcase what is possible to make with that API. I used D3.js for images Visualization.",
+      link: 'http://covidfranceapi.herokuapp.com',
     },
     {
-      title: "Flips - March 2020",
-      subtitle: "Fast & responsive Landing Page",
+      title: 'Flips - March 2020',
+      subtitle: 'Fast & responsive Landing Page',
       thumbnail: data.flipsThumbnail.childImageSharp.fluid,
       description:
         "This is my first real-case project. I've met these two amazing students at my school who are building this really cool app called Flips. The point is to match like-minded students at an event on a common interest.",
-      link: "https://flipsapp.fr",
+      link: 'https://flipsapp.fr',
       images: [
         data.flipsAbout.childImageSharp.fluid,
         data.flipsApp.childImageSharp.fluid,
       ],
     },
     {
-      title: "KindleShare - January 2020",
-      subtitle: "Web App",
+      title: 'KindleShare - January 2020',
+      subtitle: 'Web App',
       thumbnail: data.kindleshareThumbnail.childImageSharp.fluid,
       description:
         "My first project from scratch. This is a web app to: see your Kindle ebooks, browse through your Highlights, share your thoughts and highlights, explore inpiring people's libraries. Discover it now (id: test2@test.com | pwd: test)",
-      link: "http://kindleshare.herokuapp.com",
+      link: 'http://kindleshare.herokuapp.com',
     },
   ]
 
@@ -146,6 +164,19 @@ const IndexPage = () => {
             />
           ))}
       </ProjectSection>
+      <BlogSection>
+        {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
+          <PostWrapper key={id}>
+            <Link to={`blog/${childMdx.frontmatter.slug}`}>
+              <h1>{childMdx.frontmatter.title}</h1>
+              <small>
+                {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
+              </small>
+              <p>{childMdx.excerpt}</p>
+            </Link>
+          </PostWrapper>
+        ))}
+      </BlogSection>
       <EmailSection>
         <Fade right>
           <EmailForm />
@@ -165,7 +196,7 @@ const Hero = styled.section`
   box-shadow: 0px 1px 2px var(--shadow);
   transition: background-color 0.5s, box-shadow 0.5s;
   @media only screen and (min-width: 990px) {
-    padding: 40px;
+    padding: 40px 40px 120px 40px;
     grid-template-columns: 1fr 1fr;
   }
 `
@@ -218,18 +249,22 @@ const ContactButton = styled.a`
 `
 const ProjectSection = styled.section`
   width: 100%;
+  max-width: 1350px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  max-width: 1600px;
   margin: 0 auto;
-  padding: 48px 16px;
-  @media only screen and (min-width: 990px) {
+  padding: 16px;
+  border-top: solid 1px white;
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 40px 16px;
+  }
+  @media only screen and (min-width: 860px) {
+    padding: 40px;
     grid-template-columns: repeat(3, 1fr);
-    padding: 160px 16px 80px 16px;
   }
 `
-
 const ProjectCard = ({
   thumbnail,
   title,
@@ -273,7 +308,7 @@ const ProjectThumbnail = styled.div`
 const Thumbnail = styled(Img)`
   cursor: pointer;
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     z-index: 10;
@@ -304,7 +339,7 @@ const HeroPic = styled(Img)`
   max-height: 400px;
   max-width: 600px;
   &::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     z-index: 10;
@@ -333,10 +368,66 @@ const BackShape = styled.div`
   }
 `
 const EmailSection = styled.div`
+  padding: 40px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  @media only screen and (min-width: 990px) {
-    padding: 16px;
+`
+const BlogSection = styled.div`
+  width: 100%;
+  max-width: 1350px;
+  height: 100%;
+  padding: 16px;
+  margin: 0 auto;
+  border-bottom: solid 1px white;
+  border-top: solid 1px white;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  div:first-of-type {
+    background-color: var(--carbon);
+    p,
+    h1 {
+      color: white;
+    }
+    h1:hover {
+      color: var(--coral);
+    }
+  }
+  div:last-of-type {
+    background-color: white;
+  }
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 40px 16px;
+  }
+  @media only screen and (min-width: 860px) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 40px;
+  }
+`
+const PostWrapper = styled.div`
+  max-width: 100%;
+  padding: 32px;
+  h1 {
+    font-family: var(--serif);
+    font-size: 1.5em;
+    padding: 16px 0;
+  }
+  p {
+    font-family: var(--sans-serif);
+    font-weight: lighter;
+    padding: 8px 0;
+    color: black;
+    line-height: 1.5;
+  }
+  small {
+    font-family: var(--serif);
+    text-transform: uppercase;
+    color: darkgrey;
+  }
+  @media only screen and (min-width: 760px) {
+    place-self: start stretch;
+    height: 100%;
   }
 `

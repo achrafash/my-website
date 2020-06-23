@@ -1,9 +1,10 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import Layout from "../components/Layout"
-import styled from "styled-components"
-import SEO from "../components/seo"
+import React from 'react'
+import { Link, graphql } from 'gatsby'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import Layout from '../components/Layout'
+import styled from 'styled-components'
+import SEO from '../components/seo'
+import EmailForm from '../components/EmailForm'
 
 export default ({ data, pageContext }) => {
   const post = data.bloggerPost.childMdx
@@ -18,6 +19,7 @@ export default ({ data, pageContext }) => {
         canonical={`https://achrafash.me/blog/${frontmatter.slug}`}
       />
       <PostWrapper>
+        <Back to="/blog">{'<'} Back to Blog</Back>
         <PostTitle>{frontmatter.title}</PostTitle>
         <MetaPost>
           {frontmatter.date} • {timeToRead} min read
@@ -30,9 +32,10 @@ export default ({ data, pageContext }) => {
             <>
               {next && (
                 <PostLink to={`blog/${next.slug}`}>
+                  <p>{'<'} next post</p>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
-                    {next.childMdx.frontmatter.date} •{" "}
+                    {next.childMdx.frontmatter.date} •{' '}
                     {next.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
@@ -43,9 +46,10 @@ export default ({ data, pageContext }) => {
             <>
               {previous && (
                 <PostLink to={`blog/${previous.slug}`}>
+                  <p>previous post {'>'}</p>
                   <h3>{previous.childMdx.frontmatter.title}</h3>
                   <small>
-                    {previous.childMdx.frontmatter.date} •{" "}
+                    {previous.childMdx.frontmatter.date} •{' '}
                     {previous.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
@@ -54,6 +58,9 @@ export default ({ data, pageContext }) => {
           )}
         </PostSuggestion>
       </PostWrapper>
+      <EmailSection>
+        <EmailForm />
+      </EmailSection>
     </Layout>
   )
 }
@@ -80,7 +87,7 @@ const PostWrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  padding: 40px 0px;
+  padding: 40px 0 0 0;
 `
 const PostTitle = styled.h1`
   width: 100%;
@@ -114,7 +121,12 @@ const MetaPost = styled.small`
     justify-self: center;
   }
 `
-
+const Back = styled(Link)`
+  font-family: var(--sans-serif);
+  font-weight: lighter;
+  font-size: 0.8em;
+  padding: 0 0 16px 16px;
+`
 const PostContent = styled.div`
   max-width: 100vw;
   line-height: 1.5;
@@ -175,6 +187,13 @@ const PostSuggestion = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  p {
+    text-transform: none;
+    font-family: var(--sans-serif);
+    font-weight: lighter;
+    font-size: 0.8em;
+    padding: 8px;
+  }
   @media only screen and (min-width: 600px) {
     width: 80%;
     justify-self: center;
@@ -200,4 +219,9 @@ const PostLink = styled(Link)`
     text-transform: uppercase;
     color: darkgrey;
   }
+`
+const EmailSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `

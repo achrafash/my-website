@@ -1,10 +1,10 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-import Header from "../components/Header"
-import Layout from "../components/Layout"
-import SEO from "../components/seo"
-import styled from "styled-components"
-import EmailForm from "../components/EmailForm"
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import Header from '../components/Header'
+import Layout from '../components/Layout'
+import SEO from '../components/seo'
+import styled from 'styled-components'
+import EmailForm from '../components/EmailForm'
 
 export default ({ data }) => {
   return (
@@ -98,6 +98,7 @@ const PostWrapper = styled.div`
   }
   p {
     font-family: var(--sans-serif);
+    font-weight: lighter;
     padding: 8px 0;
     color: darkgrey;
     line-height: 1.5;

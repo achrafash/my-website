@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 
 export default ({ title, description }) => (
   <Container>
@@ -21,4 +21,5 @@ const Title = styled.h3`
 
 const Description = styled.p`
   font-family: var(--sans-serif);
+  font-weight: lighter;
 `
