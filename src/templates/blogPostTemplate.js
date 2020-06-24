@@ -133,6 +133,7 @@ const PostContent = styled.div`
   font-size: 1em;
   padding: 32px 16px;
   font-family: var(--sans-serif);
+  font-weight: lighter;
   h3,
   h2,
   h1 {
