@@ -43,6 +43,14 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
     "prettier": "^1.19.1"
   },
   "keywords": [
@@ -57,7 +65,8 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "prod": "gatsby clean && gatsby build && gatsby serve"
+    "prod": "gatsby clean && gatsby build && gatsby serve",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
