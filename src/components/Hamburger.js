@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 export default ({ toggle, setToggle }) => (
   <NavIcon toggle={toggle} onClick={() => setToggle(!toggle)}>
     <div />
   </NavIcon>
-)
+);
 
 const NavIcon = styled.div`
   grid-column: 1;
@@ -25,17 +25,14 @@ const NavIcon = styled.div`
   }
 
   &::before {
-    transform: ${props =>
-      props.toggle ? `translateY(6px) rotate(45deg)` : `none`};
+    transform: ${props => (props.toggle ? `translateY(6px) rotate(45deg)` : `none`)};
   }
 
   &::after {
-    transform: ${props =>
-      props.toggle ? `translateY(-6px) rotate(-45deg)` : `none`};
+    transform: ${props => (props.toggle ? `translateY(-6px) rotate(-45deg)` : `none`)};
   }
   div {
-    transform: ${props =>
-      props.toggle ? `translateX(-50px) scaleX(0) scaleY(3)` : `none`};
+    transform: ${props => (props.toggle ? `translateX(-50px) scaleX(0) scaleY(3)` : `none`)};
   }
   &:hover::after,
   &:hover::before,
@@ -46,4 +43,4 @@ const NavIcon = styled.div`
   @media only screen and (min-width: 990px) {
     display: none;
   }
-`
+`;

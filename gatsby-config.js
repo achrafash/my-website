@@ -1,10 +1,11 @@
-require("dotenv").config()
+require('dotenv').config();
+
 module.exports = {
   siteMetadata: {
     title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
     description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
-    siteUrl: `https://achrafash.me`,
+    siteUrl: `https://www.achrafash.me`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -16,14 +17,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
-      },
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'none'
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -36,15 +37,15 @@ module.exports = {
         background_color: `#2f3640`,
         theme_color: `#2f3640`,
         display: `minimal-ui`,
-        icon: `src/images/favicon.png`,
-      },
+        icon: `src/images/favicon.png`
+      }
     },
     {
       resolve: `gatsby-source-blogger`,
       options: {
         apiKey: process.env.BLOGGER_API_KEY || `none`,
-        blogId: process.env.BLOGGER_BLOG_ID || `none`,
-      },
+        blogId: process.env.BLOGGER_BLOG_ID || `none`
+      }
     },
     `gatsby-plugin-mdx`,
     `gatsby-plugin-sitemap`,
@@ -71,17 +72,11 @@ module.exports = {
                 return Object.assign({}, edge.node.childMdx.frontmatter, {
                   description: edge.node.childMdx.excerpt,
                   date: edge.node.childMdx.frontmatter.date,
-                  url:
-                    site.siteMetadata.siteUrl +
-                    edge.node.childMdx.frontmatter.slug,
-                  guid:
-                    site.siteMetadata.siteUrl +
-                    edge.node.childMdx.frontmatter.slug,
-                  custom_elements: [
-                    { "content:encoded": edge.node.childMdx.html },
-                  ],
-                })
-              })
+                  url: site.siteMetadata.siteUrl + edge.node.childMdx.frontmatter.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.childMdx.frontmatter.slug,
+                  custom_elements: [{ 'content:encoded': edge.node.childMdx.html }]
+                });
+              });
             },
             query: `
             {
@@ -103,18 +98,29 @@ module.exports = {
             }
             
             `,
-            output: "/rss.xml",
-            title: "RSS Feed of Achraf's blog",
-          },
-        ],
-      },
+            output: '/rss.xml',
+            title: "RSS Feed of Achraf's blog"
+          }
+        ]
+      }
     },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-react-helmet-canonical-urls`,
       options: {
-        siteUrl: `https://achrafash.me`,
-      },
+        siteUrl: `https://achrafash.me`
+      }
     },
-  ],
-}
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: 'https://www.achrafash.me',
+        sitemap: 'https://www.achrafash.me/sitemap.xml',
+        policy: [
+          { userAgent: '*', allow: '/' },
+          { userAgent: 'Googlebot-Image', disallow: ['/'] }
+        ]
+      }
+    }
+  ]
+};

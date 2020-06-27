@@ -1,10 +1,10 @@
-import React from 'react'
-import { graphql, Link } from 'gatsby'
-import Header from '../components/Header'
-import Layout from '../components/Layout'
-import SEO from '../components/seo'
-import styled from 'styled-components'
-import EmailForm from '../components/EmailForm'
+import React from 'react';
+import { graphql, Link } from 'gatsby';
+import Header from '../components/Header';
+import Layout from '../components/Layout';
+import SEO from '../components/seo';
+import styled from 'styled-components';
+import EmailForm from '../components/EmailForm';
 
 export default ({ data }) => {
   return (
@@ -37,8 +37,8 @@ export default ({ data }) => {
         </BlogList>
       </BlogSection>
     </Layout>
-  )
-}
+  );
+};
 
 const BlogSection = styled.section`
   width: 100%;
@@ -51,7 +51,7 @@ const BlogSection = styled.section`
     max-width: 1600px;
     margin: 0 auto;
   }
-`
+`;
 const EmailSection = styled.div`
   grid-column: span 1;
   display: flex;
@@ -68,7 +68,7 @@ const EmailSection = styled.div`
   @media only screen and (min-width: 1420px) {
     grid-column: span 1;
   }
-`
+`;
 const BlogList = styled.div`
   width: 100%;
   height: 100%;
@@ -86,7 +86,7 @@ const BlogList = styled.div`
   @media only screen and (min-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
   }
-`
+`;
 const PostWrapper = styled.div`
   max-width: 100%;
   padding-bottom: 24px;
@@ -112,13 +112,11 @@ const PostWrapper = styled.div`
     place-self: start stretch;
     height: 100%;
   }
-`
+`;
 
 export const query = graphql`
   query {
-    allBloggerPost(
-      sort: { fields: childMdx___frontmatter___date, order: DESC }
-    ) {
+    allBloggerPost(sort: { fields: childMdx___frontmatter___date, order: DESC }) {
       nodes {
         id
         childMdx {
@@ -133,4 +131,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

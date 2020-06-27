@@ -1,38 +1,33 @@
-import React, { useContext } from "react"
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
-import Navbar from "./Navbar"
-import { Helmet } from "react-helmet"
-import {
-  IoLogoTwitter,
-  IoLogoGithub,
-  IoLogoLinkedin,
-  IoMdMail,
-} from "react-icons/io"
-import styled, { withTheme } from "styled-components"
-import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
-import "../index.css"
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
+import Navbar from './Navbar';
+import { Helmet } from 'react-helmet';
+import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMdMail } from 'react-icons/io';
+import styled, { withTheme } from 'styled-components';
+import { ThemeManagerContext } from 'gatsby-styled-components-dark-mode';
+import '../index.css';
 
 const Layout = withTheme(({ children, theme }) => {
-  const themeContext = useContext(ThemeManagerContext)
+  const themeContext = useContext(ThemeManagerContext);
   const links = [
     {
-      path: "/",
-      name: "🏠 Home",
+      path: '/',
+      name: '🏠 Home'
     },
     {
-      path: "/#projects",
-      name: "🚀 Projects",
+      path: '/#projects',
+      name: '🚀 Projects'
     },
     {
-      path: "/lab",
-      name: "🔬 Lab",
+      path: '/lab',
+      name: '🔬 Lab'
     },
     {
-      path: "/blog",
-      name: "🗞 Blog",
-    },
-  ]
+      path: '/blog',
+      name: '🗞 Blog'
+    }
+  ];
   return (
     <>
       <Helmet>
@@ -75,11 +70,7 @@ const Layout = withTheme(({ children, theme }) => {
               </a>
             </li>
             <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://github.com/achrafash"
-              >
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/achrafash">
                 <IoLogoGithub />
               </a>
             </li>
@@ -95,19 +86,18 @@ const Layout = withTheme(({ children, theme }) => {
           </ul>
         </div>
         <small>
-          © {new Date().getFullYear()} - Built with <span role="img">❤️</span>{" "}
-          by Achraf ASH
+          © {new Date().getFullYear()} - Built with <span role="img">❤️</span> by Achraf ASH
         </small>
       </Footer>
     </>
-  )
-})
+  );
+});
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
-export default Layout
+export default Layout;
 
 const MainContainer = styled.main`
   margin: 0;
@@ -118,7 +108,7 @@ const MainContainer = styled.main`
   @media only screen and (min-width: 990px) {
     padding-left: 200px;
   }
-`
+`;
 
 const Footer = styled.footer`
   background-color: var(--white);
@@ -170,4 +160,4 @@ const Footer = styled.footer`
     grid-column: 2/12;
     width: 100%;
   }
-`
+`;

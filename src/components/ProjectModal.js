@@ -1,19 +1,10 @@
-import React from "react"
-import styled from "styled-components"
-import Img from "gatsby-image"
-import { MdClose } from "react-icons/md"
-import Fade from "react-reveal/Fade"
+import React from 'react';
+import styled from 'styled-components';
+import Img from 'gatsby-image';
+import { MdClose } from 'react-icons/md';
+import Fade from 'react-reveal/Fade';
 
-export default ({
-  toggle,
-  setToggle,
-  thumbnail,
-  images,
-  title,
-  subtitle,
-  description,
-  link,
-}) => (
+export default ({ toggle, setToggle, thumbnail, images, title, subtitle, description, link }) => (
   <Background toggle={toggle}>
     <Close onClick={() => setToggle(!toggle)} />
     <Modal>
@@ -42,7 +33,7 @@ export default ({
       </Fade>
     </Modal>
   </Background>
-)
+);
 
 const Background = styled.div`
   display: ${props => (props.toggle ? `flex` : `none`)};
@@ -56,12 +47,12 @@ const Background = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 const Modal = styled.div`
   width: 90%;
   height: 90%;
   position: relative;
-`
+`;
 const Container = styled.div`
   background-color: white;
   width: 100%;
@@ -79,7 +70,7 @@ const Container = styled.div`
   @media only screen and (min-width: 990px) {
     grid-template-columns: 1fr 1fr;
   }
-`
+`;
 const Close = styled(MdClose)`
   cursor: pointer;
   align-self: flex-end;
@@ -91,11 +82,11 @@ const Close = styled(MdClose)`
     fill: var(--coral);
     transition: 0.3s;
   }
-`
+`;
 const Thumbnail = styled(Img)`
   grid-column: 1;
   grid-row: 1;
-`
+`;
 const Images = styled.div`
   grid-row: 3;
   grid-column: 1;
@@ -105,7 +96,7 @@ const Images = styled.div`
   @media only screen and (min-width: 990px) {
     grid-row: 2;
   }
-`
+`;
 const Text = styled.div`
   grid-column: 1;
   grid-row: 2;
@@ -125,4 +116,4 @@ const Text = styled.div`
     grid-row: 1;
     padding: 0 24px;
   }
-`
+`;

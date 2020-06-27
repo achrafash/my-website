@@ -1,15 +1,15 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import Layout from '../components/Layout'
-import styled from 'styled-components'
-import SEO from '../components/seo'
-import EmailForm from '../components/EmailForm'
+import React from 'react';
+import { Link, graphql } from 'gatsby';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import Layout from '../components/Layout';
+import styled from 'styled-components';
+import SEO from '../components/seo';
+import EmailForm from '../components/EmailForm';
 
 export default ({ data, pageContext }) => {
-  const post = data.bloggerPost.childMdx
-  const { timeToRead, body, frontmatter } = post
-  const { previous, next } = pageContext
+  const post = data.bloggerPost.childMdx;
+  const { timeToRead, body, frontmatter } = post;
+  const { previous, next } = pageContext;
   return (
     <Layout>
       <SEO
@@ -35,8 +35,7 @@ export default ({ data, pageContext }) => {
                   <p>{'<'} next post</p>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
-                    {next.childMdx.frontmatter.date} •{' '}
-                    {next.childMdx.timeToRead} min read
+                    {next.childMdx.frontmatter.date} • {next.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
               )}
@@ -49,8 +48,7 @@ export default ({ data, pageContext }) => {
                   <p>previous post {'>'}</p>
                   <h3>{previous.childMdx.frontmatter.title}</h3>
                   <small>
-                    {previous.childMdx.frontmatter.date} •{' '}
-                    {previous.childMdx.timeToRead} min read
+                    {previous.childMdx.frontmatter.date} • {previous.childMdx.timeToRead} min read
                   </small>
                 </PostLink>
               )}
@@ -62,8 +60,8 @@ export default ({ data, pageContext }) => {
         <EmailForm />
       </EmailSection>
     </Layout>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query PostBySlug($slug: String!) {
@@ -81,14 +79,14 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 const PostWrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
   padding: 40px 0 0 0;
-`
+`;
 const PostTitle = styled.h1`
   width: 100%;
   padding: 16px;
@@ -107,7 +105,7 @@ const PostTitle = styled.h1`
     max-width: 800px;
     justify-self: center;
   }
-`
+`;
 const MetaPost = styled.small`
   padding: 16px;
   text-transform: uppercase;
@@ -120,13 +118,13 @@ const MetaPost = styled.small`
     max-width: 800px;
     justify-self: center;
   }
-`
+`;
 const Back = styled(Link)`
   font-family: var(--sans-serif);
   font-weight: lighter;
   font-size: 0.8em;
   padding: 0 0 16px 16px;
-`
+`;
 const PostContent = styled.div`
   max-width: 100vw;
   line-height: 1.5;
@@ -180,7 +178,7 @@ const PostContent = styled.div`
       transition: width 0.5s;
     }
   }
-`
+`;
 const PostSuggestion = styled.div`
   border-top: 1px solid lightgrey;
   padding: 40px 24px;
@@ -206,7 +204,7 @@ const PostSuggestion = styled.div`
     max-width: 800px;
     justify-self: center;
   }
-`
+`;
 const PostLink = styled(Link)`
   display: grid;
   grid-template-columns: 1fr;
@@ -220,9 +218,9 @@ const PostLink = styled(Link)`
     text-transform: uppercase;
     color: darkgrey;
   }
-`
+`;
 const EmailSection = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-`
+`;

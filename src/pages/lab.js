@@ -1,8 +1,8 @@
-import React from 'react'
-import Layout from '../components/Layout'
-import Header from '../components/Header'
-import SEO from '../components/seo'
-import styled from 'styled-components'
+import React from 'react';
+import Layout from '../components/Layout';
+import Header from '../components/Header';
+import SEO from '../components/seo';
+import styled from 'styled-components';
 
 export default () => {
   return (
@@ -17,12 +17,12 @@ export default () => {
       />
       <Container>coming soon...</Container>
     </Layout>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   padding: 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
   font-size: 0.8em;
-`
+`;

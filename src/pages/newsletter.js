@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import Layout from '../components/Layout'
-import SEO from '../components/seo'
-import Header from '../components/Header'
+import React from 'react';
+import styled from 'styled-components';
+import Layout from '../components/Layout';
+import SEO from '../components/seo';
+import Header from '../components/Header';
 
 export default () => (
   <Layout>
@@ -15,4 +15,4 @@ export default () => (
       description="I'll post here my weekly issues. Stay tuned for the newsletter coming really soon 😊"
     />
   </Layout>
-)
+);

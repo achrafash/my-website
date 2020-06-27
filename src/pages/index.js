@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import { Link } from 'gatsby'
-import Fade from 'react-reveal/Fade'
-import Layout from '../components/Layout'
-import SEO from '../components/seo'
-import styled from 'styled-components'
-import ProjectModal from '../components/ProjectModal'
-import EmailForm from '../components/EmailForm'
+import React, { useState } from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
+import { Link } from 'gatsby';
+import Fade from 'react-reveal/Fade';
+import Layout from '../components/Layout';
+import SEO from '../components/seo';
+import styled from 'styled-components';
+import ProjectModal from '../components/ProjectModal';
+import EmailForm from '../components/EmailForm';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -33,9 +33,7 @@ const IndexPage = () => {
           }
         }
       }
-      kindleshareThumbnail: file(
-        relativePath: { eq: "kindleshare_thumbnail.png" }
-      ) {
+      kindleshareThumbnail: file(relativePath: { eq: "kindleshare_thumbnail.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_tracedSVG
@@ -63,10 +61,7 @@ const IndexPage = () => {
           }
         }
       }
-      allBloggerPost(
-        limit: 3
-        sort: { fields: childMdx___frontmatter___date, order: DESC }
-      ) {
+      allBloggerPost(limit: 3, sort: { fields: childMdx___frontmatter___date, order: DESC }) {
         nodes {
           id
           childMdx {
@@ -81,7 +76,7 @@ const IndexPage = () => {
         }
       }
     }
-  `)
+  `);
 
   const projects = [
     {
@@ -90,7 +85,7 @@ const IndexPage = () => {
       thumbnail: data.covidThumbnail.childImageSharp.fluid,
       description:
         "A GraphQL API for France COVID-19 images. I've added a React client to showcase what is possible to make with that API. I used D3.js for images Visualization.",
-      link: 'http://covidfranceapi.herokuapp.com',
+      link: 'http://covidfranceapi.herokuapp.com'
     },
     {
       title: 'Flips - March 2020',
@@ -99,10 +94,7 @@ const IndexPage = () => {
       description:
         "This is my first real-case project. I've met these two amazing students at my school who are building this really cool app called Flips. The point is to match like-minded students at an event on a common interest.",
       link: 'https://flipsapp.fr',
-      images: [
-        data.flipsAbout.childImageSharp.fluid,
-        data.flipsApp.childImageSharp.fluid,
-      ],
+      images: [data.flipsAbout.childImageSharp.fluid, data.flipsApp.childImageSharp.fluid]
     },
     {
       title: 'KindleShare - January 2020',
@@ -110,9 +102,9 @@ const IndexPage = () => {
       thumbnail: data.kindleshareThumbnail.childImageSharp.fluid,
       description:
         "My first project from scratch. This is a web app to: see your Kindle ebooks, browse through your Highlights, share your thoughts and highlights, explore inpiring people's libraries. Discover it now (id: test2@test.com | pwd: test)",
-      link: 'http://kindleshare.herokuapp.com',
-    },
-  ]
+      link: 'http://kindleshare.herokuapp.com'
+    }
+  ];
 
   return (
     <Layout>
@@ -183,9 +175,9 @@ const IndexPage = () => {
         </Fade>
       </EmailSection>
     </Layout>
-  )
-}
-export default IndexPage
+  );
+};
+export default IndexPage;
 
 const Hero = styled.section`
   width: 100%;
@@ -199,7 +191,7 @@ const Hero = styled.section`
     padding: 40px 40px 120px 40px;
     grid-template-columns: 1fr 1fr;
   }
-`
+`;
 const HeroText = styled.div`
   grid-column: 2;
   width: 100%;
@@ -228,7 +220,7 @@ const HeroText = styled.div`
     grid-column: 1;
     place-self: center end;
   }
-`
+`;
 const ContactButton = styled.a`
   grid-row: 3;
   background-color: var(--black);
@@ -246,7 +238,7 @@ const ContactButton = styled.a`
   @media only screen and (min-width: 990px) {
     padding: 16px;
   }
-`
+`;
 const ProjectSection = styled.section`
   width: 100%;
   max-width: 1350px;
@@ -264,16 +256,9 @@ const ProjectSection = styled.section`
     padding: 40px;
     grid-template-columns: repeat(3, 1fr);
   }
-`
-const ProjectCard = ({
-  thumbnail,
-  title,
-  subtitle,
-  images,
-  description,
-  link,
-}) => {
-  const [toggle, setToggle] = useState(false)
+`;
+const ProjectCard = ({ thumbnail, title, subtitle, images, description, link }) => {
+  const [toggle, setToggle] = useState(false);
 
   return (
     <ProjectThumbnail>
@@ -293,8 +278,8 @@ const ProjectCard = ({
         setToggle={setToggle}
       />
     </ProjectThumbnail>
-  )
-}
+  );
+};
 
 const ProjectThumbnail = styled.div`
   place-self: start center;
@@ -303,7 +288,7 @@ const ProjectThumbnail = styled.div`
   a {
     transition: color 0.5s;
   }
-`
+`;
 
 const Thumbnail = styled(Img)`
   cursor: pointer;
@@ -322,7 +307,7 @@ const Thumbnail = styled(Img)`
     opacity: 0.1;
     transition: opacity 0.5s;
   }
-`
+`;
 const HeroImage = styled.div`
   display: none;
   @media only screen and (min-width: 990px) {
@@ -331,7 +316,7 @@ const HeroImage = styled.div`
     grid-column: 2;
     grid-row: 1;
   }
-`
+`;
 const HeroPic = styled(Img)`
   display: block;
   grid-column: 1;
@@ -353,7 +338,7 @@ const HeroPic = styled(Img)`
     opacity: 0.1;
     transition: opacity 0.5s;
   }
-`
+`;
 const BackShape = styled.div`
   display: none;
   @media only screen and (min-width: 990px) {
@@ -366,13 +351,13 @@ const BackShape = styled.div`
     place-self: start start;
     transform: translate(40px, -80px);
   }
-`
+`;
 const EmailSection = styled.div`
   padding: 40px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
-`
+`;
 const BlogSection = styled.div`
   width: 100%;
   max-width: 1350px;
@@ -405,7 +390,7 @@ const BlogSection = styled.div`
     grid-template-columns: repeat(3, 1fr);
     padding: 40px;
   }
-`
+`;
 const PostWrapper = styled.div`
   max-width: 100%;
   padding: 32px;
@@ -430,4 +415,4 @@ const PostWrapper = styled.div`
     place-self: start stretch;
     height: 100%;
   }
-`
+`;

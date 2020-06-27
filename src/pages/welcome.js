@@ -1,7 +1,7 @@
-import React from 'react'
-import Layout from '../components/Layout'
-import Header from '../components/Header'
-import styled from 'styled-components'
+import React from 'react';
+import Layout from '../components/Layout';
+import Header from '../components/Header';
+import styled from 'styled-components';
 
 export default () => (
   <Layout>
@@ -11,11 +11,7 @@ export default () => (
     />
     <Container>
       And while you here you might as well check me over on Twitter{' '}
-      <a
-        href="https://twitter.com/achrafnotashraf"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://twitter.com/achrafnotashraf" target="_blank" rel="noopener noreferrer">
         @achrafnotashraf
       </a>{' '}
       and on Youtube{' '}
@@ -28,11 +24,11 @@ export default () => (
       </a>
     </Container>
   </Layout>
-)
+);
 
 const Container = styled.div`
   padding: 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
   font-size: 0.8em;
-`
+`;

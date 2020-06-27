@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "gatsby";
-import styled from "styled-components";
-import { IoIosMenu, IoMdClose } from "react-icons/io";
-import NavIcon from "./Hamburger";
+import React, { useState } from 'react';
+import { Link } from 'gatsby';
+import styled from 'styled-components';
+import { IoIosMenu, IoMdClose } from 'react-icons/io';
+import NavIcon from './Hamburger';
 
 export default ({ links, themeContext }) => {
   const [toggle, setToggle] = useState(false);
@@ -53,7 +53,7 @@ const NavLinks = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  visibility: ${props => (props.toggle ? "visible" : "hidden")};
+  visibility: ${props => (props.toggle ? 'visible' : 'hidden')};
   overflow: hidden;
   a {
     padding: 8px;
@@ -70,7 +70,7 @@ const NavLinks = styled.ul`
     transition: color 1s 0.2s;
   }
   a::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     height: 100%;
