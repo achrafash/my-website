@@ -1,8 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import SEO from '../components/seo';
-import styled from 'styled-components';
 
 export default () => {
   return (
@@ -21,8 +22,8 @@ export default () => {
 };
 
 const Container = styled.div`
+  min-height: 30vh;
   padding: 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
-  font-size: 0.8em;
 `;

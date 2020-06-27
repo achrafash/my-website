@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { IoIosMenu, IoMdClose } from 'react-icons/io';
-import NavIcon from './Hamburger';
+import Hamburger from './Hamburger';
 
-export default ({ links, themeContext }) => {
+export default ({ links }) => {
   const [toggle, setToggle] = useState(false);
   return (
     <NavContainer toggle={toggle}>
-      <NavIcon toggle={toggle} setToggle={setToggle} />
-      {/* <IoMdClose />
-        <IoIosMenu />
-      </Hamburger> */}
+      <Hamburger toggle={toggle} setToggle={setToggle} />
       <NavLinks toggle={toggle}>
         {links &&
           links.map((link, index) => (
@@ -99,33 +95,5 @@ const NavLinks = styled.ul`
       padding: 8px;
       width: 100%;
     }
-  }
-`;
-const Hamburger = styled.div`
-  grid-column: 1;
-  justify-self: end;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: var(--fontColor);
-  transition: color 0.5s;
-  outline: none;
-  display: grid;
-  align-items: center;
-  svg {
-    grid-column: 1;
-    grid-row: 1;
-    opacity: 1;
-    transition: opacity ease-in-out 0.3s;
-  }
-  svg:nth-child(1) {
-    opacity: ${props => (props.toggle ? 1 : 0)};
-  }
-  svg:nth-child(2) {
-    opacity: ${props => (props.toggle ? 0 : 1)};
-  }
-  @media only screen and (min-width: 990px) {
-    display: none;
   }
 `;

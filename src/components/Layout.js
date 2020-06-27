@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import Navbar from './Navbar';
 import { Helmet } from 'react-helmet';
 import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMdMail } from 'react-icons/io';
 import styled, { withTheme } from 'styled-components';
 import { ThemeManagerContext } from 'gatsby-styled-components-dark-mode';
+
+import Navbar from './Navbar';
 import '../index.css';
 
-const Layout = withTheme(({ children, theme }) => {
+const Layout = withTheme(({ children }) => {
   const themeContext = useContext(ThemeManagerContext);
   const links = [
     {
@@ -18,6 +19,10 @@ const Layout = withTheme(({ children, theme }) => {
     {
       path: '/#projects',
       name: '🚀 Projects'
+    },
+    {
+      path: '/about',
+      name: '👨‍ About'
     },
     {
       path: '/lab',
@@ -86,7 +91,10 @@ const Layout = withTheme(({ children, theme }) => {
           </ul>
         </div>
         <small>
-          © {new Date().getFullYear()} - Built with <span role="img">❤️</span> by Achraf ASH
+          {`© `}
+          {new Date().getFullYear()}
+          {` - `}
+          Built with ❤️ by Achraf ASH
         </small>
       </Footer>
     </>

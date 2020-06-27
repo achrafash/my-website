@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default ({ toggle, setToggle }) => (
-  <NavIcon toggle={toggle} onClick={() => setToggle(!toggle)}>
+  <Hamburger toggle={toggle} onClick={() => setToggle(!toggle)}>
     <div />
-  </NavIcon>
+  </Hamburger>
 );
 
-const NavIcon = styled.div`
+const Hamburger = styled.div`
   grid-column: 1;
   justify-self: end;
   cursor: pointer;
