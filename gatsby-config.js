@@ -2,10 +2,10 @@ require('dotenv').config();
 
 module.exports = {
   siteMetadata: {
-    title: `Frontend Freelance, Junior Entrepreneur & Engineering Student`,
+    title: `Web & Mobile Freelancer, Indie Maker & Engineering Student @ ENSTA Paris`,
     description: `Boost your activity with an authentic website.`,
     author: `@achrafash`,
-    siteUrl: `https://www.achrafash.me`
+    siteUrl: `https://achrafash.me`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -17,7 +17,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
+        path: `${__dirname}/src/images/`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/src/posts/`
       }
     },
     {
@@ -31,8 +38,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Achraf ASH`,
-        short_name: `Achraf ASH`,
+        name: `Achraf Ait Sidi Hammou`,
+        short_name: `achrafash`,
         start_url: `/`,
         background_color: `#2f3640`,
         theme_color: `#2f3640`,
@@ -47,7 +54,14 @@ module.exports = {
         blogId: process.env.BLOGGER_BLOG_ID || `none`
       }
     },
-    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: {
+          posts: require.resolve('./src/templates/PostLayout')
+        }
+      }
+    },
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-netlify`,
     {
@@ -114,8 +128,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        host: 'https://www.achrafash.me',
-        sitemap: 'https://www.achrafash.me/sitemap.xml',
+        host: 'https:/achrafash.me',
+        sitemap: 'https://achrafash.me/sitemap.xml',
         policy: [
           { userAgent: '*', allow: '/' },
           { userAgent: 'Googlebot-Image', disallow: ['/'] }
