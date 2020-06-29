@@ -1,9 +1,10 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import styled from 'styled-components';
+
 import Header from '../components/Header';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import styled from 'styled-components';
 import EmailForm from '../components/EmailForm';
 
 export default ({ data }) => {
@@ -18,11 +19,10 @@ export default ({ data }) => {
           title="A place for student makers, freelancers and entrepreneurs"
           description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
         />
-
         <BlogList>
-          <EmailSection>
+          {/* <EmailSection>
             <EmailForm />
-          </EmailSection>
+          </EmailSection> */}
           {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
             <PostWrapper key={id}>
               <Link to={`blog/${childMdx.frontmatter.slug}`}>

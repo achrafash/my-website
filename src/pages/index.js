@@ -61,6 +61,13 @@ const IndexPage = () => {
           }
         }
       }
+      picture: file(relativePath: { eq: "AGP.png" }) {
+        childImageSharp {
+          fixed(height: 100) {
+            ...GatsbyImageSharpFixed_tracedSVG
+          }
+        }
+      }
       allBloggerPost(limit: 3, sort: { fields: childMdx___frontmatter___date, order: DESC }) {
         nodes {
           id
@@ -110,7 +117,7 @@ const IndexPage = () => {
     <Layout>
       <SEO
         title="Achraf ASH"
-        description="French engineering student, maker, freelancer, looking to help you kickstart your activity with awesome websites, web apps and mobile apps."
+        description="French engineering student, freelance, maker, looking to help you kickstart your activity with awesome websites, web apps and mobile apps."
       />
       <Hero>
         <HeroText>
@@ -127,10 +134,7 @@ const IndexPage = () => {
               <br />
               Maker.
             </h1>
-            <ContactButton
-              target="_blank"
-              href="mailto:aitsidihammou.achraf@gmail.com?subject=Hello"
-            >
+            <ContactButton target="_blank" href="mailto:aitsidihammou.achraf@gmail.com">
               Say Hello
             </ContactButton>
           </Fade>
@@ -142,6 +146,22 @@ const IndexPage = () => {
           </Fade>
         </HeroImage>
       </Hero>
+      <AboutSection>
+        <Fade bottom>
+          <PictureThumbnail>
+            <Img fixed={data.picture.childImageSharp.fixed} />
+          </PictureThumbnail>
+          <p>
+            Hi there! My name is Achraf Ait Sidi Hammou (
+            <a href="https://twitter.com/achrafnotashraf">@achrafash</a>), I'm a french 🇫🇷
+            engineering student at ENSTA Paris.
+            <br />
+            My goal is to become an Étudiant Slasheur, i.e cumulating several activities:
+            <br />
+            <strong>Student/Freelance/IndieMaker</strong>
+          </p>
+        </Fade>
+      </AboutSection>
       <ProjectSection id="projects">
         {projects &&
           projects.map((project, index) => (
@@ -168,12 +188,13 @@ const IndexPage = () => {
             </Link>
           </PostWrapper>
         ))}
+        <ReadMore to="/blog">Read More</ReadMore>
       </BlogSection>
-      <EmailSection>
+      {/* <EmailSection>
         <Fade right>
           <EmailForm />
         </Fade>
-      </EmailSection>
+      </EmailSection> */}
     </Layout>
   );
 };
@@ -211,7 +232,6 @@ const HeroText = styled.div`
   h1:last-child {
     font-family: var(--serif);
     font-size: 1.5em;
-    font-style: italic;
   }
   .react-reveal:last-child {
     place-self: center start;
@@ -237,6 +257,38 @@ const ContactButton = styled.a`
   }
   @media only screen and (min-width: 990px) {
     padding: 16px;
+  }
+`;
+const PictureThumbnail = styled.div`
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  display: flex;
+  border: 4px solid var(--coral);
+  margin-bottom: 24px;
+`;
+const AboutSection = styled.section`
+  width: 100%;
+  max-width: 1350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 16px;
+  border-top: solid 1px white;
+  @media only screen and (min-width: 700px) {
+    padding: 40px 16px;
+  }
+  @media only screen and (min-width: 860px) {
+    padding: 40px;
+  }
+  p {
+    font-family: var(--sans-serif);
+    font-weight: lighter;
+    text-align: center;
+    line-height: 1.5;
   }
 `;
 const ProjectSection = styled.section`
@@ -352,19 +404,18 @@ const BackShape = styled.div`
     transform: translate(40px, -80px);
   }
 `;
-const EmailSection = styled.div`
-  padding: 40px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
+// const EmailSection = styled.div`
+//   padding: 40px 0;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+// `;
 const BlogSection = styled.div`
   width: 100%;
   max-width: 1350px;
   height: 100%;
   padding: 16px;
   margin: 0 auto;
-  border-bottom: solid 1px white;
   border-top: solid 1px white;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -414,5 +465,27 @@ const PostWrapper = styled.div`
   @media only screen and (min-width: 760px) {
     place-self: start stretch;
     height: 100%;
+  }
+`;
+const ReadMore = styled(Link)`
+  grid-column: 1;
+  place-self: center center;
+  background-color: var(--black);
+  color: var(--fontNegativeColor);
+  padding: 8px 16px;
+  text-align: center;
+  font-family: var(--sans-serif);
+  font-size: 1.2em;
+  transition: background 0.3s;
+  &:hover {
+    background: var(--coral);
+    color: var(--fontNegativeColor);
+    transition: 0.3s;
+  }
+  @media only screen and (min-width: 700px) {
+    grid-column: span 2;
+  }
+  @media only screen and (min-width: 860px) {
+    grid-column: span 3;
   }
 `;

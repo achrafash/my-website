@@ -15,11 +15,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
+  max-width: 1200px;
   font-family: var(--serif);
   font-size: 2em;
 `;
 
 const Description = styled.p`
+  max-width: 1200px;
   font-family: var(--sans-serif);
   font-weight: lighter;
 `;

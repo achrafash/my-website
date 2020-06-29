@@ -25,15 +25,16 @@ export default () => (
           <a href="https://twitter.com/achrafnotashraf">@achrafnotashraf</a>
         </li>
         <li>
-          on my <Link to="/">newsletter</Link> every Sunday. I share the behind-the-scenes of
-          growing an online business as a student.
+          on
+          {` `}
+          <a href="https://linkedin.com/in/achraf-aitsidihammou">Linkedin</a>
         </li>
         <li>
           on Youtube{' '}
           <a href="https://www.youtube.com/channel/UCEr3keCyAOz9AIoty_awezw">
             Startup from scratch
-          </a>
-          , I release a new video every week
+          </a>{' '}
+          (I'm just starting so it's a bit embarrassing 😬)
         </li>
       </ul>
     </Container>
@@ -44,4 +45,5 @@ const Container = styled.div`
   padding: 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
+  min-height: 30vh;
 `;

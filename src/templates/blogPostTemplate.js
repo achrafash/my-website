@@ -56,9 +56,9 @@ export default ({ data, pageContext }) => {
           )}
         </PostSuggestion>
       </PostWrapper>
-      <EmailSection>
+      {/* <EmailSection>
         <EmailForm />
-      </EmailSection>
+      </EmailSection> */}
     </Layout>
   );
 };
@@ -124,6 +124,9 @@ const Back = styled(Link)`
   font-weight: lighter;
   font-size: 0.8em;
   padding: 0 0 16px 16px;
+  width: 100%;
+  max-width: 800px;
+  justify-self: center;
 `;
 const PostContent = styled.div`
   max-width: 100vw;
