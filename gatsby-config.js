@@ -23,8 +23,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `posts`,
-        path: `${__dirname}/src/posts/`
+        name: `blog`,
+        path: `${__dirname}/src/pages/blog/`
       }
     },
     {
@@ -47,6 +47,7 @@ module.exports = {
         icon: `src/images/favicon.png`
       }
     },
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-source-blogger`,
       options: {
@@ -55,11 +56,10 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-mdx`,
       options: {
-        defaultLayouts: {
-          posts: require.resolve('./src/templates/PostLayout')
-        }
+        extensions: ['.mdx', '.md'],
+        defaultLayout: require.resolve('./src/templates/markdownTemplate.js')
       }
     },
     `gatsby-plugin-sitemap`,

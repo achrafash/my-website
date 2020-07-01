@@ -31,7 +31,7 @@ exports.createPages = ({ actions, graphql }) => {
       const previous = index === post.length - 1 ? null : posts[index + 1];
       const next = index === 0 ? null : posts[index - 1];
       createPage({
-        path: `blog/${post.slug}`,
+        path: `archive/${post.slug}`,
         component: blogPostTemplate,
         context: {
           slug: post.slug,

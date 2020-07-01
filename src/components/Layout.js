@@ -29,7 +29,7 @@ const Layout = withTheme(({ children }) => {
       name: '🔬 Lab'
     },
     {
-      path: '/blog',
+      path: '/blog/',
       name: '🗞 Blog'
     }
   ];

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import Layout from '../components/Layout';
 import styled from 'styled-components';
+
+import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import EmailForm from '../components/EmailForm';
 
 export default ({ data, pageContext }) => {
   const post = data.bloggerPost.childMdx;
@@ -16,10 +16,10 @@ export default ({ data, pageContext }) => {
         title={frontmatter.title}
         description={post.excerpt}
         keywords={data.bloggerPost.labels}
-        canonical={`https://achrafash.me/blog/${frontmatter.slug}`}
+        canonical={`https://achrafash.me/archive/${frontmatter.slug}`}
       />
       <PostWrapper>
-        <Back to="/blog">{'<'} Back to Blog</Back>
+        <Back to="/archive">{'<'} Back to Blog</Back>
         <PostTitle>{frontmatter.title}</PostTitle>
         <MetaPost>
           {frontmatter.date} • {timeToRead} min read
@@ -31,7 +31,7 @@ export default ({ data, pageContext }) => {
           {next === false ? null : (
             <>
               {next && (
-                <PostLink to={`blog/${next.slug}`}>
+                <PostLink to={`archive/${next.slug}`}>
                   <p>{'<'} next post</p>
                   <h3>{next.childMdx.frontmatter.title}</h3>
                   <small>
@@ -44,7 +44,7 @@ export default ({ data, pageContext }) => {
           {previous === false ? null : (
             <>
               {previous && (
-                <PostLink to={`blog/${previous.slug}`}>
+                <PostLink to={`archive/${previous.slug}`}>
                   <p>previous post {'>'}</p>
                   <h3>{previous.childMdx.frontmatter.title}</h3>
                   <small>
@@ -56,9 +56,6 @@ export default ({ data, pageContext }) => {
           )}
         </PostSuggestion>
       </PostWrapper>
-      {/* <EmailSection>
-        <EmailForm />
-      </EmailSection> */}
     </Layout>
   );
 };
@@ -221,9 +218,4 @@ const PostLink = styled(Link)`
     text-transform: uppercase;
     color: darkgrey;
   }
-`;
-const EmailSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 `;

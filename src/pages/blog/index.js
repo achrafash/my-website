@@ -2,10 +2,9 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import Layout from '../components/Layout';
-import SEO from '../components/seo';
-import EmailForm from '../components/EmailForm';
+import Header from '../../components/Header';
+import Layout from '../../components/Layout';
+import SEO from '../../components/seo';
 
 export default ({ data }) => {
   return (
@@ -20,17 +19,14 @@ export default ({ data }) => {
           description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
         />
         <BlogList>
-          {/* <EmailSection>
-            <EmailForm />
-          </EmailSection> */}
-          {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
-            <PostWrapper key={id}>
-              <Link to={`blog/${childMdx.frontmatter.slug}`}>
-                <h1>{childMdx.frontmatter.title}</h1>
+          {data.allMdx.edges.map(({ node }) => (
+            <PostWrapper key={node.id}>
+              <Link to={`blog/${node.frontmatter.slug}`}>
+                <h1>{node.frontmatter.title}</h1>
                 <small>
-                  {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
+                  {node.frontmatter.date} • {node.timeToRead} min read
                 </small>
-                <p>{childMdx.excerpt}</p>
+                <p>{node.excerpt}</p>
               </Link>
             </PostWrapper>
           ))}
@@ -50,23 +46,6 @@ const BlogSection = styled.section`
   @media only screen and (min-width: 1200px) {
     max-width: 1600px;
     margin: 0 auto;
-  }
-`;
-const EmailSection = styled.div`
-  grid-column: span 1;
-  display: flex;
-  justify-content: center;
-  @media only screen and (min-width: 760px) {
-    grid-column: span 2;
-  }
-  @media only screen and (min-width: 820px) {
-    grid-column: span 1;
-  }
-  @media only screen and (min-width: 1200px) {
-    grid-column: span 2;
-  }
-  @media only screen and (min-width: 1420px) {
-    grid-column: span 1;
   }
 `;
 const BlogList = styled.div`
@@ -114,18 +93,19 @@ const PostWrapper = styled.div`
   }
 `;
 
-export const query = graphql`
-  query {
-    allBloggerPost(sort: { fields: childMdx___frontmatter___date, order: DESC }) {
-      nodes {
-        id
-        childMdx {
+export const postQuery = graphql`
+  query blogIndex {
+    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+      edges {
+        node {
+          id
+          excerpt
           timeToRead
-          excerpt(pruneLength: 250)
           frontmatter {
-            title
-            date(formatString: "MMMM DD, YYYY")
             slug
+            title
+            author
+            date(fromNow: true)
           }
         }
       }

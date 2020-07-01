@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
-import { Link } from 'gatsby';
 import Fade from 'react-reveal/Fade';
+import styled from 'styled-components';
+
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
-import styled from 'styled-components';
 import ProjectModal from '../components/ProjectModal';
-import EmailForm from '../components/EmailForm';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
