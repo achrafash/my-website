@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
@@ -10,7 +10,14 @@ export default ({ data, pageContext }) => {
   const post = data.mdx;
   const { timeToRead, body, frontmatter } = post;
   const { previous, next } = pageContext;
-  console.log(frontmatter.tags);
+  const [claps, setClaps] = useState(12);
+
+  const clapHandler = e => {
+    e.preventDefault();
+    setClaps(claps + 1);
+    // add a +1 / +2 ... => requires memoization!
+  };
+
   return (
     <Layout>
       <SEO
@@ -27,6 +34,14 @@ export default ({ data, pageContext }) => {
         </MetaPost>
         <PostContent>
           <MDXRenderer>{body}</MDXRenderer>
+          <br />
+          {frontmatter.tags.map(tag => (
+            <Tag>{tag}</Tag>
+          ))}
+          <Claps>
+            <button onClick={clapHandler}>👏</button>
+            {claps} claps
+          </Claps>
         </PostContent>
         <PostSuggestion>
           {next === false ? null : (
@@ -218,5 +233,34 @@ const PostLink = styled(Link)`
     padding-top: 8px;
     text-transform: uppercase;
     color: darkgrey;
+  }
+`;
+const Tag = styled.span`
+  background-color: var(--coral);
+  color: white;
+  font-family: var(--sans-serif);
+  font-size: 0.8em;
+  font-weight: lighter;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin-right: 6px;
+`;
+
+const Claps = styled.div`
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+  button {
+    outline: 0;
+    height: 50px;
+    width: 50px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px lightgrey;
+    background-color: white;
+    cursor: pointer;
+    margin-right: 6px;
   }
 `;

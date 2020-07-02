@@ -82,6 +82,7 @@ module.exports = {
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
+                  category: node.frontmatter.tags,
                   custom_elements: [{ 'content:encoded': node.html }]
                 };
               });
