@@ -29,7 +29,7 @@ const Layout = withTheme(({ children }) => {
       name: '🔬 Lab'
     },
     {
-      path: '/blog/',
+      path: '/blog',
       name: '🗞 Blog'
     }
   ];
@@ -163,9 +163,19 @@ const Footer = styled.footer`
   small {
     font-family: var(--sans-serif);
     text-transform: uppercase;
+    text-align: center;
     font-size: 0.8em;
     padding: 24px 0 0 0;
     grid-column: 2/12;
     width: 100%;
+  }
+  @media only screen and (min-width: 990px) {
+    .navigation ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      max-width: 400px;
+      margin: 0 0 0 auto;
+    }
   }
 `;

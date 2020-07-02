@@ -13,6 +13,7 @@ module.exports = {
     `babel-plugin-styled-components`,
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-offline`,
+    `gatsby-plugin-mdx`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -23,8 +24,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `blog`,
-        path: `${__dirname}/src/pages/blog/`
+        name: `posts`,
+        path: `${__dirname}/src/posts/`
       }
     },
     {
@@ -47,19 +48,11 @@ module.exports = {
         icon: `src/images/favicon.png`
       }
     },
-    `gatsby-plugin-mdx`,
-    {
-      resolve: `gatsby-source-blogger`,
-      options: {
-        apiKey: process.env.BLOGGER_API_KEY || `none`,
-        blogId: process.env.BLOGGER_BLOG_ID || `none`
-      }
-    },
     {
       resolve: `gatsby-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
-        defaultLayout: require.resolve('./src/templates/markdownTemplate.js')
+        defaultLayout: require.resolve('./src/templates/blogPostTemplate.js')
       }
     },
     `gatsby-plugin-sitemap`,
@@ -81,30 +74,32 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allBloggerPost } }) => {
-              return allBloggerPost.edges.map(edge => {
-                return Object.assign({}, edge.node.childMdx.frontmatter, {
-                  description: edge.node.childMdx.excerpt,
-                  date: edge.node.childMdx.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.childMdx.frontmatter.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.childMdx.frontmatter.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.childMdx.html }]
-                });
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.edges.map(({ node }) => {
+                return {
+                  ...node.frontmatter,
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
+                  custom_elements: [{ 'content:encoded': node.html }]
+                };
               });
             },
             query: `
             {
-              allBloggerPost(sort: {order: DESC, fields: [childMdx___frontmatter___date]}) {
+              allMdx(sort: { fields: [frontmatter___date], order: DESC}) {
                 edges {
                   node {
-                    childMdx {
-                      excerpt
-                      html
-                      frontmatter {
-                        title
-                        slug
-                        date
-                      }
+                    excerpt(pruneLength: 250)
+                    html
+                    frontmatter {
+                      title
+                      date
+                      tags
+                    }
+                    fields {
+                      slug
                     }
                   }
                 }
@@ -113,7 +108,7 @@ module.exports = {
             
             `,
             output: '/rss.xml',
-            title: "RSS Feed of Achraf's blog"
+            title: 'Achraf ASH | Engineering Student/Freelance/Maker'
           }
         ]
       }

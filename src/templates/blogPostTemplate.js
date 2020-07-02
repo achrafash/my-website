@@ -7,19 +7,20 @@ import Layout from '../components/Layout';
 import SEO from '../components/seo';
 
 export default ({ data, pageContext }) => {
-  const post = data.bloggerPost.childMdx;
+  const post = data.mdx;
   const { timeToRead, body, frontmatter } = post;
   const { previous, next } = pageContext;
+  console.log(frontmatter.tags);
   return (
     <Layout>
       <SEO
         title={frontmatter.title}
         description={post.excerpt}
-        keywords={data.bloggerPost.labels}
-        canonical={`https://achrafash.me/archive/${frontmatter.slug}`}
+        keywords={frontmatter.tags}
+        canonical={`https://achrafash.me/blog${post.fields.slug}`}
       />
       <PostWrapper>
-        <Back to="/archive">{'<'} Back to Blog</Back>
+        <Back to="/blog">{'<'} Back to Blog</Back>
         <PostTitle>{frontmatter.title}</PostTitle>
         <MetaPost>
           {frontmatter.date} • {timeToRead} min read
@@ -31,11 +32,11 @@ export default ({ data, pageContext }) => {
           {next === false ? null : (
             <>
               {next && (
-                <PostLink to={`archive/${next.slug}`}>
+                <PostLink to={`blog${next.fields.slug}`}>
                   <p>{'<'} next post</p>
-                  <h3>{next.childMdx.frontmatter.title}</h3>
+                  <h3>{next.frontmatter.title}</h3>
                   <small>
-                    {next.childMdx.frontmatter.date} • {next.childMdx.timeToRead} min read
+                    {next.frontmatter.date} • {next.timeToRead} min read
                   </small>
                 </PostLink>
               )}
@@ -44,11 +45,11 @@ export default ({ data, pageContext }) => {
           {previous === false ? null : (
             <>
               {previous && (
-                <PostLink to={`archive/${previous.slug}`}>
+                <PostLink to={`blog${previous.fields.slug}`}>
                   <p>previous post {'>'}</p>
-                  <h3>{previous.childMdx.frontmatter.title}</h3>
+                  <h3>{previous.frontmatter.title}</h3>
                   <small>
-                    {previous.childMdx.frontmatter.date} • {previous.childMdx.timeToRead} min read
+                    {previous.frontmatter.date} • {previous.timeToRead} min read
                   </small>
                 </PostLink>
               )}
@@ -61,18 +62,18 @@ export default ({ data, pageContext }) => {
 };
 
 export const query = graphql`
-  query PostBySlug($slug: String!) {
-    bloggerPost(childMdx: { frontmatter: { slug: { eq: $slug } } }) {
-      labels
-      childMdx {
-        timeToRead
-        body
-        excerpt
-        frontmatter {
-          title
-          date(formatString: "MMMM DD, YYYY")
-          slug
-        }
+  query MyQuery($slug: String!) {
+    mdx(fields: { slug: { eq: $slug } }) {
+      timeToRead
+      body
+      excerpt(pruneLength: 250)
+      frontmatter {
+        date(fromNow: true)
+        title
+        tags
+      }
+      fields {
+        slug
       }
     }
   }
@@ -129,7 +130,7 @@ const PostContent = styled.div`
   max-width: 100vw;
   line-height: 1.5;
   font-size: 1em;
-  padding: 32px 16px;
+  padding: 0px 16px 32px 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
   h3,
@@ -163,7 +164,7 @@ const PostContent = styled.div`
     transform: translateX(-16px);
   }
   @media only screen and (min-width: 600px) {
-    padding: 32px 10%;
+    padding: 0 10% 32px 10%;
     h2 img {
       transform: translateX(-10%);
     }
@@ -171,7 +172,7 @@ const PostContent = styled.div`
   @media only screen and (min-width: 990px) {
     max-width: 700px;
     justify-self: center;
-    padding: 32px 0;
+    padding: 0 0 32px 0;
     h2 img {
       width: 100%;
       transform: translateX(0);

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
@@ -6,35 +7,61 @@ import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import SEO from '../../components/seo';
 
-export default ({ data }) => {
-  return (
-    <Layout>
-      <SEO
-        title="Achraf's Blog"
-        description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
+export default ({ data }) => (
+  <Layout>
+    <SEO
+      title="Achraf's Blog"
+      description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
+    />
+    <BlogSection>
+      <Header
+        title="A place for student makers, freelancers and entrepreneurs"
+        description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
       />
-      <BlogSection>
-        <Header
-          title="A place for student makers, freelancers and entrepreneurs"
-          description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
-        />
-        <BlogList>
-          {data.allMdx.edges.map(({ node }) => (
-            <PostWrapper key={node.id}>
-              <Link to={`blog/${node.frontmatter.slug}`}>
-                <h1>{node.frontmatter.title}</h1>
-                <small>
-                  {node.frontmatter.date} • {node.timeToRead} min read
-                </small>
-                <p>{node.excerpt}</p>
-              </Link>
-            </PostWrapper>
-          ))}
-        </BlogList>
-      </BlogSection>
-    </Layout>
-  );
-};
+      {/* <div>
+        {data.allMdx.edges.map(({ node }) => node.frontmatter.tags.map(tag => <Tag>{tag}</Tag>))}
+      </div> */}
+      <BlogList>
+        {data.allMdx.edges.map(({ node }) => (
+          <PostWrapper key={node.id}>
+            <Link to={`/blog/${node.fields.slug}`}>
+              <h1>{node.frontmatter.title}</h1>
+              <small>
+                {node.frontmatter.date} • {node.timeToRead} min read •{' '}
+                {node.frontmatter.tags.map(tag => (
+                  <Tag>{tag}</Tag>
+                ))}
+              </small>
+              <p>{node.excerpt}</p>
+            </Link>
+          </PostWrapper>
+        ))}
+      </BlogList>
+    </BlogSection>
+  </Layout>
+);
+
+export const postQuery = graphql`
+  query blogIndex {
+    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+      edges {
+        node {
+          id
+          excerpt
+          timeToRead
+          frontmatter {
+            title
+            tags
+            date(fromNow: true)
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
 
 const BlogSection = styled.section`
   width: 100%;
@@ -93,22 +120,13 @@ const PostWrapper = styled.div`
   }
 `;
 
-export const postQuery = graphql`
-  query blogIndex {
-    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-      edges {
-        node {
-          id
-          excerpt
-          timeToRead
-          frontmatter {
-            slug
-            title
-            author
-            date(fromNow: true)
-          }
-        }
-      }
-    }
-  }
+const Tag = styled.span`
+  background-color: var(--coral);
+  color: white;
+  font-family: var(--sans-serif);
+  font-size: 0.8em;
+  font-weight: lighter;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin-right: 6px;
 `;

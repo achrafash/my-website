@@ -9,11 +9,11 @@ export default () => (
   <Layout>
     <seo
       title="About Achraf ASH"
-      description="I'm a French Engineering Student at ENSTA Paris. I'd love to become and indie maker on my spare time. In the mean time I try to grow a freelance business in web and mobile development."
+      description="I'm a French Engineering Student at ENSTA Paris. I'd love to become and indie maker on my spare time. In the meantime I try to grow a freelance business in web and mobile development."
     />
     <Header
       title="About Me"
-      description="I'm a French Engineering Student at ENSTA Paris. I'd love to become and indie maker on my spare time. In the mean time I try to grow a freelance business in web and mobile development."
+      description="I'm a French Engineering Student at ENSTA Paris. I'd love to become and indie maker on my spare time. In the meantime I try to grow a freelance business in web and mobile development."
     />
     <Container>
       Check me out:
@@ -28,13 +28,13 @@ export default () => (
           {` `}
           <a href="https://linkedin.com/in/achraf-aitsidihammou">Linkedin</a>
         </li>
-        <li>
+        {/* <li>
           on Youtube{' '}
           <a href="https://www.youtube.com/channel/UCEr3keCyAOz9AIoty_awezw">
             Startup from scratch
           </a>{' '}
           (I'm just starting so it's a bit embarrassing 😬)
-        </li>
+        </li> */}
       </ul>
     </Container>
   </Layout>

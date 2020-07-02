@@ -67,15 +67,18 @@ const IndexPage = () => {
           }
         }
       }
-      allBloggerPost(limit: 3, sort: { fields: childMdx___frontmatter___date, order: DESC }) {
-        nodes {
-          id
-          childMdx {
+      allMdx(limit: 3, sort: { fields: frontmatter___date, order: DESC }) {
+        edges {
+          node {
+            id
+            excerpt
             timeToRead
-            excerpt(pruneLength: 150)
             frontmatter {
               title
-              date(formatString: "MMMM DD, YYYY")
+              author
+              date(fromNow: true)
+            }
+            fields {
               slug
             }
           }
@@ -146,7 +149,7 @@ const IndexPage = () => {
         </HeroImage>
       </Hero>
       <AboutSection>
-        <Fade bottom>
+        <Fade right>
           <PictureThumbnail>
             <Img fixed={data.picture.childImageSharp.fixed} />
           </PictureThumbnail>
@@ -155,7 +158,7 @@ const IndexPage = () => {
             <a href="https://twitter.com/achrafnotashraf">@achrafash</a>), I'm a french 🇫🇷
             engineering student at ENSTA Paris.
             <br />
-            My goal is to become an Étudiant Slasheur, i.e cumulating several activities:
+            My goal is to become a Slasheur, i.e cumulating several activities:
             <br />
             <strong>Student/Freelance/IndieMaker</strong>
           </p>
@@ -176,24 +179,23 @@ const IndexPage = () => {
           ))}
       </ProjectSection>
       <BlogSection>
-        {data.allBloggerPost.nodes.map(({ id, childMdx }) => (
-          <PostWrapper key={id}>
-            <Link to={`blog/${childMdx.frontmatter.slug}`}>
-              <h1>{childMdx.frontmatter.title}</h1>
-              <small>
-                {childMdx.frontmatter.date} • {childMdx.timeToRead} min read
-              </small>
-              <p>{childMdx.excerpt}</p>
-            </Link>
-          </PostWrapper>
-        ))}
+        {data.allMdx.edges.map(({ node }, index) => {
+          return (
+            <Fade bottom key={node.id}>
+              <Link to={`blog/${node.fields.slug}`}>
+                <PostWrapper index={index}>
+                  <h1>{node.frontmatter.title}</h1>
+                  <small>
+                    {node.frontmatter.date} • {node.timeToRead} min read
+                  </small>
+                  <p>{node.excerpt}</p>
+                </PostWrapper>
+              </Link>
+            </Fade>
+          );
+        })}
         <ReadMore to="/blog">Read More</ReadMore>
       </BlogSection>
-      {/* <EmailSection>
-        <Fade right>
-          <EmailForm />
-        </Fade>
-      </EmailSection> */}
     </Layout>
   );
 };
@@ -403,12 +405,6 @@ const BackShape = styled.div`
     transform: translate(40px, -80px);
   }
 `;
-// const EmailSection = styled.div`
-//   padding: 40px 0;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-// `;
 const BlogSection = styled.div`
   width: 100%;
   max-width: 1350px;
@@ -419,19 +415,6 @@ const BlogSection = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 16px;
-  div:first-of-type {
-    background-color: var(--carbon);
-    p,
-    h1 {
-      color: white;
-    }
-    h1:hover {
-      color: var(--coral);
-    }
-  }
-  div:last-of-type {
-    background-color: white;
-  }
   @media only screen and (min-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
     padding: 40px 16px;
@@ -441,9 +424,17 @@ const BlogSection = styled.div`
     padding: 40px;
   }
 `;
+
 const PostWrapper = styled.div`
+  background-color: ${props =>
+    props.index === 0 ? `var(--carbon)` : props.index === 1 ? `var(--coral)` : `white`};
+  p,
+  h1 {
+    color: ${props => (props.index === 2 ? `black` : `white`)};
+  }
   max-width: 100%;
   padding: 32px;
+  cursor: pointer;
   h1 {
     font-family: var(--serif);
     font-size: 1.5em;
@@ -453,13 +444,12 @@ const PostWrapper = styled.div`
     font-family: var(--sans-serif);
     font-weight: lighter;
     padding: 8px 0;
-    color: black;
     line-height: 1.5;
   }
   small {
     font-family: var(--serif);
     text-transform: uppercase;
-    color: darkgrey;
+    color: grey;
   }
   @media only screen and (min-width: 760px) {
     place-self: start stretch;
