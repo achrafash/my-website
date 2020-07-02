@@ -28,13 +28,13 @@ export default () => (
           {` `}
           <a href="https://linkedin.com/in/achraf-aitsidihammou">Linkedin</a>
         </li>
-        {/* <li>
+        {/*<li>
           on Youtube{' '}
           <a href="https://www.youtube.com/channel/UCEr3keCyAOz9AIoty_awezw">
             Startup from scratch
           </a>{' '}
           (I'm just starting so it's a bit embarrassing 😬)
-        </li> */}
+        </li>*/}
       </ul>
     </Container>
   </Layout>
