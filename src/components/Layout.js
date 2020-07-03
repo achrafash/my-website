@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMdMail } from 'react-icons/io';
-import styled, { withTheme } from 'styled-components';
-import { ThemeManagerContext } from 'gatsby-styled-components-dark-mode';
+import styled from 'styled-components';
 
 import Navbar from './Navbar';
 import '../index.css';
 
-const Layout = withTheme(({ children }) => {
-  const themeContext = useContext(ThemeManagerContext);
+const Layout = ({ children }) => {
   const links = [
     {
       path: '/',
@@ -41,7 +39,7 @@ const Layout = withTheme(({ children }) => {
           content="I0evl492iQy9Riwn26U7cL2B0LchCQC7N2niZRXr5HE"
         />
       </Helmet>
-      <Navbar links={links} themeContext={themeContext} />
+      <Navbar links={links} />
       <MainContainer>{children}</MainContainer>
       <Footer>
         <div className="navigation">
@@ -99,7 +97,7 @@ const Layout = withTheme(({ children }) => {
       </Footer>
     </>
   );
-});
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired

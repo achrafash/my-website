@@ -1,48 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from 'styled-components';
+import firebase from 'gatsby-plugin-firebase';
 
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 
 export default ({ data, pageContext }) => {
   const post = data.mdx;
-  const { timeToRead, body, frontmatter } = post;
+  const slug = post.fields.slug;
   const { previous, next } = pageContext;
-  const [claps, setClaps] = useState(12);
+  const [claps, setClaps] = useState(0);
   const [newClaps, setNewClaps] = useState(0);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('claps')
+      .doc(slug)
+      .get()
+      .then(res => {
+        if (!res.data()) {
+          console.log('No matching document');
+        } else {
+          setClaps(res.data().claps);
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   const clapHandler = e => {
     e.preventDefault();
     setClaps(claps + 1);
     setNewClaps(newClaps + 1);
-    // add a +1 / +2 ... => requires memoization!
+
+    firebase
+      .firestore()
+      .collection('claps')
+      .doc(slug)
+      .set({ claps: claps + 1 })
+      .catch(err => console.log(err));
   };
 
   return (
     <Layout>
       <SEO
-        title={frontmatter.title}
+        title={post.frontmatter.title}
         description={post.excerpt}
-        keywords={frontmatter.tags}
+        keywords={post.frontmatter.tags}
         canonical={`https://achrafash.me/blog${post.fields.slug}`}
       />
       <PostWrapper>
         <Back to="/blog">{'<'} Back to Blog</Back>
-        <PostTitle>{frontmatter.title}</PostTitle>
+        <PostTitle>{post.frontmatter.title}</PostTitle>
         <MetaPost>
-          {frontmatter.date} • {timeToRead} min read
+          {post.frontmatter.date} • {post.timeToRead} min read
         </MetaPost>
         <PostContent>
-          <MDXRenderer>{body}</MDXRenderer>
+          <MDXRenderer>{post.body}</MDXRenderer>
           <br />
-          {frontmatter.tags.map(tag => (
-            <Tag>{tag}</Tag>
+          {post.frontmatter.tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
           ))}
           <Claps newClaps={newClaps}>
-            <button onClick={clapHandler}>👏</button>
-            {claps} claps
+            <button onClick={clapHandler}>👏</button> {claps} claps
           </Claps>
         </PostContent>
         <PostSuggestion>
@@ -257,37 +279,37 @@ const Tag = styled.span`
 const Claps = styled.div`
   padding-top: 24px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   font-size: 0.8em;
   position: relative;
   button {
     outline: 0;
-    height: 50px;
-    width: 50px;
-    font-size: 1.5em;
-    border: 1px solid lightgrey;
+    background: white;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
-    box-shadow: 1px 1px 1px lightgrey;
-    background-color: whitesmoke;
+    border: 1px solid lightgrey;
+    font-size: 2em;
+    margin-right: 8px;
     cursor: pointer;
-    margin-right: 6px;
   }
   &::before {
-    content: '${props => '+' + props.newClaps.toString()}';
-    position: absolute;
+    content: '${props => '+' + props.newClaps}';
+    background: var(--carbon);
     opacity: 0;
-    top: 8px;
-    left: 3px;
-    z-index: 1;
-    padding: 8px 12px;
-    background-color: var(--carbon);
     color: white;
+    padding: 8px 12px;
     border-radius: 3px;
-    transition: top .5s 1s, opacity .5s 1s; 
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 6px;
+    transition: opacity .2s 1s, top .2s 1s;
   }
   &:active::before {
     opacity: 1;
-    top: -16px;
-    transition: top 0.2s, opacity .1s;
+    top: -12px;
+    transition: opacity .2s, top .2s;
   }
 `;
