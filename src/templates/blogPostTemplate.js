@@ -11,10 +11,12 @@ export default ({ data, pageContext }) => {
   const { timeToRead, body, frontmatter } = post;
   const { previous, next } = pageContext;
   const [claps, setClaps] = useState(12);
+  const [newClaps, setNewClaps] = useState(0);
 
   const clapHandler = e => {
     e.preventDefault();
     setClaps(claps + 1);
+    setNewClaps(newClaps + 1);
     // add a +1 / +2 ... => requires memoization!
   };
 
@@ -38,7 +40,7 @@ export default ({ data, pageContext }) => {
           {frontmatter.tags.map(tag => (
             <Tag>{tag}</Tag>
           ))}
-          <Claps>
+          <Claps newClaps={newClaps}>
             <button onClick={clapHandler}>👏</button>
             {claps} claps
           </Claps>
@@ -171,12 +173,18 @@ const PostContent = styled.div`
   }
   p,
   ul {
-    padding-bottom: 1em;
+    margin-bottom: 1em;
     max-width: 100%;
   }
   h2 img {
     width: 100vw;
     transform: translateX(-16px);
+  }
+  blockquote {
+    padding-left: 16px;
+    border-left: 4px solid var(--coral);
+    font-style: italic;
+    color: grey;
   }
   @media only screen and (min-width: 600px) {
     padding: 0 10% 32px 10%;
@@ -251,16 +259,35 @@ const Claps = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.8em;
+  position: relative;
   button {
     outline: 0;
     height: 50px;
     width: 50px;
     font-size: 1.5em;
-    border: none;
+    border: 1px solid lightgrey;
     border-radius: 50%;
     box-shadow: 1px 1px 1px lightgrey;
-    background-color: white;
+    background-color: whitesmoke;
     cursor: pointer;
     margin-right: 6px;
+  }
+  &::before {
+    content: '${props => '+' + props.newClaps.toString()}';
+    position: absolute;
+    opacity: 0;
+    top: 8px;
+    left: 3px;
+    z-index: 1;
+    padding: 8px 12px;
+    background-color: var(--carbon);
+    color: white;
+    border-radius: 3px;
+    transition: top .5s 1s, opacity .5s 1s; 
+  }
+  &:active::before {
+    opacity: 1;
+    top: -16px;
+    transition: top 0.2s, opacity .1s;
   }
 `;

@@ -11,7 +11,7 @@ import ProjectModal from '../components/ProjectModal';
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     {
-      flipsThumbnail: file(relativePath: { eq: "flips_thumbnail.png" }) {
+      flipsThumbnail: file(relativePath: { eq: "shooot-flips.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_tracedSVG
@@ -32,21 +32,14 @@ const IndexPage = () => {
           }
         }
       }
-      kindleshareThumbnail: file(relativePath: { eq: "kindleshare_thumbnail.png" }) {
+      kindleshareThumbnail: file(relativePath: { eq: "shooot-kindle.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_tracedSVG
           }
         }
       }
-      covidThumbnail: file(relativePath: { eq: "covid_thumbnail.png" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_tracedSVG
-          }
-        }
-      }
-      geoThumbnail: file(relativePath: { eq: "geo_d3.png" }) {
+      covidThumbnail: file(relativePath: { eq: "shooot-covid.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid_tracedSVG
@@ -58,10 +51,6 @@ const IndexPage = () => {
           fluid(quality: 100) {
             ...GatsbyImageSharpFluid_tracedSVG
           }
-        }
-      }
-      picture: file(relativePath: { eq: "AGP.png" }) {
-        childImageSharp {
           fixed(height: 100) {
             ...GatsbyImageSharpFixed_tracedSVG
           }
@@ -151,7 +140,7 @@ const IndexPage = () => {
       <AboutSection>
         <Fade right>
           <PictureThumbnail>
-            <Img fixed={data.picture.childImageSharp.fixed} />
+            <Img fixed={data.heroPic.childImageSharp.fixed} />
           </PictureThumbnail>
           <p>
             Hi there! My name is Achraf Ait Sidi Hammou (
