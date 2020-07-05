@@ -1,45 +1,70 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
+import firebase from 'gatsby-plugin-firebase';
 
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import SEO from '../../components/seo';
 
-export default ({ data }) => (
-  <Layout>
-    <SEO
-      title="Achraf's Blog"
-      description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
-    />
-    <BlogSection>
-      <Header
-        title="A place for student makers, freelancers and entrepreneurs"
-        description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
+export default ({ data }) => {
+  const [allClaps, setAllClaps] = useState([]);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('claps')
+      .get()
+      .then(res => {
+        if (res.empty) {
+          console.log("Can't get data from firestore");
+        } else {
+          setAllClaps(res.docs.map(doc => ({ claps: doc.data().claps, slug: `/${doc.id}/` })));
+        }
+      });
+  }, []);
+
+  return (
+    <Layout>
+      <SEO
+        title="Achraf's Blog"
+        description="French engineering student, maker, freelancer. I write about productivity, learning and I document my journey as a student trying to make it on the side."
       />
-      {/* <div>
-        {data.allMdx.edges.map(({ node }) => node.frontmatter.tags.map(tag => <Tag>{tag}</Tag>))}
-      </div> */}
-      <BlogList>
-        {data.allMdx.edges.map(({ node }) => (
-          <PostWrapper key={node.id}>
-            <Link to={`/blog/${node.fields.slug}`}>
-              <h1>{node.frontmatter.title}</h1>
-              <small>
-                {node.frontmatter.date} • {node.timeToRead} min read •{' '}
-                {node.frontmatter.tags.map(tag => (
-                  <Tag>{tag}</Tag>
-                ))}
-              </small>
-              <p>{node.excerpt}</p>
-            </Link>
-          </PostWrapper>
-        ))}
-      </BlogList>
-    </BlogSection>
-  </Layout>
-);
+      <BlogSection>
+        <Header
+          title="A place for student makers, freelancers and entrepreneurs"
+          description="I write every Sunday about freelancing, side projects, learning new skills, productivity, and all that good Jaz. If you’re a student take a look you might learn a few things (I hope 🤞)."
+        />
+        <BlogList>
+          {data.allMdx.edges.map(({ node }) => {
+            console.log(allClaps);
+            let nbClaps = 0;
+            const postClaps = allClaps.filter(post => post.slug === node.fields.slug);
+            if (postClaps) {
+              nbClaps = postClaps[0].claps;
+            }
+            return (
+              <PostWrapper key={node.id}>
+                <Link to={`/blog/${node.fields.slug}`}>
+                  <h1>{node.frontmatter.title}</h1>
+                  <small>
+                    {node.frontmatter.date} • {node.timeToRead} min read
+                    {node.frontmatter.tags.map((tag, index) => (
+                      <Tag key={index}>{tag}</Tag>
+                    ))}
+                    <Claps>👏{nbClaps}</Claps>
+                  </small>
+                  <p>{node.excerpt}</p>
+                </Link>
+              </PostWrapper>
+            );
+          })}
+        </BlogList>
+      </BlogSection>
+    </Layout>
+  );
+};
 
 export const postQuery = graphql`
   query blogIndex {
@@ -128,5 +153,15 @@ const Tag = styled.span`
   font-weight: lighter;
   padding: 3px 6px;
   border-radius: 3px;
-  margin-right: 6px;
+  margin: 0 6px 0 12px;
+`;
+
+const Claps = styled.span`
+  color: white;
+  background-color: var(--coral);
+  font-weight: lighter;
+  font-family: var(--sans-serif);
+  font-size: 0.8em;
+  padding: 3px 6px;
+  border-radius: 3px;
 `;

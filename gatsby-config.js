@@ -13,7 +13,26 @@ module.exports = {
     `babel-plugin-styled-components`,
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-offline`,
-    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200
+            }
+          },
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'nofollow noopener'
+            }
+          }
+        ]
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -55,6 +74,7 @@ module.exports = {
         defaultLayout: require.resolve('./src/templates/blogPostTemplate.js')
       }
     },
+    `gatsby-remark-images`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-netlify`,
     {
@@ -80,8 +100,8 @@ module.exports = {
                   ...node.frontmatter,
                   description: node.excerpt,
                   date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + '/blog' + node.fields.slug,
+                  url: `${site.siteMetadata.siteUrl}/blog${node.fields.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/blog${node.fields.slug}`,
                   category: node.frontmatter.tags,
                   custom_elements: [{ 'content:encoded': node.html }]
                 };

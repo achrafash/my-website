@@ -39,7 +39,7 @@ export default ({ data, pageContext }) => {
       .firestore()
       .collection('claps')
       .doc(slug)
-      .set({ claps: claps + 1 })
+      .set({ claps: claps + 1, lastClap: new Date() })
       .catch(err => console.log(err));
   };
 
@@ -175,10 +175,18 @@ const PostContent = styled.div`
   h3,
   h2,
   h1 {
-    font-size: 1.5em;
-    margin: 0.5em 0;
+    margin: 1em 0;
     line-height: 1.2;
     max-width: 100%;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  h3 {
+    font-size: 1em;
   }
   p img {
     max-width: 100%;
