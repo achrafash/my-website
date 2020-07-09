@@ -17,9 +17,7 @@ export default ({ data }) => {
       .collection('claps')
       .get()
       .then(res => {
-        if (res.empty) {
-          console.log("Can't get data from firestore");
-        } else {
+        if (!res.empty) {
           setAllClaps(res.docs.map(doc => ({ claps: doc.data().claps, slug: `/${doc.id}/` })));
         }
       });
@@ -38,10 +36,9 @@ export default ({ data }) => {
         />
         <BlogList>
           {data.allMdx.edges.map(({ node }) => {
-            console.log(allClaps);
             let nbClaps = 0;
             const postClaps = allClaps.filter(post => post.slug === node.fields.slug);
-            if (postClaps) {
+            if (postClaps.length > 0) {
               nbClaps = postClaps[0].claps;
             }
             return (
@@ -53,7 +50,7 @@ export default ({ data }) => {
                     {node.frontmatter.tags.map((tag, index) => (
                       <Tag key={index}>{tag}</Tag>
                     ))}
-                    <Claps>👏{nbClaps}</Claps>
+                    {nbClaps ? <Claps>👏 {nbClaps}</Claps> : null}
                   </small>
                   <p>{node.excerpt}</p>
                 </Link>

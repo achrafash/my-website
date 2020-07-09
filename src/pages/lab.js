@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
@@ -7,6 +7,18 @@ import Header from '../components/Header';
 import SEO from '../components/seo';
 
 export default () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <Layout>
       <SEO
@@ -18,13 +30,42 @@ export default () => {
         description="I’m on a journey to grow side projects while being a full-time student. I'll try to document the whole process to share it with you."
       />
       <Container>
-        {/* <Container>
+        <Container>
           <h1>Freelancing</h1>
-          <Link to="blog/freelance-business-for-students">
-            How to start a freelance business while being a full-time student
-          </Link>
-          <h1>Learning a new skill</h1>
-          <p>I want to try something new!</p>
+          <ul>
+            <li>
+              <Link to="blog/freelance-business-for-students">
+                How to start a freelance business while being a full-time student
+              </Link>
+            </li>
+          </ul>
+        </Container>
+        <Container>
+          <h1>Side Projects</h1>
+          <ul>
+            <li>
+              <Link to="/blog/quick-easy-way-to-validate-ideas">
+                Quick and easy way to validate an idea
+              </Link>
+            </li>
+            <li>
+              {' '}
+              In 2021 we reach{' '}
+              <a
+                href="http://www.paulgraham.com/ramenprofitable.html"
+                target="_blank"
+                rel="noreferrer nofollow noopener"
+              >
+                ramen profitability
+              </a>
+              !
+              <Tweet />
+            </li>
+          </ul>
+        </Container>
+        <Container>
+          <h1>Learning new skills</h1>
+          {/* <p>I want to try something new!</p>
           <p>
             After blogging for almost a year now, I realized how difficult and yet powerful writing
             is. So I've been wanting to craft my copywriting skills for a while now. But learning
@@ -38,25 +79,8 @@ export default () => {
             <li>enroll in skillshare courses on copywriting</li>
             <li>practicing a ton to get better and build a portfolio</li>
             <li>selling copywriting gigs on Fiverr.</li>
-          </ol>
+          </ol> */}
         </Container>
-        <Container>
-          <h1>Side Projects</h1>
-          <h2>An easy and quick way to validate your next idea</h2>
-          <p>
-            Post a Form on any forum to ask people if they are excited about your idea. I think the
-            best platform to do that is Reddit. Just because you can find a subreddit for anything
-            you can think of.
-          </p>
-          <p>
-            I've tried the method only once so far. The result was negative but far from being
-            disappointing.
-          </p>
-          <p>I'll write a quick blog post to share everything with you.</p>
-        </Container> */}
-        I'm working on it 👨‍💻
-        <br />
-        It's coming soon...
       </Container>
     </Layout>
   );
@@ -70,14 +94,31 @@ const Container = styled.div`
   h1,
   h2 {
     font-family: var(--serif);
+    font-size: 1.5em;
     padding: 8px 0;
   }
   p,
   strong {
     padding-top: 8px;
+    font-size: 1em;
   }
   ul,
   ol {
     padding: 8px;
+    font-size: 1em;
   }
 `;
+
+const Tweet = () => (
+  <blockquote className="twitter-tweet">
+    <p lang="fr" dir="ltr">
+      Pour moi 1000€ de MRR avant le 31/12/2021!
+      <br />
+      ca me suffira à payer ma vie d&#39;étudiant 🍜
+    </p>
+    &mdash; Achraf ASH (@achrafnotashraf){' '}
+    <a href="https://twitter.com/achrafnotashraf/status/1280865488902512646?ref_src=twsrc%5Etfw">
+      July 8, 2020
+    </a>
+  </blockquote>
+);
