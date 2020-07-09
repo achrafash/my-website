@@ -64,6 +64,30 @@ export default () => {
           </ul>
         </Container>
         <Container>
+          <h1>To Ship List</h1>
+          Here is the list of projects I want to ship before the end of 2021:
+          <br />
+          <input type="checkbox" checked={false} /> A slick UI/UX To-Do App (taffeur.club) #classic
+          <br />
+          <input type="checkbox" checked={false} /> An API to evaluate pronunciation / plugin for
+          education platforms #deeplearning #edtech
+          <br />
+          <input type="checkbox" checked={false} /> An onboarding chatbot #saas
+          <br />
+          <input type="checkbox" checked={false} /> An evergreen blog
+          <br />
+          <input type="checkbox" checked={false} /> Chrome extension to use custom css and keyboard
+          shortcut with a marketplace
+          <br />
+          <input type="checkbox" checked={false} /> leboncoin-like platform for students to sell
+          services/notes/tutoring and everything school-related
+          <br />
+          <input type="checkbox" checked={false} /> MenuNextDoor copycat for uni campus
+          <br />
+          <input type="checkbox" checked={false} /> Chrome extension to use custom css and keyboard
+          shortcut with a marketplace
+        </Container>
+        <Container>
           <h1>Learning new skills</h1>
           {/* <p>I want to try something new!</p>
           <p>

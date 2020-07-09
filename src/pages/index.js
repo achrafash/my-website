@@ -125,7 +125,11 @@ const IndexPage = () => {
               <br />
               Maker.
             </h1>
-            <ContactButton target="_blank" href="mailto:aitsidihammou.achraf@gmail.com">
+            <ContactButton
+              rel="noreferrer"
+              target="_blank"
+              href="mailto:aitsidihammou.achraf@gmail.com"
+            >
               Say Hello
             </ContactButton>
           </Fade>
@@ -137,7 +141,7 @@ const IndexPage = () => {
           </Fade>
         </HeroImage>
       </Hero>
-      <AboutSection>
+      <AboutSection id="about">
         <Fade right>
           <PictureThumbnail>
             <Img fixed={data.heroPic.childImageSharp.fixed} />
@@ -149,7 +153,16 @@ const IndexPage = () => {
             <br />
             My goal is to become a Slasheur, i.e cumulating several activities:
             <br />
-            <strong>Student/Freelance/IndieMaker</strong>
+            <mark
+              style={{
+                fontFamily: 'var(--serif)',
+                backgroundColor: 'rgba(248,213,126, 0.4)',
+                borderRadius: '3px',
+                color: 'black'
+              }}
+            >
+              Student / Freelance / IndieMaker
+            </mark>
           </p>
         </Fade>
       </AboutSection>
@@ -167,7 +180,13 @@ const IndexPage = () => {
             />
           ))}
       </ProjectSection>
-      <BlogSection>
+      <ContactSection id="contact">
+        You need help for your web or mobile project?
+        <a target="_blank" rel="noreferrer" href="mailto:aitsidihammou.achraf@gmail.com">
+          let me know!
+        </a>
+      </ContactSection>
+      {/* <BlogSection>
         {data.allMdx.edges.map(({ node }, index) => {
           return (
             <Fade bottom key={node.id}>
@@ -184,7 +203,7 @@ const IndexPage = () => {
           );
         })}
         <ReadMore to="/blog">Read More</ReadMore>
-      </BlogSection>
+      </BlogSection> */}
     </Layout>
   );
 };
@@ -192,6 +211,7 @@ export default IndexPage;
 
 const Hero = styled.section`
   width: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   padding: 24px 0;
@@ -258,21 +278,67 @@ const PictureThumbnail = styled.div`
   border: 4px solid var(--coral);
   margin-bottom: 24px;
 `;
+
+const HeroImage = styled.div`
+  display: none;
+  @media only screen and (min-width: 990px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 1;
+  }
+`;
+const HeroPic = styled(Img)`
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+  max-height: 400px;
+  max-width: 600px;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    background: var(--carbon);
+    opacity: 0.5;
+    transition: opacity 0.5s;
+  }
+  &:hover::before {
+    opacity: 0.1;
+    transition: opacity 0.5s;
+  }
+`;
+const BackShape = styled.div`
+  display: none;
+  @media only screen and (min-width: 990px) {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    background: var(--coral);
+    width: 100%;
+    height: calc(50vh + 2 * 80px);
+    place-self: start start;
+    transform: translate(40px, -80px);
+  }
+`;
+
 const AboutSection = styled.section`
   width: 100%;
   max-width: 1350px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding: 16px;
+  padding: 120px 16px;
   border-top: solid 1px white;
   @media only screen and (min-width: 700px) {
-    padding: 40px 16px;
+    padding: 200px 16px;
   }
   @media only screen and (min-width: 860px) {
-    padding: 40px;
+    padding: 200px 40px;
   }
   p {
     font-family: var(--sans-serif);
@@ -286,16 +352,16 @@ const ProjectSection = styled.section`
   max-width: 1350px;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 40px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 120px 16px;
   border-top: solid 1px white;
   @media only screen and (min-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
-    padding: 40px 16px;
+    padding: 200px 16px;
   }
   @media only screen and (min-width: 860px) {
-    padding: 40px;
+    padding: 200px 40px;
     grid-template-columns: repeat(3, 1fr);
   }
 `;
@@ -350,120 +416,126 @@ const Thumbnail = styled(Img)`
     transition: opacity 0.5s;
   }
 `;
-const HeroImage = styled.div`
-  display: none;
-  @media only screen and (min-width: 990px) {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-column: 2;
-    grid-row: 1;
-  }
-`;
-const HeroPic = styled(Img)`
-  display: block;
-  grid-column: 1;
-  grid-row: 1;
-  max-height: 400px;
-  max-width: 600px;
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    z-index: 10;
-    height: 100%;
-    width: 100%;
-    background: var(--carbon);
-    opacity: 0.5;
-    transition: opacity 0.5s;
-  }
-  &:hover::before {
-    opacity: 0.1;
-    transition: opacity 0.5s;
-  }
-`;
-const BackShape = styled.div`
-  display: none;
-  @media only screen and (min-width: 990px) {
-    display: block;
-    grid-column: 2;
-    grid-row: 1;
-    background: var(--coral);
-    width: 100%;
-    height: calc(100% + 2 * 80px);
-    place-self: start start;
-    transform: translate(40px, -80px);
-  }
-`;
-const BlogSection = styled.div`
-  width: 100%;
-  max-width: 1350px;
-  height: 100%;
-  padding: 16px;
-  margin: 0 auto;
-  border-top: solid 1px white;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 16px;
-  @media only screen and (min-width: 700px) {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 40px 16px;
-  }
-  @media only screen and (min-width: 860px) {
-    grid-template-columns: repeat(3, 1fr);
-    padding: 40px;
-  }
-`;
 
-const PostWrapper = styled.div`
-  background-color: ${props =>
-    props.index === 0 ? `var(--carbon)` : props.index === 1 ? `var(--coral)` : `white`};
-  p,
-  h1 {
-    color: ${props => (props.index === 2 ? `black` : `white`)};
-  }
-  max-width: 100%;
-  padding: 32px;
-  cursor: pointer;
-  h1 {
-    font-family: var(--serif);
-    font-size: 1.5em;
-    padding: 16px 0;
-  }
-  p {
-    font-family: var(--sans-serif);
-    font-weight: lighter;
-    padding: 8px 0;
-    line-height: 1.5;
-  }
-  small {
-    font-family: var(--serif);
-    text-transform: uppercase;
-    color: grey;
-  }
-  @media only screen and (min-width: 760px) {
-    place-self: start stretch;
-    height: 100%;
-  }
-`;
-const ReadMore = styled(Link)`
-  grid-column: 1;
-  place-self: center center;
-  background-color: var(--black);
-  color: var(--fontNegativeColor);
-  padding: 8px 16px;
-  text-align: center;
+// const BlogSection = styled.div`
+//   width: 100%;
+//   max-width: 1350px;
+//   height: 100%;
+//   padding: 16px;
+//   margin: 0 auto;
+//   border-top: solid 1px white;
+//   display: grid;
+//   grid-template-columns: repeat(1, 1fr);
+//   gap: 16px;
+//   @media only screen and (min-width: 700px) {
+//     grid-template-columns: repeat(2, 1fr);
+//     padding: 40px 16px;
+//   }
+//   @media only screen and (min-width: 860px) {
+//     grid-template-columns: repeat(3, 1fr);
+//     padding: 40px;
+//   }
+// `;
+
+// const PostWrapper = styled.div`
+//   background-color: ${props =>
+//     props.index === 0 ? `var(--carbon)` : props.index === 1 ? `var(--coral)` : `white`};
+//   p,
+//   h1 {
+//     color: ${props => (props.index === 2 ? `black` : `white`)};
+//   }
+//   max-width: 100%;
+//   padding: 32px;
+//   cursor: pointer;
+//   h1 {
+//     font-family: var(--serif);
+//     font-size: 1.5em;
+//     padding: 16px 0;
+//   }
+//   p {
+//     font-family: var(--sans-serif);
+//     font-weight: lighter;
+//     padding: 8px 0;
+//     line-height: 1.5;
+//   }
+//   small {
+//     font-family: var(--serif);
+//     text-transform: uppercase;
+//     color: grey;
+//   }
+//   @media only screen and (min-width: 760px) {
+//     place-self: start stretch;
+//     height: 100%;
+//   }
+// `;
+// const ReadMore = styled(Link)`
+//   grid-column: 1;
+//   place-self: center center;
+//   background-color: var(--black);
+//   color: var(--fontNegativeColor);
+//   padding: 8px 16px;
+//   text-align: center;
+//   font-family: var(--sans-serif);
+//   font-size: 1.2em;
+//   transition: background 0.3s;
+//   &:hover {
+//     background: var(--coral);
+//     color: var(--fontNegativeColor);
+//     transition: 0.3s;
+//   }
+//   @media only screen and (min-width: 700px) {
+//     grid-column: span 2;
+//   }
+//   @media only screen and (min-width: 860px) {
+//     grid-column: span 3;
+//   }
+// `;
+
+const ContactSection = styled.section`
+  width: 100%;
+  padding: 40px;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
   font-family: var(--sans-serif);
-  font-size: 1.2em;
-  transition: background 0.3s;
-  &:hover {
-    background: var(--coral);
-    color: var(--fontNegativeColor);
-    transition: 0.3s;
+  font-size: 1.5em;
+
+  a {
+    color: white;
+    margin-top: 24px;
   }
+  a::before {
+    content: '👉';
+    margin-right: 16px;
+  }
+  a:hover::before {
+    animation: yoyo 1s infinite;
+  }
+
   @media only screen and (min-width: 700px) {
-    grid-column: span 2;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px;
+    a {
+      margin-top: 0;
+    }
   }
   @media only screen and (min-width: 860px) {
-    grid-column: span 3;
+  }
+
+  @keyframes yoyo {
+    0% {
+      margin-right: 16px;
+    }
+    50% {
+      margin-right: 4px;
+    }
+    100% {
+      margin-right: 16px;
+    }
   }
 `;

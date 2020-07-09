@@ -15,20 +15,16 @@ const Layout = ({ children }) => {
       name: '🏠 Home'
     },
     {
+      path: '/#about',
+      name: '🧔 About'
+    },
+    {
       path: '/#projects',
       name: '🚀 Projects'
     },
     {
-      path: '/about',
-      name: '👨‍ About'
-    },
-    {
-      path: '/lab',
-      name: '🔬 Lab'
-    },
-    {
-      path: '/blog',
-      name: '🗞 Blog'
+      path: '/#contact',
+      name: '💌 Contact'
     }
   ];
   return (
@@ -113,6 +109,7 @@ const MainContainer = styled.main`
   transition: color 0.5s, background-color 0.5s;
   @media only screen and (min-width: 990px) {
     padding-left: 200px;
+    padding-bottom: 0;
   }
 `;
 
