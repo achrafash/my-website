@@ -1,0 +1,177 @@
+---
+title: Tutorial: how to do create Medium claps button in Gatsby with Firebase
+author: Achraf ASH
+date: 2020-07-12
+tags: ["coding"]
+---
+
+I love the claps button in Medium. I find it so much more original than Youtube/Facebook like button.
+
+But if you want to replicate it in your Gatsby blog (or any other JAM stack), you don't have any server to store the claps count.
+
+Fortunately, that isn't a real problem thanks to cloud databases.
+
+In this tutorial we'll see how to use Firestore - Firebase database - to store the claps counts for our blog posts.
+
+# Step 1: Creating a clap-button React component
+
+This is just a simple button:
+```
+const ClapsButton = () => {
+    return (
+        <div>
+            <button>👏</button>
+        </div>
+    )
+}
+```
+
+Let's now manage the state to display the claps counter and update it on click:
+*let's also add a counter to display the new claps given by the reader*
+```
+const ClapsButton = () => {
+    const [clapsCounter, setClapsCounter] = useState(0);
+    const [newClaps, setNewClaps] = useState(0);
+
+    const incrementClapsCounter = () => {
+        setClapsCounter(prevState => prevState + 1)
+        setNewClaps(prevState => prevState + 1)
+    }
+
+    return (
+        <div>
+            <button onClick={incrementClapsCounter} >👏</button> {clapsCounter} claps
+        </div>
+    )
+}
+```
+
+
+I like to use styled-components to style my react components:
+```
+const StyledClaps = styled.div`
+  padding-top: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.8em;
+  position: relative;
+  button {
+    outline: 0;
+    background: white;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid lightgrey;
+    font-size: 2em;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  &::before {
+    content: '${props => '+' + props.newClaps}';
+    background: var(--carbon);
+    opacity: 0;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 6px;
+    transition: opacity .2s 1s, top .2s 1s;
+  }
+  &:active::before {
+    opacity: 1;
+    top: -12px;
+    transition: opacity .2s, top .2s;
+  }
+`;
+```
+
+*little caveat: if you use conditional styling with "content" you need to surround it with quotes... I know it's weird 🤷‍♂️*
+
+
+# Step 2: Storing data in cloud database with Firestore
+
+First, you need to create an account on [firebase.google.com](https://firebase.google.com) and create a project.
+
+Next install gatsby-plugin-firebase and firebase:
+```
+npm install --save firebase gatsby-plugin-firebase
+```
+
+Import firebase in gatsby-browser.js (if you haven't already, create the file):
+```
+import "firebase/firestore"
+```
+
+Configure firebase in gatsby-config.js with your firebase config file. You can find it in the project settings.
+```
+{
+    resolve: 'gatsby-plugin-firebase',
+    options: {
+        credentials: {
+          apiKey: process.env.FIREBASE_API_KEY || 'none',
+          databaseURL: process.env.FIREBASE_DATABASE_URL || 'none',
+          projectId: process.env.FIREBASE_PROJECT_ID || 'none',
+          appId: process.env.FIREBASE_APPID || 'none'
+        }
+    }
+}
+```
+Create a file called .env to the root of you project and add the environment variables:
+```
+FIREBASE_API_KEY = ******
+FIREBASE_APPID = ******
+FIREBASE_DATABASE_URL = *****
+FIREBASE_PROJECT_ID = *****
+```
+
+You can now create your database:
+1. click on cloud firestore and create database
+2. pick test mode to debug
+3. create a collection called 'claps' and add a first document (corresponding to one post). Give it the slug of your post to access it easily.
+That's it!
+
+Now let's go in your blog post template and fetch that data!
+```
+useEffect(() => {
+    firebase
+      .firestore()
+      .collection('claps')
+      .doc(slug)
+      .get()
+      .then(res => {
+        if (!res.data()) {
+          console.log('no matching document');
+        } else {
+          setClapsCounter(res.data().claps);
+        }
+      })
+      .catch(err => console.log(err));
+}, []);
+```
+
+Next we need to update the database when we increment the counter:
+```
+const incrementClapsCounter = () => {
+    setClapsCounter(prevState => prevState + 1);
+    setNewClaps(prevState => prevState + 1);
+
+    // if the document doesn't exist yet, it will create it
+    firebase
+      .firestore()
+      .collection('claps')
+      .doc(slug)
+      .set({ claps: clapsCounter + 1 })    // Be careful state is updated once outside the function
+      .catch(err => console.log(err));
+};
+```
+
+# Conclusion
+
+And that's all there is to it. It was way easier thant I thought 😅.
+
+You can now deploy and set your environment variables. I personaly use [Netlify](https://netlify.com) which makes it super simple.
+
+Thanks for reading, if you have questions or just want to say hello please do [@achrafnotashraf](https://twitter.com/achrafnotashraf)

@@ -211,10 +211,10 @@ export default IndexPage;
 
 const Hero = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  padding: 24px 0;
+  padding: 20vh 0 0 0;
   background-color: var(--mainColor);
   box-shadow: 0px 1px 2px var(--shadow);
   transition: background-color 0.5s, box-shadow 0.5s;
