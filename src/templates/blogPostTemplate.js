@@ -175,7 +175,7 @@ const PostContent = styled.div`
   h3,
   h2,
   h1 {
-    margin: 1em 0;
+    margin: 2.5em 0 1.5em 0;
     line-height: 1.2;
     max-width: 100%;
   }
@@ -215,6 +215,23 @@ const PostContent = styled.div`
     border-left: 4px solid var(--coral);
     font-style: italic;
     color: grey;
+  }
+  pre {
+    padding: 24px;
+    border-radius: 6px;
+    box-shadow: 0 0 20px grey;
+    margin: 1.5em 0;
+    background: var(--carbon);
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word;
+  }
+  code {
+    color: white;
+    font-size: 0.8em;
+    font-family: monospace;
   }
   @media only screen and (min-width: 600px) {
     padding: 0 10% 32px 10%;
