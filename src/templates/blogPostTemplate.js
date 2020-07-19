@@ -169,13 +169,13 @@ const PostContent = styled.div`
   max-width: 100vw;
   line-height: 1.5;
   font-size: 1em;
-  padding: 0px 16px 32px 16px;
+  padding: 2em 16px;
   font-family: var(--sans-serif);
   font-weight: lighter;
   h3,
   h2,
   h1 {
-    margin: 2.5em 0 1.5em 0;
+    margin: 2em 0 1.5em 0;
     line-height: 1.2;
     max-width: 100%;
   }
