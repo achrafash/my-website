@@ -47,10 +47,13 @@ export default ({ data }) => {
                   <h1>{node.frontmatter.title}</h1>
                   <small>
                     {node.frontmatter.date} • {node.timeToRead} min read
+                  </small>
+                  <br />
+                  <small>
                     {node.frontmatter.tags.map((tag, index) => (
                       <Tag key={index}>{tag}</Tag>
                     ))}
-                    {nbClaps ? <Claps>👏 {nbClaps}</Claps> : null}
+                    {nbClaps ? <Tag>👏 {nbClaps}</Tag> : null}
                   </small>
                   <p>{node.excerpt}</p>
                 </Link>
@@ -143,6 +146,7 @@ const PostWrapper = styled.div`
 `;
 
 const Tag = styled.span`
+  white-space: nowrap;
   background-color: var(--coral);
   color: white;
   font-family: var(--sans-serif);
@@ -150,15 +154,5 @@ const Tag = styled.span`
   font-weight: lighter;
   padding: 3px 6px;
   border-radius: 3px;
-  margin: 0 6px 0 12px;
-`;
-
-const Claps = styled.span`
-  color: white;
-  background-color: var(--coral);
-  font-weight: lighter;
-  font-family: var(--sans-serif);
-  font-size: 0.8em;
-  padding: 3px 6px;
-  border-radius: 3px;
+  margin-right: 6px;
 `;

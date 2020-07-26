@@ -292,6 +292,7 @@ const PostLink = styled(Link)`
 `;
 const Tag = styled.span`
   background-color: var(--coral);
+  white-space: nowrap;
   color: white;
   font-family: var(--sans-serif);
   font-size: 0.8em;
