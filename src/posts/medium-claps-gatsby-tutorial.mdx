@@ -1,8 +1,8 @@
 ---
-title: "Tutorial: how to do create Medium claps button in Gatsby with Firebase"
+title: 'Tutorial: Medium claps button using React with Gatsby and Firebase'
 author: Achraf ASH
 date: 2020-07-12
-tags: ["coding"]
+tags: ['coding']
 ---
 
 I love the claps button in Medium. I find it so much more original than Youtube/Facebook like button.
@@ -16,6 +16,7 @@ In this tutorial we'll see how to use Firestore - Firebase database - to store t
 # Step 1: Creating a clap-button React component
 
 This is just a simple button:
+
 ```
 // blogPostTemplate.js
 
@@ -29,7 +30,8 @@ const ClapsButton = () => {
 ```
 
 Let's now manage the state to display the claps counter and update it on click:
-*let's also add a counter to display the new claps given by the reader*
+_let's also add a counter to display the new claps given by the reader_
+
 ```
 // blogPostTemplate.js
 
@@ -50,8 +52,8 @@ const ClapsButton = () => {
 }
 ```
 
-
 I like to use styled-components to style my react components:
+
 ```
 // blogPostTemplate.js
 
@@ -94,19 +96,20 @@ const StyledClaps = styled.div`
 `;
 ```
 
-*little caveat: if you use conditional styling with "content" you need to surround it with quotes... I know it's weird* 🤷‍♂️
-
+_little caveat: if you use conditional styling with "content" you need to surround it with quotes... I know it's weird_ 🤷‍♂️
 
 # Step 2: Storing data in cloud database with Firestore
 
 First, you need to create an account on [firebase.google.com](https://firebase.google.com) and create a project.
 
 Next install gatsby-plugin-firebase and firebase:
+
 ```
 $ npm install --save firebase gatsby-plugin-firebase
 ```
 
 Import firebase in gatsby-browser.js (if you haven't already, create the file):
+
 ```
 // gatsby-browser.js
 
@@ -114,6 +117,7 @@ import "firebase/firestore"
 ```
 
 Configure firebase in gatsby-config.js with your firebase config file. You can find it in the project settings.
+
 ```
 // gatsby-config.js
 
@@ -129,7 +133,9 @@ Configure firebase in gatsby-config.js with your firebase config file. You can f
     }
 }
 ```
+
 Create a file called .env to the root of you project and add the environment variables:
+
 ```
 // gatsby-config.js
 
@@ -140,12 +146,14 @@ FIREBASE_PROJECT_ID = *****
 ```
 
 You can now create your database:
+
 1. click on cloud firestore and create database
 2. pick test mode to debug
 3. create a collection called 'claps' and add a first document (corresponding to one post). Give it the slug of your post to access it easily.
-That's it!
+   That's it!
 
 Now let's go in your blog post template and fetch that data!
+
 ```
 // blogPostTemplate.js
 
@@ -167,6 +175,7 @@ useEffect(() => {
 ```
 
 Next we need to update the database when we increment the counter:
+
 ```
 // blogPostTemplate.js
 

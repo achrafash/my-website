@@ -64,17 +64,44 @@ export default () => {
           </ul>
         </Container>
         <Container>
+          <h1>Learning new skills</h1>
+          <ul>
+            <li>Machine learning (pytorch)</li>
+            <li>Microservices Architecture: load balancing, containers, clusters, ...</li>
+            <li>
+              C++: data handling, machine learning. Goal: building a database software from scratch!
+            </li>
+          </ul>
+        </Container>
+        <Container>
           <h1>To Ship List</h1>
           Here is the list of projects I want to ship before the end of 2021:
           <br />
-          <input type="checkbox" checked={false} /> A slick UI/UX To-Do App (taffeur.club) #classic
+          <input type="checkbox" checked={true} /> A slick UI/UX To-Do App (
+          <a href="https://taffeur.achrafash.me" target="_blank" rel="noreferrer noopener">
+            taffeur
+          </a>
+          )
           <br />
-          <input type="checkbox" checked={false} /> An API to evaluate pronunciation / plugin for
-          education platforms #deeplearning #edtech
+          <input type="checkbox" checked={true} /> An API to evaluate pronunciation / plugin for
+          education platforms #deeplearning #edtech (
+          <a href="speakfluent.vercel.app" target="_blank" rel="noreferrer noopener">
+            speakfluent.li
+          </a>
+          )
           <br />
-          <input type="checkbox" checked={false} /> An onboarding chatbot #saas
+          <input type="checkbox" checked={true} /> A translation widget to add on your website
+          (@transltr)
           <br />
-          <input type="checkbox" checked={false} /> An evergreen blog
+          <input type="checkbox" checked={false} /> A machine learning no-code tool: drag and drop,
+          plug to other apps like spreadsheets, CRMs...
+          <br />
+          <input type="checkbox" checked={false} /> An onboarding/support chatbot for small teams,
+          solofounders and bootstrappers
+          <br />
+          <input type="checkbox" checked={false} /> A health app to replace heatlth notebook and a
+          solution for all health-related problems (tracking, drugs reminders, documents, news...)
+          (@Milo)
           <br />
           <input type="checkbox" checked={false} /> Chrome extension to use custom css and keyboard
           shortcut with a marketplace
@@ -83,27 +110,6 @@ export default () => {
           services/notes/tutoring and everything school-related
           <br />
           <input type="checkbox" checked={false} /> MenuNextDoor copycat for uni campus
-          <br />
-          <input type="checkbox" checked={false} /> Chrome extension to use custom css and keyboard
-          shortcut with a marketplace
-        </Container>
-        <Container>
-          <h1>Learning new skills</h1>
-          {/* <p>I want to try something new!</p>
-          <p>
-            After blogging for almost a year now, I realized how difficult and yet powerful writing
-            is. So I've been wanting to craft my copywriting skills for a while now. But learning
-            without an endgoal isn't funny at all...
-          </p>
-          <p>
-            <strong>But now I have one: selling copywriting services online.</strong>
-          </p>
-          <p>Here's what I want to do:</p>
-          <ol>
-            <li>enroll in skillshare courses on copywriting</li>
-            <li>practicing a ton to get better and build a portfolio</li>
-            <li>selling copywriting gigs on Fiverr.</li>
-          </ol> */}
         </Container>
       </Container>
     </Layout>
