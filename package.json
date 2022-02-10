@@ -39,7 +39,7 @@
     "gatsby-styled-components-dark-mode": "^1.1.1",
     "gatsby-transformer-sharp": "^2.3.13",
     "gsap": "^3.2.6",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
